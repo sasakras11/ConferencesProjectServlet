@@ -1,4 +1,4 @@
-package app.Util;
+package app.util;
 
 import org.apache.commons.codec.binary.Hex;
 

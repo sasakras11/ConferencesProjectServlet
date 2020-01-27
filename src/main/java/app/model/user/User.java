@@ -22,6 +22,15 @@ public class User implements Privileges {
         this.status = status;
     }
 
+    @Override
+    public boolean ableToCreateMeeting() {
+        return status.equals(Status.ADMIN);
+    }
+
+    @Override
+    public boolean ableToDeleteMeeting() {
+        return status.equals(Status.ADMIN);
+    }
 
     @Override
     public boolean ableToChangeName() {

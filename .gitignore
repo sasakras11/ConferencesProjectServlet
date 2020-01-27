@@ -1,5 +1,4 @@
 .idea
-finalProjectSpring.iml
-finalProjectServlet.iml
+*.iml
 target
 

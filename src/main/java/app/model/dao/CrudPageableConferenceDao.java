@@ -10,7 +10,7 @@ public interface CrudPageableConferenceDao extends CrudPageableDao<Conference> {
     List<Conference> getConferences(boolean isEnded);
     List<Conference> getConferences(Page page,boolean isEnded);
 
-    List<Conference> getUserConferences(int userId);
+
 
 
     List<Speech> getSpeeches(int conference_id);

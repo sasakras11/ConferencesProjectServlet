@@ -7,6 +7,7 @@ import java.util.Objects;
 
 
 public class Speech {
+    private int id;
     private int speakerId;
     private String topic;
     private String suggestedTopic;
@@ -24,10 +25,15 @@ public class Speech {
         this.startHour = builder.startHour;
         this.endHour = builder.endHour;
         this.conference = builder.conference;
+        this.id = builder.id;
     }
 
     public static SpeechBuilder builder(){
         return new SpeechBuilder();
+    }
+
+    public int getId() {
+        return id;
     }
 
     public int getSpeakerId() {
@@ -48,6 +54,10 @@ public class Speech {
 
     public int getEndHour() {
         return endHour;
+    }
+
+    public Conference getConference() {
+        return conference;
     }
 
     @Override
@@ -87,6 +97,7 @@ public class Speech {
         private int startHour;
         private int endHour;
         private Conference conference;
+        private int id;
 
         public SpeechBuilder(){
 
@@ -94,6 +105,10 @@ public class Speech {
 
        public SpeechBuilder withConference(Conference cOnference){
             this.conference = cOnference;
+            return this;
+       }
+       public SpeechBuilder withId(int id){
+            this.id = id;
             return this;
        }
 

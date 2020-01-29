@@ -11,18 +11,18 @@ import org.w3c.dom.ls.LSOutput;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 public class CrudPageableDaoConferenceImpl extends AbstractCrudDaoImpl<Conference> implements CrudPageableConferenceDao {
 
-    DaoContext daoContext = new DaoContext();
 
     private static final Logger logger = LoggerFactory.getLogger(CrudPageableConferenceDao.class);
 
 
-
+    private static final String COUNT  = "SELECT COUNT(*) AS total FROM conferences";
     private static final String FIND_BY_ID_QUERY = "SELECT * FROM conferences WHERE conference_id=?";
     private static final String GET_SPEECHES_ID_BY_CONFERENCE_ID = "select speech_id from speeches where conference_id = ?";
     private static final String DELETE_BY_ID = "DELETE FROM conferences WHERE conference_id = ?";
@@ -38,7 +38,7 @@ public class CrudPageableDaoConferenceImpl extends AbstractCrudDaoImpl<Conferenc
                 withId(resultSet.getInt("conference_id"))
                 .withName(resultSet.getString("name"))
                .withDate(resultSet.getString("date"))
-               .withLocation(daoContext.getLocationDao().findById(resultSet.getInt("location_id")).get())
+               .withLocation(DaoContext.getLocationDao().findById(resultSet.getInt("location_id")).get())
                 .withRegisteredPeople(resultSet.getInt("registered_people"))
                .withVisitedPeople(resultSet.getInt("visited_people")).build();
 
@@ -79,7 +79,20 @@ public class CrudPageableDaoConferenceImpl extends AbstractCrudDaoImpl<Conferenc
     @Override
 
     public long count() {
-        return 0;
+        int count = 0;
+       try(Statement st = DataSource.getConnection().createStatement()){
+           st.execute(COUNT);
+
+           ResultSet set = st.getResultSet();
+
+           if(set.next()) {
+             count =   set.getInt("total");
+           }
+       }catch (SQLException e){
+           logger.error("error when selecting count");
+       }
+
+        return count;
     }
 
     @Override
@@ -129,23 +142,7 @@ public class CrudPageableDaoConferenceImpl extends AbstractCrudDaoImpl<Conferenc
         return null;
     }
 
-    @Override
-    public List<Conference> getUserConferences(int userId) {
 
-        List<Integer> userConferencesIdList =  findIdsByParam(userId,GET_USER_CONFERENCES,"conference_id");//беремо айдішники конференцій
-             List<Conference> conferences = new ArrayList<>();
-        for (int i = 0; i <userConferencesIdList.size() ; i++) {
-            Optional<Conference> conference = findById(userConferencesIdList.get(i));
-            conference.ifPresent(conferences::add);
-        }
-
-
-
-        return conferences;
-
-
-                //need implement Location dao and change date type in database from string to date
-   }
 
     @Override
     public List<Speech> getSpeeches(int conference_id) {
@@ -153,7 +150,7 @@ public class CrudPageableDaoConferenceImpl extends AbstractCrudDaoImpl<Conferenc
       List<Speech> speeches = new ArrayList<>();
         for (int id: list
              ) {
-            Optional<Speech> speech = daoContext.getSpeechDao().findById(id);
+            Optional<Speech> speech = DaoContext.getSpeechDao().findById(id);
             speech.ifPresent(speeches::add);
         }
 

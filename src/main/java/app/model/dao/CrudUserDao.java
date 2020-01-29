@@ -5,7 +5,7 @@ import app.model.user.User;
 
 import java.util.List;
 
-public interface CrudUserDao extends CrudDao<User>{
+public interface CrudUserDao extends CrudDao<User> {
 
     public List<Conference> getUserConferences(int userId);
 }

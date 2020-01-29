@@ -5,7 +5,7 @@ import app.model.Speech;
 
 import java.util.List;
 
-public class User implements Privileges{
+public class User implements Privileges {
 
 
     private int userId;
@@ -24,35 +24,36 @@ public class User implements Privileges{
         this.conferences = builder.conferences;
         this.speeches = builder.speeches;
     }
-    public UserBuilder builder(){
+
+    public UserBuilder builder() {
         return new UserBuilder();
     }
 
 
     @Override
     public boolean ableToChangeTopicOfSpeech() {
-        return status.equals(Status.ADMIN)||
+        return status.equals(Status.ADMIN) ||
                 status.equals(Status.MODERATOR);
     }
 
 
     @Override
     public boolean ableToSuggestTopicOfSpeech() {
-        return status.equals(Status.ADMIN)||
-                status.equals(Status.MODERATOR)||
+        return status.equals(Status.ADMIN) ||
+                status.equals(Status.MODERATOR) ||
                 status.equals(Status.SPEAKER);
     }
 
 
     @Override
     public boolean ableToChangeDateOfConference() {
-    return status.equals(Status.ADMIN)||
+        return status.equals(Status.ADMIN) ||
                 status.equals(Status.MODERATOR);
     }
 
     @Override
     public boolean ableToChangeLocationOfConference() {
-        return status.equals(Status.ADMIN)||
+        return status.equals(Status.ADMIN) ||
                 status.equals(Status.MODERATOR);
     }
 
@@ -74,7 +75,7 @@ public class User implements Privileges{
         private List<Conference> conferences;
         private List<Speech> speeches;
 
-       public  UserBuilder() {
+        public UserBuilder() {
 
         }
 
@@ -98,7 +99,7 @@ public class User implements Privileges{
             return this;
         }
 
-        public UserBuilder withSpeeches(List<Speech> speeches){
+        public UserBuilder withSpeeches(List<Speech> speeches) {
             this.speeches = speeches;
             return this;
         }

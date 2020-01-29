@@ -13,10 +13,7 @@ import java.util.Optional;
 public class CrudUserDaoImpl extends AbstractCrudDaoImpl<User> implements CrudUserDao {
 
 
-
-
     private static final String GET_USER_CONFERENCES_ID = "select conference_id from user_id_conference_id_relation where user_id = ?";
-
 
 
     @Override
@@ -49,7 +46,7 @@ public class CrudUserDaoImpl extends AbstractCrudDaoImpl<User> implements CrudUs
     @Override
     public List<Conference> getUserConferences(int userId) {
 
-        List<Integer> userConferencesIdList =  findIdsByParam(userId,GET_USER_CONFERENCES_ID,"conference_id");
+        List<Integer> userConferencesIdList = findIdsByParam(userId, GET_USER_CONFERENCES_ID, "conference_id");
         List<Conference> conferences = new ArrayList<>();
         for (Integer integer : userConferencesIdList) {
             Optional<Conference> conference = DaoContext.getConferenceDao().findById(integer);

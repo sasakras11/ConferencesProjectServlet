@@ -8,10 +8,7 @@ import java.util.Optional;
 
 public class LocationCrudDaoImpl extends AbstractCrudDaoImpl<Location> {
 
-   private static final String GET_BY_ID = "SELECT * FROM locations WHERE location_id = ?";
-
-
-
+    private static final String GET_BY_ID = "SELECT * FROM locations WHERE location_id = ?";
 
 
     @Override
@@ -21,7 +18,7 @@ public class LocationCrudDaoImpl extends AbstractCrudDaoImpl<Location> {
 
     @Override
     public Optional<Location> findById(Integer id) {
-        return findByParam(id,GET_BY_ID,SET_STATEMENT_INT_PARAM);
+        return findByParam(id, GET_BY_ID, SET_STATEMENT_INT_PARAM);
     }
 
     @Override
@@ -33,6 +30,7 @@ public class LocationCrudDaoImpl extends AbstractCrudDaoImpl<Location> {
     public void deleteById(Integer id) {
 
     }
+
     @Override
     protected Location mapResultSetToEntity(ResultSet resultSet) throws SQLException {
 

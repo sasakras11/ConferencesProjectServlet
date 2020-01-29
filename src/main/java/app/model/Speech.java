@@ -7,6 +7,7 @@ import java.util.Objects;
 
 
 public class Speech {
+    private static Logger logger = LoggerFactory.getLogger(Speech.class);
     private int id;
     private int speakerId;
     private String topic;
@@ -15,10 +16,7 @@ public class Speech {
     private int startHour;
     private int endHour;
 
-
-    private static Logger logger = LoggerFactory.getLogger(Speech.class);
-
-    public Speech(SpeechBuilder builder){
+    public Speech(SpeechBuilder builder) {
         this.speakerId = builder.speakerId;
         this.topic = builder.topic;
         this.suggestedTopic = builder.suggestedTopic;
@@ -28,7 +26,7 @@ public class Speech {
         this.id = builder.id;
     }
 
-    public static SpeechBuilder builder(){
+    public static SpeechBuilder builder() {
         return new SpeechBuilder();
     }
 
@@ -90,7 +88,7 @@ public class Speech {
         return Objects.hash(speakerId, topic, suggestedTopic, conference, startHour, endHour);
     }
 
-    public static class SpeechBuilder{
+    public static class SpeechBuilder {
         private int speakerId;
         private String topic;
         private String suggestedTopic;
@@ -99,52 +97,58 @@ public class Speech {
         private Conference conference;
         private int id;
 
-        public SpeechBuilder(){
+        public SpeechBuilder() {
 
         }
 
-       public SpeechBuilder withConference(Conference cOnference){
+        public SpeechBuilder withConference(Conference cOnference) {
             this.conference = cOnference;
             return this;
-       }
-       public SpeechBuilder withId(int id){
+        }
+
+        public SpeechBuilder withId(int id) {
             this.id = id;
             return this;
-       }
+        }
 
-          public SpeechBuilder withSpeakerId(int id){
+        public SpeechBuilder withSpeakerId(int id) {
             this.speakerId = id;
             return this;
         }
-        public SpeechBuilder withTopic(String topic){
+
+        public SpeechBuilder withTopic(String topic) {
             this.topic = topic;
             return this;
         }
-        public SpeechBuilder withSuggestedTopic(String suggestedTopic){
+
+        public SpeechBuilder withSuggestedTopic(String suggestedTopic) {
             this.suggestedTopic = suggestedTopic;
             return this;
         }
-        public SpeechBuilder withStartHour(int startHour){
-            if(startHour<24&& startHour> 0) {
+
+        public SpeechBuilder withStartHour(int startHour) {
+            if (startHour < 24 && startHour > 0) {
                 this.startHour = startHour;
                 return this;
 
-            }else{
-                logger.error("setted StartHour "+startHour);
-                throw  new RuntimeException();
+            } else {
+                logger.error("setted StartHour " + startHour);
+                throw new RuntimeException();
             }
         }
-        public SpeechBuilder withEndHour(int endHour){
-            if(endHour<24&& endHour > 0) {
+
+        public SpeechBuilder withEndHour(int endHour) {
+            if (endHour < 24 && endHour > 0) {
                 this.endHour = endHour;
                 return this;
 
-            }else{
-                logger.error("setted endHour "+endHour);
-                throw  new RuntimeException();
+            } else {
+                logger.error("setted endHour " + endHour);
+                throw new RuntimeException();
             }
         }
-        public Speech build(){
+
+        public Speech build() {
             return new Speech(this);
         }
 

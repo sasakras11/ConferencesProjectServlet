@@ -21,8 +21,6 @@ public class CrudPageableDaoSpeechImpl extends AbstractCrudDaoImpl<Speech> {
     Logger logger = LoggerFactory.getLogger(CrudPageableDaoSpeechImpl.class);
 
 
-
-
     @Override
     protected Speech mapResultSetToEntity(ResultSet resultSet) throws SQLException {
         return Speech.builder()
@@ -40,22 +38,22 @@ public class CrudPageableDaoSpeechImpl extends AbstractCrudDaoImpl<Speech> {
         try {
             PreparedStatement statement =
                     DataSource.getConnection().prepareStatement(INSERT_SPEECH_INTO_DATABASE);
-            statement.setString(1,entity.getTopic());
-            statement.setString(2,entity.getSuggestedTopic());
-            statement.setInt(3,entity.getStartHour());
-            statement.setInt(4,entity.getEndHour());
-            statement.setInt(5,entity.getConference().getConferenceId());
-            statement.setInt(6,entity.getSpeakerId());
+            statement.setString(1, entity.getTopic());
+            statement.setString(2, entity.getSuggestedTopic());
+            statement.setInt(3, entity.getStartHour());
+            statement.setInt(4, entity.getEndHour());
+            statement.setInt(5, entity.getConference().getConferenceId());
+            statement.setInt(6, entity.getSpeakerId());
             statement.executeUpdate();
         } catch (SQLException e) {
-            logger.error("Error saving speech - "+entity.toString()+"exception - "+e);
+            logger.error("Error saving speech - " + entity.toString() + "exception - " + e);
 
         }
     }
 
     @Override
     public Optional<Speech> findById(Integer id) {
-        return findByParam(id,FIND_BY_ID_QUERY,SET_STATEMENT_INT_PARAM);
+        return findByParam(id, FIND_BY_ID_QUERY, SET_STATEMENT_INT_PARAM);
     }
 
     @Override
@@ -63,23 +61,23 @@ public class CrudPageableDaoSpeechImpl extends AbstractCrudDaoImpl<Speech> {
         try {
             PreparedStatement statement =
                     DataSource.getConnection().prepareStatement(UPDATE_SPEECH);
-            statement.setInt(7,entity.getId());
-            statement.setString(1,entity.getTopic());
-            statement.setString(2,entity.getSuggestedTopic());
-            statement.setInt(3,entity.getStartHour());
-            statement.setInt(4,entity.getEndHour());
-            statement.setInt(5,entity.getConference().getConferenceId());
-            statement.setInt(6,entity.getSpeakerId());
+            statement.setInt(7, entity.getId());
+            statement.setString(1, entity.getTopic());
+            statement.setString(2, entity.getSuggestedTopic());
+            statement.setInt(3, entity.getStartHour());
+            statement.setInt(4, entity.getEndHour());
+            statement.setInt(5, entity.getConference().getConferenceId());
+            statement.setInt(6, entity.getSpeakerId());
             statement.executeUpdate();
         } catch (SQLException e) {
-            logger.error("Error saving speech - "+entity.toString()+"exception - "+e);
+            logger.error("Error saving speech - " + entity.toString() + "exception - " + e);
 
         }
     }
 
     @Override
     public void deleteById(Integer id) {
-        deleteById(id,DELETE_BY_ID);
+        deleteById(id, DELETE_BY_ID);
 
     }
 }

@@ -10,10 +10,9 @@ public interface CrudDao<E> {
 
     Optional<E> findById(Integer id);
 
-    default List<E> findAll(){
+    default List<E> findAll() {
         return Collections.emptyList();
     }
-
 
 
     void update(E entity);

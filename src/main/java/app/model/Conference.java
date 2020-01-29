@@ -2,6 +2,7 @@ package app.model;
 
 
 import app.model.user.User;
+
 import java.util.List;
 import java.util.Objects;
 
@@ -109,16 +110,16 @@ public class Conference {
                 '}';
     }
 
-    public static class ConferenceBuilder{
-          private int id;
-          private String name;
-          private String suggestedName;
-          private String date;
-          private Location location;
-          private List<User> members;
-          private List<Speech> speeches;
-          private int visitedPeople;
-          private int registeredPeople;
+    public static class ConferenceBuilder {
+        private int id;
+        private String name;
+        private String suggestedName;
+        private String date;
+        private Location location;
+        private List<User> members;
+        private List<Speech> speeches;
+        private int visitedPeople;
+        private int registeredPeople;
 
 
         private ConferenceBuilder() {
@@ -128,44 +129,51 @@ public class Conference {
             return new Conference(this);
         }
 
-        public ConferenceBuilder withRegisteredPeople(int registeredPeople){
+        public ConferenceBuilder withRegisteredPeople(int registeredPeople) {
             this.registeredPeople = registeredPeople;
             return this;
         }
+
         public ConferenceBuilder withId(int id) {
             this.id = id;
             return this;
         }
+
         public ConferenceBuilder withName(String name) {
             this.name = name;
             return this;
         }
 
-        public ConferenceBuilder withSuggestedName(String suggestedName){
+        public ConferenceBuilder withSuggestedName(String suggestedName) {
             this.suggestedName = suggestedName;
             return this;
         }
+
         public ConferenceBuilder withDate(String date) {
             this.date = date;
             return this;
         }
+
         public ConferenceBuilder withLocation(Location location) {
             this.location = location;
             return this;
         }
+
         public ConferenceBuilder withMembers(List<User> members) {
             this.members = members;
             return this;
         }
+
         public ConferenceBuilder withVisitedPeople(int visitedPeople) {
             this.visitedPeople = visitedPeople;
             return this;
         }
-        public ConferenceBuilder withSpeeches(List<Speech> speeches){
+
+        public ConferenceBuilder withSpeeches(List<Speech> speeches) {
             this.speeches = speeches;
             return this;
         }
-      }
+    }
 
 
 }

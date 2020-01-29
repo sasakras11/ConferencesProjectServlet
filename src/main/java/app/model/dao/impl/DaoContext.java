@@ -1,17 +1,12 @@
 package app.model.dao.impl;
 
-import app.model.user.User;
-
-import javax.naming.Context;
-
 public class DaoContext {
 
 
-
-   private  static   CrudPageableDaoSpeechImpl speechDao = new CrudPageableDaoSpeechImpl();
-   private   static CrudPageableDaoConferenceImpl conferenceDao = new CrudPageableDaoConferenceImpl();
-   private   static CrudUserDaoImpl userDao  = new CrudUserDaoImpl();
-   private    static LocationCrudDaoImpl locationDao = new LocationCrudDaoImpl();
+    private static CrudPageableDaoSpeechImpl speechDao = new CrudPageableDaoSpeechImpl();
+    private static CrudPageableDaoConferenceImpl conferenceDao = new CrudPageableDaoConferenceImpl();
+    private static CrudUserDaoImpl userDao = new CrudUserDaoImpl();
+    private static LocationCrudDaoImpl locationDao = new LocationCrudDaoImpl();
 
     public static CrudPageableDaoSpeechImpl getSpeechDao() {
         return speechDao;

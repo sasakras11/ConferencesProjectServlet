@@ -1,11 +1,12 @@
 package app.model.user;
 
 public interface Privileges {
-     boolean ableToChangeName();
-     boolean ableToSuggestName();
-     boolean ableToChangeDate();
-     boolean ableToChangeLocation();
-     boolean ableToCreateMeeting();
-     boolean ableToDeleteMeeting();
+
+     boolean ableToChangeTopicOfSpeech();
+     boolean ableToSuggestTopicOfSpeech();
+     boolean ableToChangeDateOfConference();
+     boolean ableToChangeLocationOfConference();
+     boolean ableToCreateSpeech();
+     boolean ableToDeleteSpeech();
 
 }

@@ -1,6 +1,4 @@
-package app.dao;
-
-import app.dao.impl.Pageable;
+package app.model.dao;
 
 import java.util.List;
 

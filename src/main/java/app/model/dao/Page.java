@@ -1,4 +1,4 @@
-package app.dao;
+package app.model.dao;
 
 public class Page {
     private final int pageNumber;

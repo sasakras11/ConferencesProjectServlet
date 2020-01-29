@@ -12,6 +12,5 @@ public class AppController {
 
    public void run() {
 
-new CrudPageableDaoConferenceImpl("select *from conferences where conference_id = ?").getUserConferences(1);
    }
 }

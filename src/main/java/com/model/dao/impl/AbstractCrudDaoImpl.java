@@ -1,8 +1,8 @@
 package com.model.dao.impl;
 
-import com.model.exception.SqlQueryException;
 import com.model.dao.CrudDao;
 import com.model.dao.DataSource;
+import com.model.exception.SqlQueryException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,14 +18,14 @@ import java.util.function.BiConsumer;
 public abstract class AbstractCrudDaoImpl<E> implements CrudDao<E> {
 
 
-    private static final Logger logger = LoggerFactory.getLogger(AbstractCrudDaoImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractCrudDaoImpl.class);
 
 
     protected static BiConsumer<PreparedStatement, Integer> SET_STATEMENT_INT_PARAM = ((preparedStatement, integer) -> {
         try {
             preparedStatement.setInt(1, integer);
         } catch (SQLException e) {
-            logger.error("Setting integer for preparedStatement went wrong in static BiConsumer");
+            LOGGER.error("Setting integer for preparedStatement went wrong in static BiConsumer");
         }
     });
 
@@ -34,20 +34,39 @@ public abstract class AbstractCrudDaoImpl<E> implements CrudDao<E> {
         try {
             preparedStatement.setString(1, String);
         } catch (SQLException e) {
-            logger.error("Setting string for preparedStatement went wrong in static BiConsumer");
+            LOGGER.error("Setting string for preparedStatement went wrong in static BiConsumer");
         }
     }));
 
 
+    public void update(E entity, String query) {
+        try (PreparedStatement st = DataSource.getConnection().prepareStatement(query)) {
 
-              public  boolean update(E entity,String query){
+            setStatementParamsWithId(st, entity);
+            st.executeUpdate();
 
+        } catch (SQLException e) {
+            LOGGER.error(String.format("updating went wrong .Query - %s",query));
+            throw new SqlQueryException(query);
+        }
 
-          }
+    }
+
+    public void save(E entity, String query) {
+        try (PreparedStatement st = DataSource.getConnection().prepareStatement(query)) {
+
+            setStatementParams(st, entity);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            LOGGER.error(String.format("adding went wrong .Query - %s",query));
+          throw  new SqlQueryException(query);
+        }
+
+    }
 
     protected List<Integer> findIdsByParam(Integer id, String query, String columnName) {
 
-        List<Integer> user_id_list = new ArrayList<>();
+        List<Integer> userIdList = new ArrayList<>();
         try (PreparedStatement preparedStatement = DataSource.getConnection().prepareStatement(query)) {
 
 
@@ -55,13 +74,13 @@ public abstract class AbstractCrudDaoImpl<E> implements CrudDao<E> {
 
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
-                    user_id_list.add(resultSet.getInt(columnName));
+                    userIdList.add(resultSet.getInt(columnName));
 
                 }
-                return user_id_list;
+                return userIdList;
             }
         } catch (SQLException e) {
-            logger.error("Searching list of user_id by param " + id + " went wrong. Query :" + query);
+            LOGGER.error("Searching list of user_id by param " + id + " went wrong. Query :" + query);
         }
         return Collections.emptyList();
     }
@@ -80,42 +99,40 @@ public abstract class AbstractCrudDaoImpl<E> implements CrudDao<E> {
 
         } catch (SQLException e) {
 
-            logger.error("Search by param " + param + " went wrong.Exception: " + e);
+            LOGGER.error("Search by param " + param + " went wrong.Exception: " + e);
             throw new SqlQueryException("Search by param " + param + " went wrong. Query :" + findByParam);
         }
 
         return Optional.empty();
     }
 
-     public <P> List<E> getListById(P param,String query,BiConsumer<PreparedStatement, P> designatedParamSetter){ //need to be tested
-        List<E>  result = new ArrayList<>();
-         try (PreparedStatement preparedStatement = DataSource.getConnection().prepareStatement(query)) {
+    public <P> List<E> getListById(P param, String query, BiConsumer<PreparedStatement, P> designatedParamSetter) { //need to be tested
+        List<E> result = new ArrayList<>();
+        try (PreparedStatement preparedStatement = DataSource.getConnection().prepareStatement(query)) {
 
 
-             designatedParamSetter.accept(preparedStatement,param);
-             try (final ResultSet resultSet = preparedStatement.executeQuery()) {
-                  while(resultSet.next()) {
+            designatedParamSetter.accept(preparedStatement, param);
+            try (final ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
 
-                     result.add(mapResultSetToEntity(resultSet));
-                 }
-                 return result;
-             }
+                    result.add(mapResultSetToEntity(resultSet));
+                }
+                return result;
+            }
 
-             }
+        } catch (SQLException e) {
+            LOGGER.error(String.format("Query %s with param [%s] has thrown SqlException", query, param));
 
+            throw new SqlQueryException(String.format("Query %s with param [%s] has thrown SqlException", query, param));
 
-         catch (SQLException e) {
-           logger.error(String.format("Query %s with param [%s] has thrown SqlException",query,param));
-
-             throw new SqlQueryException(String.format("Query %s with param [%s] has thrown SqlException",query,param));
-
-         }
+        }
 
 
-     }
-     protected abstract void  setStatementParams(PreparedStatement statement,E entity) throws SQLException;
+    }
 
-              protected abstract void setStatementParamsWithId(PreparedStatement statement,E entity) throws SQLException;
+    protected abstract void setStatementParams(PreparedStatement statement, E entity) throws SQLException;
+
+    protected abstract void setStatementParamsWithId(PreparedStatement statement, E entity) throws SQLException;
 
 
     protected abstract E mapResultSetToEntity(ResultSet resultSet) throws SQLException;

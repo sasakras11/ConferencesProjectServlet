@@ -24,7 +24,7 @@ public class LocationCrudDaoImpl extends AbstractCrudDaoImpl<Location> {
     }
 
     @Override
-    public boolean update(Location entity) {
+    public void update(Location entity) {
       throw new UnsupportedOperationException();
     }
 
@@ -48,5 +48,10 @@ public class LocationCrudDaoImpl extends AbstractCrudDaoImpl<Location> {
     @Override
     protected void setStatementParams(PreparedStatement statement, Location entity) throws SQLException {
        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected void setStatementParamsWithId(PreparedStatement statement, Location entity) throws SQLException {
+        throw new UnsupportedOperationException();
     }
 }

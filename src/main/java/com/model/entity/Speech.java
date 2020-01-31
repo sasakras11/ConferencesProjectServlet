@@ -127,23 +127,23 @@ public class Speech {
         }
 
         public SpeechBuilder withStartHour(int startHour) {
-            if (startHour < 24 && startHour > 0) {
+            if (startHour <= 24 && startHour >= 0) {
                 this.startHour = startHour;
                 return this;
 
             } else {
-                logger.error("setted StartHour " + startHour);
+                logger.error(String.format("Wrong startHour - [%o]",startHour));
                 throw new RuntimeException();
             }
         }
 
         public SpeechBuilder withEndHour(int endHour) {
-            if (endHour < 24 && endHour > 0) {
+            if (endHour <= 24 && endHour >= 0) {
                 this.endHour = endHour;
                 return this;
 
             } else {
-                logger.error("setted endHour " + endHour);
+                logger.error(String.format("Wrong endHour - [%o]",endHour));
                 throw new RuntimeException();
             }
         }

@@ -106,42 +106,15 @@ public class CrudPageableDaoConferenceImpl extends AbstractCrudDaoImpl<Conferenc
         return getListById(userId, GET_CONFERENCES_BY_USER_ID, SET_STATEMENT_INT_PARAM);
     }
 
-    @Override
-    protected Conference mapResultSetToEntity(ResultSet resultSet) throws SQLException {
 
-        return Conference.builder().
-                withId(resultSet.getInt("conference_id"))
-                .withName(resultSet.getString("name"))
-                .withDate(resultSet.getString("date"))
-                .withRegisteredPeople(resultSet.getInt("registered_people"))
-                .withVisitedPeople(resultSet.getInt("visited_people")).build();
-
-
-    }
     @Override
     public void save(Conference entity) {
-
-        try (PreparedStatement statement = DataSource.getConnection().prepareStatement(SAVE_CONFERENCE)){
-
-            setStatementParams(statement,entity);
-
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            LOGGER.error(String.format("Saving conference with id [%o] not happened",entity.getConferenceId()));
-
-        }
+        save(entity,SAVE_CONFERENCE);
 
     }
     @Override
-    public boolean update(Conference entity) {
-        try (PreparedStatement statement = DataSource.getConnection().prepareStatement(UPDATE_CONFERENCE)) {
-
-            setStatementParams(statement,entity);
-            statement.setInt(6, entity.getConferenceId());
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            LOGGER.error(String.format("Updating conference with id [%o] not happened", entity.getConferenceId()));
-        }
+    public void  update(Conference entity) {
+        update(entity,UPDATE_CONFERENCE);
     }
     protected void setStatementParams(PreparedStatement statement,Conference entity) throws SQLException{
         statement.setString(1, entity.getName());
@@ -153,6 +126,22 @@ public class CrudPageableDaoConferenceImpl extends AbstractCrudDaoImpl<Conferenc
 
 
    protected  void setStatementParamsWithId(PreparedStatement statement,Conference entity) throws SQLException{
+
+        setStatementParams(statement,entity);
+       statement.setInt(6, entity.getConferenceId());
+
+   }
+
+    @Override
+    protected Conference mapResultSetToEntity(ResultSet resultSet) throws SQLException {
+
+        return Conference.builder().
+                withId(resultSet.getInt("conference_id"))
+                .withName(resultSet.getString("name"))
+                .withDate(resultSet.getString("date"))
+                .withRegisteredPeople(resultSet.getInt("registered_people"))
+                .withVisitedPeople(resultSet.getInt("visited_people")).build();
+
 
     }
 

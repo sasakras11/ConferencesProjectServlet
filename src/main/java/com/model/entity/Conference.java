@@ -1,8 +1,6 @@
 package com.model.entity;
 
 
-import com.model.entity.user.User;
-
 import java.util.List;
 import java.util.Objects;
 

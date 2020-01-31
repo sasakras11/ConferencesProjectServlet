@@ -15,7 +15,7 @@ public interface CrudDao<E> {
     }
 
 
-   boolean update(E entity);
+   void  update(E entity);
 
     //
     void deleteById(Integer id);

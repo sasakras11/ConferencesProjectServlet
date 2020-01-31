@@ -1,6 +1,6 @@
-package com.model.entity.user;
+package com.model.entity;
 
-public interface Privileges {
+public interface UserPrivileges {
 
      boolean ableToChangeTopicOfSpeech();
      boolean ableToSuggestTopicOfSpeech();

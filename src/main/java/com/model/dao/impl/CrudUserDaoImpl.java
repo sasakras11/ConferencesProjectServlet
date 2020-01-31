@@ -1,9 +1,7 @@
 package com.model.dao.impl;
 
-import com.model.dao.CrudUserDao;
-import com.model.dao.DataSource;
-import com.model.entity.user.Status;
-import com.model.entity.user.User;
+import com.model.entity.Status;
+import com.model.entity.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,7 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 
-public class CrudUserDaoImpl extends AbstractCrudDaoImpl<User> implements CrudUserDao {
+public class CrudUserDaoImpl extends AbstractCrudDaoImpl<User>{
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CrudUserDaoImpl.class);
 
@@ -23,26 +21,12 @@ public class CrudUserDaoImpl extends AbstractCrudDaoImpl<User> implements CrudUs
 
     @Override
     public void save(User entity) {
-        try(PreparedStatement statement = DataSource.getConnection().prepareStatement(SAVE_USER)){
-            statement.setString(1,entity.getUsername());
-            statement.setString(2,entity.getPassword());
-            statement.setString(3,entity.getStatus().toString());
-        }catch (SQLException e){
-            LOGGER.error(String.format("User with username [%s] was not inserted to database(registration failed)",entity.getUsername()));
-        }
-
+        save(entity,SAVE_USER);
 
     }
     @Override
     public void update(User entity) {
-        try(PreparedStatement statement = DataSource.getConnection().prepareStatement(UPDATE_USER)){
-            statement.setString(1,entity.getUsername());
-            statement.setString(2,entity.getPassword());
-            statement.setString(3,entity.getStatus().toString());
-            statement.setInt(4,entity.getUserId());
-        }catch (SQLException e){
-            LOGGER.error(String.format("User with username [%s] was not updated in database(Logging in failed)",entity.getUsername()));
-        }
+        update(entity,UPDATE_USER);
 
     }
 
@@ -58,6 +42,20 @@ public class CrudUserDaoImpl extends AbstractCrudDaoImpl<User> implements CrudUs
             throw new UnsupportedOperationException();
     }
 
+
+    @Override
+    protected void setStatementParams(PreparedStatement statement, User entity) throws SQLException {
+        statement.setString(1,entity.getUsername());
+        statement.setString(2,entity.getPassword());
+        statement.setString(3,entity.getStatus().toString());
+    }
+
+    @Override
+    protected void setStatementParamsWithId(PreparedStatement statement, User entity) throws SQLException {
+               setStatementParams(statement,entity);
+        statement.setInt(4,entity.getUserId());
+
+    }
 
     public User  mapResultSetToEntity(ResultSet resultSet) throws SQLException{
 

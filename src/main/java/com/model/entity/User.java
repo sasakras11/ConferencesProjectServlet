@@ -1,11 +1,8 @@
-package com.model.entity.user;
-
-import com.model.entity.Conference;
-import com.model.entity.Speech;
+package com.model.entity;
 
 import java.util.List;
 
-public class User implements Privileges {
+public class User implements UserPrivileges {
 
 
     private final int userId;

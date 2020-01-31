@@ -34,7 +34,7 @@ CREATE TABLE conferences
   (
      conference_id     INT auto_increment NOT NULL,
      name              VARCHAR(100) NOT NULL,
-     date              VARCHAR(30) NOT NULL,
+     date             DATE NOT NULL,
      location_id       INT NOT NULL,
      registered_people INT NOT NULL,
      visited_people    INT,

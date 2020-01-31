@@ -3,14 +3,28 @@ INSERT INTO locations(area, maxPeople, address) VALUES(1000,1000,'Mogilnoho 3b')
 INSERT INTO locations(area, maxPeople, address) VALUES(50550,11110,'Alexa 76a');
 INSERT INTO locations(area, maxPeople, address) VALUES(50310,10500,'Vlada 72a');
 
-insert into conferences(name, date, location_id, registered_people, visited_people)VALUES ('IT-WEEK','03.10.2000 17:00',1,2000,0);
-insert into conferences(name, date, location_id, registered_people, visited_people)VALUES ('BEER-FEST','11.05.2020 7:20',1,150,0);
-insert into conferences(name, date, location_id, registered_people, visited_people)VALUES ('TWENY FEST','03.10.2019 16:03',2,150000,0);
-insert into conferences(name, date, location_id, registered_people, visited_people)VALUES ('DIRECTOR-WEEK','13.12.2202 16:30',3,66000,0);
-insert into conferences(name, date, location_id, registered_people, visited_people)VALUES ('IT-CONFERENCE','23.01.1999 22:30',1,100,0);
-insert into conferences(name, date, location_id, registered_people, visited_people)VALUES ('LAMA FEST','16.02.2003 14:03',2,150000,0);
-insert into conferences(name, date, location_id, registered_people, visited_people)VALUES ('KITTY FEST','17.05.2123 03:55',3,150000,0);
-insert into conferences(name, date, location_id, registered_people, visited_people)VALUES ('EDA FEST','23.07.2022 17:55',2,150000,0);
+insert into conferences(name, date, location_id, registered_people, visited_people)VALUES ('IT-WEEK',STR_TO_DATE('01/05/2020', '%d/%m/%Y'),1,2000,0);
+insert into conferences(name, date, location_id, registered_people, visited_people)VALUES ('BEER-FEST',STR_TO_DATE('02/05/2020', '%d/%m/%Y'),1,150,0);
+insert into conferences(name, date, location_id, registered_people, visited_people)VALUES ('TWENY FEST',STR_TO_DATE('03/05/2010', '%d/%m/%Y'),2,42150000,0);
+insert into conferences(name, date, location_id, registered_people, visited_people)VALUES ('DIRECTOR-WEEK',STR_TO_DATE('04/05/2050', '%d/%m/%Y'),3,66000,0);
+insert into conferences(name, date, location_id, registered_people, visited_people)VALUES ('IT-CONFERENCE',STR_TO_DATE('05/05/2040', '%d/%m/%Y'),1,100,0);
+insert into conferences(name, date, location_id, registered_people, visited_people)VALUES ('LAMA FEST',STR_TO_DATE('06/05/2030', '%d/%m/%Y'),2,42150000,0);
+insert into conferences(name, date, location_id, registered_people, visited_people)VALUES ('KITTY FEST',STR_TO_DATE('07/05/2019', '%d/%m/%Y'),3,42150000,0);
+insert into conferences(name, date, location_id, registered_people, visited_people)VALUES ('EDA FEST',STR_TO_DATE('08/05/2070', '%d/%m/%Y'),2,42150000,0);
+insert into conferences(name, date, location_id, registered_people, visited_people)VALUES ('EKO FEST',STR_TO_DATE('08/05/2050', '%d/%m/%Y'),2,42150000,0);
+insert into conferences(name, date, location_id, registered_people, visited_people)VALUES ('HALO FEST',STR_TO_DATE('08/05/2040', '%d/%m/%Y'),2,43150000,0);
+insert into conferences(name, date, location_id, registered_people, visited_people)VALUES ('JOHN FEST',STR_TO_DATE('08/05/2030', '%d/%m/%Y'),2,150044,0);
+insert into conferences(name, date, location_id, registered_people, visited_people)VALUES ('ALEX FEST',STR_TO_DATE('08/05/2009', '%d/%m/%Y'),2,15,0);
+insert into conferences(name, date, location_id, registered_people, visited_people)VALUES ('AMB FEST',STR_TO_DATE('08/05/2010', '%d/%m/%Y'),2,150,0);
+insert into conferences(name, date, location_id, registered_people, visited_people)VALUES ('BMV FEST',STR_TO_DATE('08/05/2011', '%d/%m/%Y'),2,150000,0);
+insert into conferences(name, date, location_id, registered_people, visited_people)VALUES ('ADIDAS FEST',STR_TO_DATE('08/05/2012', '%d/%m/%Y'),3,150000,0);
+insert into conferences(name, date, location_id, registered_people, visited_people)VALUES ('XIAOMI FEST',STR_TO_DATE('08/05/2013', '%d/%m/%Y'),1,15000,0);
+insert into conferences(name, date, location_id, registered_people, visited_people)VALUES ('DAG FEST',STR_TO_DATE('08/05/2014', '%d/%m/%Y'),1,6150000,0);
+insert into conferences(name, date, location_id, registered_people, visited_people)VALUES ('CAT FEST',STR_TO_DATE('08/05/2015', '%d/%m/%Y'),3,5150000,0);
+insert into conferences(name, date, location_id, registered_people, visited_people)VALUES ('BOOTLE FEST',STR_TO_DATE('08/05/2016', '%d/%m/%Y'),3,4150000,0);
+insert into conferences(name, date, location_id, registered_people, visited_people)VALUES ('CAR FEST',STR_TO_DATE('08/05/2017', '%d/%m/%Y'),2,42150000,0);
+insert into conferences(name, date, location_id, registered_people, visited_people)VALUES ('WAR FEST',STR_TO_DATE('08/05/2018', '%d/%m/%Y'),1,8150000,0);
+insert into conferences(name, date, location_id, registered_people, visited_people)VALUES ('ASR FEST',STR_TO_DATE('08/05/2019', '%d/%m/%Y'),2,9150000,0);
 
 
 insert  into users(username, password, status) VALUES ('alex','pass','ADMIN');
@@ -45,27 +59,27 @@ insert into speeches(topic, suggested_topic, start_hour, end_hour, speaker_id, c
 insert into speeches(topic, suggested_topic, start_hour, end_hour, speaker_id, conference_id) values ('vlada Belarusi','',0,1,4,5);
 insert into speeches(topic, suggested_topic, start_hour, end_hour, speaker_id, conference_id) values ('Ser Man Meeting','',2,3,4,5);
 
-insert into speech_id_user_id_relation(speech_id, user_id) VALUES (1,2);
-insert into speech_id_user_id_relation(speech_id, user_id) VALUES (2,4);
+insert into speech_id_user_id_relation(speech_id, user_id) VALUES (1,1);
+insert into speech_id_user_id_relation(speech_id, user_id) VALUES (2,1);
 insert into speech_id_user_id_relation(speech_id, user_id) VALUES (3,2);
 insert into speech_id_user_id_relation(speech_id, user_id) VALUES (4,2);
-insert into speech_id_user_id_relation(speech_id, user_id) VALUES (5,4);
-insert into speech_id_user_id_relation(speech_id, user_id) VALUES (6,2);
+insert into speech_id_user_id_relation(speech_id, user_id) VALUES (5,3);
+insert into speech_id_user_id_relation(speech_id, user_id) VALUES (6,3);
 insert into speech_id_user_id_relation(speech_id, user_id) VALUES (7,4);
-insert into speech_id_user_id_relation(speech_id, user_id) VALUES (8,2);
-insert into speech_id_user_id_relation(speech_id, user_id) VALUES (9,4);
-insert into speech_id_user_id_relation(speech_id, user_id) VALUES (10,2);
-insert into speech_id_user_id_relation(speech_id, user_id) VALUES (11,4);
-insert into speech_id_user_id_relation(speech_id, user_id) VALUES (12,2);
-insert into speech_id_user_id_relation(speech_id, user_id) VALUES (13,4);
-insert into speech_id_user_id_relation(speech_id, user_id) VALUES (14,2);
-insert into speech_id_user_id_relation(speech_id, user_id) VALUES (15,4);
-insert into speech_id_user_id_relation(speech_id, user_id) VALUES (16,2);
-insert into speech_id_user_id_relation(speech_id, user_id) VALUES (17,2);
+insert into speech_id_user_id_relation(speech_id, user_id) VALUES (8,4);
+insert into speech_id_user_id_relation(speech_id, user_id) VALUES (9,5);
+insert into speech_id_user_id_relation(speech_id, user_id) VALUES (10,5);
+insert into speech_id_user_id_relation(speech_id, user_id) VALUES (11,6);
+insert into speech_id_user_id_relation(speech_id, user_id) VALUES (12,7);
+insert into speech_id_user_id_relation(speech_id, user_id) VALUES (13,8);
+insert into speech_id_user_id_relation(speech_id, user_id) VALUES (14,8);
+insert into speech_id_user_id_relation(speech_id, user_id) VALUES (15,9);
+insert into speech_id_user_id_relation(speech_id, user_id) VALUES (16,7);
+insert into speech_id_user_id_relation(speech_id, user_id) VALUES (17,3);
 insert into speech_id_user_id_relation(speech_id, user_id) VALUES (18,4);
-insert into speech_id_user_id_relation(speech_id, user_id) VALUES (19,2);
-insert into speech_id_user_id_relation(speech_id, user_id) VALUES (20,4);
-insert into speech_id_user_id_relation(speech_id, user_id) VALUES (21,4);
+insert into speech_id_user_id_relation(speech_id, user_id) VALUES (19,5);
+insert into speech_id_user_id_relation(speech_id, user_id) VALUES (20,6);
+insert into speech_id_user_id_relation(speech_id, user_id) VALUES (21,7);
 
 
 

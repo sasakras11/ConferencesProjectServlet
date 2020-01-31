@@ -1,0 +1,22 @@
+package com.model.dao;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+
+public interface CrudDao<E> {
+
+    void save(E entity);
+
+    Optional<E> findById(Integer id);
+
+    default List<E> findAll() {
+        return Collections.emptyList();
+    }
+
+
+   boolean update(E entity);
+
+    //
+    void deleteById(Integer id);
+}

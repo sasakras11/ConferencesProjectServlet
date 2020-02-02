@@ -27,15 +27,15 @@ insert into conferences(name, date, location_id, registered_people, visited_peop
 insert into conferences(name, date, location_id, registered_people, visited_people)VALUES ('ASR FEST',STR_TO_DATE('08/05/2019', '%d/%m/%Y'),2,9150000,0);
 
 
-insert  into users(username, password, status) VALUES ('alex','pass','ADMIN');
-insert  into users(username, password, status) VALUES ('ivan','password','SPEAKER');
-insert  into users(username, password, status) VALUES ('ira','pass22','MODERATOR');
-insert  into users(username, password, status) VALUES ('olga','sass','SPEAKER');
-insert  into users(username, password, status) VALUES ('egor','erpo','MODERATOR');
-insert  into users(username, password, status) VALUES ('maxim','maxes','VISITOR');
-insert  into users(username, password, status) VALUES ('david','davidov','VISITOR');
-insert  into users(username, password, status) VALUES ('dima','dima12','VISITOR');
-insert  into users(username, password, status) VALUES ('katerina','katerina04','VISITOR');
+insert  into users(username, password, role) VALUES ('alex','pass','ADMIN');
+insert  into users(username, password, role) VALUES ('ivan','password','SPEAKER');
+insert  into users(username, password, role) VALUES ('ira','pass22','MODERATOR');
+insert  into users(username, password, role) VALUES ('olga','sass','SPEAKER');
+insert  into users(username, password, role) VALUES ('egor','erpo','MODERATOR');
+insert  into users(username, password, role) VALUES ('maxim','maxes','VISITOR');
+insert  into users(username, password, role) VALUES ('david','davidov','VISITOR');
+insert  into users(username, password, role) VALUES ('dima','dima12','VISITOR');
+insert  into users(username, password, role) VALUES ('katerina','katerina04','VISITOR');
 
 insert into speeches(topic, suggested_topic, start_hour, end_hour, speaker_id, conference_id) values ('vlada Ukrainy','',2,5,2,1);
 insert into speeches(topic, suggested_topic, start_hour, end_hour, speaker_id, conference_id) values ('Pro nas','',1,2,4,1);
@@ -120,3 +120,5 @@ insert into user_id_conference_id_relation(user_id, conference_id) values (9,5);
 insert into user_id_conference_id_relation(user_id, conference_id) values (9,6);
 
 
+INSERT INTO ratings(rating,speaker_id) values(15,2);
+INSERT INTO ratings(rating,speaker_id) values(8,4);

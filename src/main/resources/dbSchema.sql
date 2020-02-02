@@ -12,12 +12,14 @@ DROP TABLE IF EXISTS users;
 
 DROP TABLE IF EXISTS locations;
 
+DROP table  if exists ratings
+
 CREATE TABLE users
   (
      user_id  INT auto_increment NOT NULL,
      username VARCHAR(50) NOT NULL,
      password VARCHAR(200) NOT NULL,
-     status   VARCHAR(10) NOT NULL,
+     role   VARCHAR(30) NOT NULL,
      PRIMARY KEY (user_id)
   );
 
@@ -25,7 +27,7 @@ CREATE TABLE locations
   (
      location_id INT auto_increment NOT NULL,
      area        INT NOT NULL,
-     maxpeople   INT NOT NULL,
+     maxPeople   INT NOT NULL,
      address     VARCHAR(50) NOT NULL,
      PRIMARY KEY (location_id)
   );
@@ -80,4 +82,12 @@ CREATE TABLE speech_id_user_id_relation
      DELETE CASCADE,
      FOREIGN KEY (user_id) REFERENCES users(user_id) ON UPDATE CASCADE ON DELETE
      CASCADE
+  );
+
+  create table ratings(
+  rating_id int auto_increment not null,
+  rating int not null,
+  speaker_id int not null,
+  primary key(rating_id),
+  foreign key (speaker_id) references users(user_id);
   );

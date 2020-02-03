@@ -7,6 +7,7 @@ import com.exception.SqlQueryException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.xml.crypto.Data;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class CrudPageableDaoSpeechImpl extends AbstractCrudDaoImpl<Speech> implements CrudPageableSpeechDao {
+
 
     private static final String GET_SPEECHES_BY_USER_ID_AND_CONFERENCE_ID = "select su.speech_id,topic,suggested_topic,start_hour,end_hour,conference_id,speaker_id from users as u inner join speech_id_user_id_relation as su on u.user_id = su.user_id inner join speeches as s on su.speech_id = s.speech_id where conference_id = ? and su.user_id = ?";
     private static final String GET_SPEECHES_BY_USER_ID = " select su.speech_id,topic,suggested_topic,start_hour,end_hour,conference_id,speaker_id from speeches as s inner join speech_id_user_id_relation as su on s.speech_id = su.speech_id inner join users as u on u.user_id=su.user_id where su.user_id = ?";
@@ -25,6 +27,12 @@ public class CrudPageableDaoSpeechImpl extends AbstractCrudDaoImpl<Speech> imple
     private static final Logger LOGGER = LoggerFactory.getLogger(CrudPageableDaoSpeechImpl.class);
     private static final String GET_COUNT = "select COUNT(*) from speeches";
     private static final String GET_PAGE_OF_ALL_SPEECHES = "SELECT *FROM speeches LIMIT ? OFFSET ?";
+      private static final DataSource DATA_SOURCE = new DataSource("src/main/resources/db.properties");
+
+    public CrudPageableDaoSpeechImpl(DataSource source) {
+        super(source);
+    }
+
 
     @Override
     public Optional<Speech> findById(Integer id) {
@@ -60,7 +68,7 @@ public class CrudPageableDaoSpeechImpl extends AbstractCrudDaoImpl<Speech> imple
 
     public List<Speech> getSpeechesByUserIdAndConferenceId(int userId, int conferenceId) {
         List<Speech> result = new ArrayList<>();
-        try (PreparedStatement st = DataSource.getConnection().prepareStatement(GET_SPEECHES_BY_USER_ID_AND_CONFERENCE_ID)) {
+        try (PreparedStatement st =DATA_SOURCE.getConnection().prepareStatement(GET_SPEECHES_BY_USER_ID_AND_CONFERENCE_ID)) {
 
             SET_STATEMENT_INT_PARAM.accept(st, conferenceId);
             SET_STATEMENT_PARAM_INT_TWO.accept(st, userId);

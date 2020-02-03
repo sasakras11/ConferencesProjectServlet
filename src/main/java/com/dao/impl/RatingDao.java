@@ -1,5 +1,6 @@
 package com.dao.impl;
 
+import com.dao.DataSource;
 import com.entity.Rating;
 
 import java.sql.PreparedStatement;
@@ -12,6 +13,10 @@ public class RatingDao extends AbstractCrudDaoImpl<Rating> {
     private static final String SAVE_RATING = "insert into ratings (rating,speaker_id) values(?,?)";
     private static final String UPDATE_RATING = "update ratings set rating = ?,speaker_id = ? where id = ?";
     private static final String FIND_BY_SPEAKER_ID = "select *from ratings where speaker_id = ?";
+
+    public RatingDao(DataSource source) {
+        super(source);
+    }
 
     @Override
     protected void setStatementParams(PreparedStatement statement, Rating entity) throws SQLException {

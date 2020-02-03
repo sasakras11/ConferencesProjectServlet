@@ -1,11 +1,17 @@
 package com.dao.impl;
 
 import com.dao.ConferenceGroup;
+import com.dao.DataSource;
 import com.entity.Conference;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +24,22 @@ public class CrudPageableDaoConferenceImplTest {
     @Before
     public void init() {
 
-        conferenceDao = new CrudPageableDaoConferenceImpl();
+        conferenceDao = new CrudPageableDaoConferenceImpl(new DataSource("src/test/resources/h2.properties"));
+        DataSource dataSource = new DataSource("src/test/resources/h2.properties");
+        try {
+            Connection connection = dataSource.getConnection();
+            Statement statement = connection.createStatement();
+            String dbSchemaQuery = new String(Files.readAllBytes(Paths.get("src/test/resources/dbSchema.sql")));
+            System.out.println(dbSchemaQuery);
+            statement.executeUpdate(dbSchemaQuery);
+
+            String dbAddQuery  = new String(Files.readAllBytes(Paths.get("src/test/resources/addDBValues.sql")));
+            System.out.println(dbAddQuery);
+            statement.executeUpdate(dbAddQuery);
+            statement.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Test

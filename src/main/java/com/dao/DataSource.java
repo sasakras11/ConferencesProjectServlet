@@ -2,35 +2,46 @@ package com.dao;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Properties;
 
 public class DataSource {
 
-    private static HikariConfig config = new HikariConfig();
-    private static HikariDataSource ds;
+
+    private  HikariDataSource ds;
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(DataSource.class);
 
 
+    public DataSource(String propFile){
+        Properties properties = new Properties();
+        try {
+            properties.load(new FileReader(propFile));
+            HikariConfig config = new HikariConfig();
+            config.setJdbcUrl(properties.getProperty("db.url"));
+            config.setUsername( properties.getProperty("db.username"));
+            config.setPassword( properties.getProperty("db.password"));
+            config.setDriverClassName(properties.getProperty("db.driver"));
+            config.addDataSourceProperty( "cachePrepStmts" , "true" );
+            config.addDataSourceProperty( "prepStmtCacheSize" , "250" );
+            config.addDataSourceProperty( "prepStmtCacheSqlLimit" , "2048" );
+            ds = new HikariDataSource(config);
+        } catch (IOException e) {
+            LOGGER.warn(String.format("properties file url for connection pool is wrong : %s . Exception : %s",propFile,e));
+        }
 
-
-
-
-    static {
-        config.setJdbcUrl("jdbc:mysql://localhost:3306/ConferentionsProject?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC");
-        config.setUsername("admin");
-        config.setPassword("admin");
-        config.addDataSourceProperty("cachePrepStmts", "true");
-        config.addDataSourceProperty("prepStmtCacheSize", "250");
-        config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
-        ds = new HikariDataSource(config);
     }
 
-    private DataSource() {
-    }
 
-    public static Connection getConnection() throws SQLException {
+
+    public  Connection getConnection() throws SQLException {
         return ds.getConnection();
     }
-}
 
+}

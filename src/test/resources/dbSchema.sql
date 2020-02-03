@@ -1,5 +1,7 @@
 DROP TABLE IF EXISTS user_id_conference_id_relation;
 
+DROP TABLE IF EXISTS speech_id_conference_id_relation;
+
 DROP TABLE IF EXISTS speech_id_user_id_relation;
 
 DROP TABLE IF EXISTS speeches;

@@ -1,5 +1,6 @@
 package com.dao.impl;
 
+import com.dao.DataSource;
 import com.entity.Location;
 
 import java.sql.PreparedStatement;
@@ -10,6 +11,10 @@ import java.util.Optional;
 public class LocationCrudDaoImpl extends AbstractCrudDaoImpl<Location> {
 
     private static final String GET_BY_ID = "SELECT * FROM locations WHERE location_id = ?";
+
+    public LocationCrudDaoImpl(DataSource source) {
+        super(source);
+    }
 
 
     @Override

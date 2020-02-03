@@ -30,11 +30,12 @@ public class UserServiceImpl  implements UserService {
     @Override
     public boolean login(String username, String password) {
 
+
         String hashedPassword = PasswordUtil.getHashedPassword(password);
         return userDao.findByUsername(username)
                 .map(User::getPassword)
-                .filter(pass -> pass.equals(hashedPassword))
-                .isPresent();
+               .filter(pass -> pass.equals(hashedPassword))
+               .isPresent();
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.dao.impl;
 
 import com.dao.ConferenceGroup;
 import com.dao.CrudPageableConferenceDao;
+import com.dao.DataSource;
 import com.entity.Conference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,6 +29,10 @@ public class CrudPageableDaoConferenceImpl extends AbstractCrudDaoImpl<Conferenc
     private static final String COMING_COUNT = "SELECT COUNT(*) AS total FROM conferences where date > current_date ";
 
     private static final String FIND_BY_ID_QUERY = "SELECT * FROM conferences WHERE conference_id=?";
+
+    public CrudPageableDaoConferenceImpl(DataSource source) {
+        super(source);
+    }
 
 
     @Override

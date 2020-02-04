@@ -12,8 +12,8 @@ public interface UserService {
     boolean login(String username,String password);
 
 
-    void register(User user);
+    User register(String username,String password);
 
 
-    List<Conference> findAllConferences(int page, int itemsPerPage, ConferenceGroup conferenceGroup);
+    List<Conference> findAllConferences(int page,ConferenceGroup conferenceGroup);
 }

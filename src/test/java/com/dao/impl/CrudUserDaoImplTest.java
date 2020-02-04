@@ -18,6 +18,7 @@ public class CrudUserDaoImplTest {
 
 
     CrudUserDaoImpl userDao;
+
     @Before
     public void init() {
 

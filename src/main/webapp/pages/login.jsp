@@ -18,10 +18,10 @@
     <title>Title</title>
 </head>
 <body>
-<form action="${pageContext.request.contextPath}/" method="post">
+<form action="/" method="post">
         <input type="text" id="username" placeholder="Your username" name="username">
-    <input type="text" id="password" placeholder="Your password" name="password">
-    <input  type="submit" name="login" value="log in" />
+    <input type="text" id="password" placeholder="Your password" name="password"><br>
+    <input  type="submit" name="login" value="log in" /><br>
     <input  type="submit" name="register" value="register" />
 
 </form>

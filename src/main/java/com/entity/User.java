@@ -14,7 +14,7 @@ public class User implements UserPrivileges {
     private final List<Speech> speeches;
 
 
-    public User(UserBuilder builder) {
+    private User(UserBuilder builder) {
         this.userId = builder.userId;
         this.username = builder.username;
         this.password = builder.password;
@@ -23,7 +23,7 @@ public class User implements UserPrivileges {
         this.speeches = builder.speeches;
     }
 
-    public UserBuilder builder() {
+    public static UserBuilder builder() {
         return new UserBuilder();
     }
 

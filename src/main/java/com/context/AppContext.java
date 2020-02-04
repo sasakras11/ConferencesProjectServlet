@@ -17,17 +17,23 @@ public class AppContext {
     private static final CrudUserDaoImpl USER_DAO = new CrudUserDaoImpl(DATA_SOURCE);
     private static final LocationCrudDaoImpl LOCATION_DAO = new LocationCrudDaoImpl(DATA_SOURCE);
     private static final RatingDao RATING_DAO = new RatingDao(DATA_SOURCE);
-    private static final UserServiceImpl USER_SERVICE = new UserServiceImpl(USER_DAO,VALIDATOR,CONFERENCE_DAO);
+    private static final UserServiceImpl USER_SERVICE = new UserServiceImpl(USER_DAO,VALIDATOR,CONFERENCE_DAO,PASSWORD_UTIL);
 
 
     private AppContext(){}
 
-
+    public static CrudUserDaoImpl getUserDao(){
+        return USER_DAO;
+    }
     public static AppContext getInstance(){
         return context;
     }
 
     public static UserServiceImpl getUserService() {
         return USER_SERVICE;
+    }
+
+    public static CrudPageableConferenceDao getConferenceDao() {
+        return CONFERENCE_DAO;
     }
 }

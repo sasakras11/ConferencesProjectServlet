@@ -22,6 +22,10 @@ public class AppContext {
 
     private AppContext(){}
 
+    public static LocationCrudDaoImpl getLocationDao() {
+        return LOCATION_DAO;
+    }
+
     public static CrudUserDaoImpl getUserDao(){
         return USER_DAO;
     }

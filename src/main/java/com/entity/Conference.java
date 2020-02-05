@@ -47,6 +47,34 @@ public class Conference {
         return ConferenceId;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
+    public void setMembers(List<User> members) {
+        this.members = members;
+    }
+
+    public void setVisitedPeople(int visitedPeople) {
+        this.visitedPeople = visitedPeople;
+    }
+
+    public void setRegisteredPeople(int registeredPeople) {
+        this.registeredPeople = registeredPeople;
+    }
+
+    public void setSpeeches(List<Speech> speeches) {
+        this.speeches = speeches;
+    }
+
     public String getName() {
         return name;
     }

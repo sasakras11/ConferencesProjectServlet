@@ -59,6 +59,5 @@ public class AuthorizationCommand implements Command {
 
         }
 
-        resp.sendRedirect(destination);
-     }
+req.getRequestDispatcher(destination).forward(req,resp);     }
 }

@@ -15,13 +15,17 @@
 </head>
 <body>
 <c:forEach var="conference" items="${sessionScope.conferences}">
+
     <c:out value="${conference.conferenceId}"/>
+    <c:out value="${conference.name}"/>
     <c:out value="${conference.registeredPeople}"/>
     <c:out value="${conference.location.address}"/>
     <c:out value="${conference.date}"/>
 
-    <a href="conferenceEdit.jsp">edit</a>
-           ${par}
+    <a href="/edit?id=<c:out value='${conference.conferenceId}' />">Edit</a>
+
+
+
 </c:forEach>
 
 <h1>conferences for ADMIN and MODERATOR</h1>

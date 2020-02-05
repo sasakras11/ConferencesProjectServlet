@@ -1,6 +1,7 @@
 package com.dao.impl;
 
 import com.dao.DataSource;
+import com.dao.LocationCrudDao;
 import com.entity.Location;
 
 import java.sql.PreparedStatement;
@@ -8,9 +9,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 
-public class LocationCrudDaoImpl extends AbstractCrudDaoImpl<Location> {
+public class LocationCrudDaoImpl extends AbstractCrudDaoImpl<Location> implements LocationCrudDao {
 
     private static final String GET_BY_ID = "SELECT * FROM locations WHERE location_id = ?";
+    private static final String GET_BY_CONFERENCE_ID = "select  locations.location_id,area,maxPeople,address from conferences,locations where conference_id = ? && conferences.location_id = locations.location_id";
 
     public LocationCrudDaoImpl(DataSource source) {
         super(source);
@@ -57,5 +59,10 @@ public class LocationCrudDaoImpl extends AbstractCrudDaoImpl<Location> {
     @Override
     protected void setStatementParamsWithId(PreparedStatement statement, Location entity) throws SQLException {
         throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Location findByConferenceId(int conferenceId) {
+        return findByParam(conferenceId,GET_BY_CONFERENCE_ID,SET_STATEMENT_INT_PARAM).orElseThrow(RuntimeException::new);
     }
 }

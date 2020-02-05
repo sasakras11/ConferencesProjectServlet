@@ -70,9 +70,12 @@ public class EditConferenceServlet extends HttpServlet {
         User user = (User)session.getAttribute("user");
         session.setAttribute("conferences",conferenceDao.findAll(1,5, ConferenceGroup.ALL));
 
+        System.out.println(req.getRequestURL());
+        System.out.println(req.getPathInfo());
+        System.out.println(req.getContextPath());
+        System.out.println(req.getRequestURI());
 
-
-        req.getRequestDispatcher(JspMap.getJspUrl(user.getStatus(), Stage.CONFERENCES_COMING)).forward(req,resp);
+      //  req.getRequestDispatcher(JspMap.getJspUrl(user.getStatus(), Stage.CONFERENCES_COMING)).forward(req,resp);
     }
 
 

@@ -18,8 +18,9 @@
     <title>Title</title>
 </head>
 <body>
-<form action="/" method="post">
-        <input type="text" id="username" placeholder="Your username" name="username">
+<form action="${pageContext.request.contextPath}/" method="post">
+    <input type="hidden" id="command" name="command" value="Authorization">
+    <input type="text" id="username" placeholder="Your username" name="username">
     <input type="text" id="password" placeholder="Your password" name="password"><br>
     <input  type="submit" name="login" value="log in" /><br>
     <input  type="submit" name="register" value="register" />

@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Optional;
 
 public class CrudUserDaoImpl extends AbstractCrudDaoImpl<User> implements UserDao {
@@ -21,6 +22,7 @@ public class CrudUserDaoImpl extends AbstractCrudDaoImpl<User> implements UserDa
     private static final String FIND_BY_USERNAME = "select *from users where username = ?";
   private static final String SAVE_USER = "insert into users(username,password,role) VALUES(?,?,?)";
   private static final String UPDATE_USER = "update users set username = ?,password = ?,role = ? where user_id=?";
+  private static final String FIND_BY_ROLE = "select *from users where role = ?";
 
     public CrudUserDaoImpl(DataSource source) {
         super(source);
@@ -75,5 +77,10 @@ public class CrudUserDaoImpl extends AbstractCrudDaoImpl<User> implements UserDa
     @Override
     public Optional<User> findByUsername(String name) {
         return findByParam(name,FIND_BY_USERNAME,SET_STATEMENT_STRING_PARAM);
+    }
+
+    @Override
+    public List<User> findByRole(Role role) {
+        return findListByParam(String.valueOf(role),FIND_BY_ROLE,SET_STATEMENT_STRING_PARAM);
     }
 }

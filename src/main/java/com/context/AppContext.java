@@ -26,6 +26,14 @@ public class AppContext {
         return LOCATION_DAO;
     }
 
+    public static PasswordUtil getPasswordUtil() {
+        return PASSWORD_UTIL;
+    }
+
+    public static CrudPageableDaoSpeechImpl getSpeechDao() {
+        return SPEECH_DAO;
+    }
+
     public static CrudUserDaoImpl getUserDao(){
         return USER_DAO;
     }

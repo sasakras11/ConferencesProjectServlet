@@ -18,7 +18,9 @@
     <c:out value="${conference.conferenceId}"/>
     <c:out value="${conference.name}"/>
     <c:out value="${conference.date}"/>
-    <c:out value="${conference.location.address}"/>
+    <c:out value="${conference.location.address}"/><br>
+
+    <a href="/?id=<c:out value='${conference.conferenceId}&command=ShowSpeeches'/>">Show speeches</a>
 
 </c:forEach>
   conferences for VISITOR AND SPEAKER

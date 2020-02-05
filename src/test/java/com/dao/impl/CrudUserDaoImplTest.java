@@ -11,6 +11,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class CrudUserDaoImplTest {
@@ -64,5 +66,20 @@ public class CrudUserDaoImplTest {
 
 
          Assert.assertEquals(user,userDao.findByUsername("alex").get());
+     }
+
+     @Test
+      public void findByRole(){
+         List<User> expected = new ArrayList<>();
+        User ivan = new User.UserBuilder().withUsername("ivan").withPassword("288f1cece25978fc5a60ed916067a97e7ba555019407cb0777f85ed637155a1ac00f961f2b0a21261c51c097d6df22ca0affc6d880a201adb1f950fd1756af13")
+                .withStatus(Role.SPEAKER).withId(2).build();
+        User olga = new User.UserBuilder().withUsername("olga").withPassword("51788beddf9484765b50585dfb6dc55032f7b8b77cd7c844caacd326a347f4c9cb1cb2b1d4a979d4c301a5859706428c0693093ea2f1f6a2ff9021b7779bb94c")
+                .withStatus(Role.SPEAKER).withId(4).build();
+        expected.add(ivan);
+        expected.add(olga);
+
+        List<User> actual = userDao.findByRole(Role.SPEAKER);
+
+        Assert.assertEquals(expected,actual);
      }
 }

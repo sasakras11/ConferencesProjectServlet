@@ -87,7 +87,7 @@ public class CrudPageableDaoSpeechImplTest {
     public void getSpeechesByUserIdAndConferenceId(){
             List<Speech> actual=  speechDao.getSpeechesByUserIdAndConferenceId(3,2);
             List<Speech> expected = new ArrayList<>();
-            expected.add(Speech.builder().withId(5).withSpeakerId(4).withTopic("za4em v it").withSuggestedTopic("").withStartHour(4).withEndHour(5).build());
+            expected.add(Speech.builder().withId(5).withSpeakerId(4).withTopic("za4em v it ").withSuggestedTopic("").withStartHour(4).withEndHour(5).build());
             expected.add(Speech.builder().withId(6).withTopic("kak stat milionerom").withStartHour(6).withSuggestedTopic("").withEndHour(5).withSpeakerId(2).build());
 
                 Assert.assertEquals(expected,actual);

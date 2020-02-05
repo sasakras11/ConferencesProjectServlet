@@ -80,6 +80,27 @@ public abstract class AbstractCrudDaoImpl<E> implements CrudDao<E> {
 
     }
 
+     protected <P>List<E> findListByParam(P param,String findByParam, BiConsumer<PreparedStatement, P> designatedParamSetter){
+         List<E> list = new ArrayList<>();
+         try (PreparedStatement preparedStatement =DATA_SOURCE.getConnection().prepareStatement(findByParam)) {
+
+
+            designatedParamSetter.accept(preparedStatement, param);
+
+             try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                 while (resultSet.next()) {
+                  list.add(mapResultSetToEntity(resultSet));
+
+                 }
+                 return list;
+             }
+         } catch (SQLException e) {
+             LOGGER.error(String.format("searching List by param %s in query %s went wrong",param,findByParam));
+         }
+         return Collections.emptyList();
+     }
+
+
     protected List<Integer> findIdsByParam(Integer id, String query, String columnName) {
 
         List<Integer> userIdList = new ArrayList<>();

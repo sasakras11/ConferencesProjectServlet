@@ -16,13 +16,15 @@
 <body>
 <c:forEach var="conference" items="${sessionScope.conferences}">
 
-    <c:out value="${conference.conferenceId}"/>
-    <c:out value="${conference.name}"/>
-    <c:out value="${conference.registeredPeople}"/>
-    <c:out value="${conference.location.address}"/>
-    <c:out value="${conference.date}"/>
+    <c:out value="${conference.conferenceId}"/><br>
+    <c:out value="${conference.name}"/><br>
+    <c:out value="${conference.registeredPeople}"/><br>
+    <c:out value="${conference.location.address}"/><br>
+    <c:out value="${conference.date}"/><br>
 
-    <a href="/edit?id=<c:out value='${conference.conferenceId}' />">Edit</a>
+    <a href="/?id=<c:out value='${conference.conferenceId}&command=ShowEditConferencePage' />">Edit</a>
+    <a href="/?id=<c:out value='${conference.conferenceId}&command=ShowSpeeches'/>">Show speeches</a>
+
 
 
 

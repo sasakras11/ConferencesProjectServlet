@@ -63,14 +63,12 @@ public class User implements UserPrivileges {
         return userId == user.userId &&
                 Objects.equals(username, user.username) &&
                 Objects.equals(password, user.password) &&
-                role == user.role &&
-                Objects.equals(conferences, user.conferences) &&
-                Objects.equals(speeches, user.speeches);
+                role == user.role;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(userId, username, password, role, conferences, speeches);
+        return Objects.hash(userId, username, password, role);
     }
 
     public int getUserId() {

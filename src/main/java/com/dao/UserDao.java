@@ -11,4 +11,6 @@ public interface UserDao extends CrudDao<User>{
      Optional<User> findByUsername(String name);
 
      List<User> findByRole(Role role);
+
+     User getSpeakerOfSpeech(int speechId);
 }

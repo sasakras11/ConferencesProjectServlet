@@ -14,22 +14,38 @@
     <title>conferenceWithEdit</title>
 </head>
 <body>
+
+    <table border="1" cellpadding="5">
+        <caption><h2>List of conferences</h2></caption>
+        <tr>
+            <th>ID</th>
+            <th>name</th>
+            <th>registered people</th>
+            <th>address</th>
+            <th>date </th>
+          <th><a href="/?id=<c:out value='command=Logout'/>">Logout</a></th>
+
+        </tr>
 <c:forEach var="conference" items="${sessionScope.conferences}">
 
-    <c:out value="${conference.conferenceId}"/><br>
-    <c:out value="${conference.name}"/><br>
-    <c:out value="${conference.registeredPeople}"/><br>
-    <c:out value="${conference.location.address}"/><br>
-    <c:out value="${conference.date}"/><br>
+    <tr>
+    <td> <c:out value="${conference.conferenceId}"/> </td>
+    <td> <c:out value="${conference.name}"/> </td>
+    <td> <c:out value="${conference.registeredPeople}"/> </td>
+    <td> <c:out value="${conference.location.address}"/> </td>
+    <td> <c:out value="${conference.date}"/> </td>
 
-    <a href="/?id=<c:out value='${conference.conferenceId}&command=ShowEditConferencePage' />">Edit</a>
-    <a href="/?id=<c:out value='${conference.conferenceId}&command=ShowSpeeches'/>">Show speeches</a>
+    <td>
+          <a href="/?id=<c:out value='${conference.conferenceId}&command=ShowEditConferencePage' />">Edit</a>
+         <a href="/?id=<c:out value='${conference.conferenceId}&command=ShowSpeeches'/>">Show speeches</a>
+    </td>
 
+    </tr>
 
 
 
 </c:forEach>
+    </table>
 
-<h1>conferences for ADMIN and MODERATOR</h1>
 </body>
 </html>

@@ -18,6 +18,7 @@ public class CrudUserDaoImpl extends AbstractCrudDaoImpl<User> implements UserDa
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CrudUserDaoImpl.class);
 
+    private static final String FIND_SPEAKER = "select DISTINCT user_id,username,password,role from speeches inner join users on users.user_id = speeches.speaker_id where users.role = \"SPEAKER\" and speeches.speech_id = ?";
     private static final String FIND_BY_ID = "select *from users where user_id = ?";
     private static final String FIND_BY_USERNAME = "select *from users where username = ?";
   private static final String SAVE_USER = "insert into users(username,password,role) VALUES(?,?,?)";
@@ -82,5 +83,10 @@ public class CrudUserDaoImpl extends AbstractCrudDaoImpl<User> implements UserDa
     @Override
     public List<User> findByRole(Role role) {
         return findListByParam(String.valueOf(role),FIND_BY_ROLE,SET_STATEMENT_STRING_PARAM);
+    }
+
+    @Override
+    public User getSpeakerOfSpeech(int speechId) {
+        return findByParam(speechId,FIND_SPEAKER,SET_STATEMENT_INT_PARAM).get();
     }
 }

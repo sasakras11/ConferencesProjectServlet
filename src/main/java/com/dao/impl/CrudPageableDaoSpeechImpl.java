@@ -3,6 +3,7 @@ package com.dao.impl;
 import com.dao.CrudPageableSpeechDao;
 import com.dao.DataSource;
 import com.entity.Speech;
+import com.entity.User;
 import com.exception.SqlQueryException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -89,7 +90,6 @@ public class CrudPageableDaoSpeechImpl extends AbstractCrudDaoImpl<Speech> imple
 
 
     }
-
     @Override
     public int count() {
         return count(GET_COUNT);
@@ -107,8 +107,10 @@ public class CrudPageableDaoSpeechImpl extends AbstractCrudDaoImpl<Speech> imple
         statement.setInt(3, entity.getStartHour());
         statement.setInt(4, entity.getEndHour());
         statement.setInt(5, entity.getConference().getConferenceId());
-        statement.setInt(6, entity.getSpeakerId());
+
     }
+
+
 
     @Override
     protected void setStatementParamsWithId(PreparedStatement statement, Speech entity) throws SQLException {
@@ -123,7 +125,6 @@ public class CrudPageableDaoSpeechImpl extends AbstractCrudDaoImpl<Speech> imple
                 .withTopic(resultSet.getString("topic"))
                 .withStartHour(resultSet.getInt("start_hour"))
                 .withEndHour(resultSet.getInt("end_hour"))
-                .withSpeakerId(resultSet.getInt("speaker_id"))
                 .withSuggestedTopic(resultSet.getString("suggested_topic")).build();
 
     }

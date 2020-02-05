@@ -31,7 +31,9 @@ public class DataSource {
             config.addDataSourceProperty( "cachePrepStmts" , "true" );
             config.addDataSourceProperty( "prepStmtCacheSize" , "250" );
             config.addDataSourceProperty( "prepStmtCacheSqlLimit" , "2048" );
+            config.setMaximumPoolSize(100);
             ds = new HikariDataSource(config);
+
         } catch (IOException e) {
             LOGGER.warn(String.format("properties file url for connection pool is wrong : %s . Exception : %s",propFile,e));
         }
@@ -41,6 +43,7 @@ public class DataSource {
 
 
     public  Connection getConnection() throws SQLException {
+
         return ds.getConnection();
     }
 

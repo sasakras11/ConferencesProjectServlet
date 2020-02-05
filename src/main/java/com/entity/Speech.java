@@ -9,15 +9,16 @@ import java.util.Objects;
 public class Speech {
     private static Logger logger = LoggerFactory.getLogger(Speech.class);
     private int id;
-    private int speakerId;
+    private User speaker;
     private String topic;
     private String suggestedTopic;
     private Conference conference;
     private int startHour;
     private int endHour;
 
+
     public Speech(SpeechBuilder builder) {
-        this.speakerId = builder.speakerId;
+        this.speaker = builder.speaker;
         this.topic = builder.topic;
         this.suggestedTopic = builder.suggestedTopic;
         this.startHour = builder.startHour;
@@ -34,68 +35,67 @@ public class Speech {
         return id;
     }
 
-    public int getSpeakerId() {
-        return speakerId;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public User getSpeaker() {
+        return speaker;
+    }
+
+    public void setSpeaker(User speaker) {
+        this.speaker = speaker;
     }
 
     public String getTopic() {
         return topic;
     }
 
+    public void setTopic(String topic) {
+        this.topic = topic;
+    }
+
     public String getSuggestedTopic() {
         return suggestedTopic;
     }
 
-    public int getStartHour() {
-        return startHour;
-    }
-
-    public int getEndHour() {
-        return endHour;
+    public void setSuggestedTopic(String suggestedTopic) {
+        this.suggestedTopic = suggestedTopic;
     }
 
     public Conference getConference() {
         return conference;
     }
 
-    @Override
-    public String toString() {
-        return "Speech{" +
-                "speakerId=" + speakerId +
-                ", topic='" + topic + '\'' +
-                ", suggestedTopic='" + suggestedTopic + '\'' +
-                ", conference=" + conference +
-                ", startHour=" + startHour +
-                ", endHour=" + endHour +
-                "}\n";
+    public void setConference(Conference conference) {
+        this.conference = conference;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Speech speech = (Speech) o;
-        return speakerId == speech.speakerId &&
-                startHour == speech.startHour &&
-                endHour == speech.endHour &&
-                Objects.equals(topic, speech.topic) &&
-                Objects.equals(suggestedTopic, speech.suggestedTopic) &&
-                Objects.equals(conference, speech.conference);
+    public int getStartHour() {
+        return startHour;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(speakerId, topic, suggestedTopic, conference, startHour, endHour);
+    public void setStartHour(int startHour) {
+        this.startHour = startHour;
+    }
+
+    public int getEndHour() {
+        return endHour;
+    }
+
+    public void setEndHour(int endHour) {
+        this.endHour = endHour;
     }
 
     public static class SpeechBuilder {
-        private int speakerId;
+        private User speaker;
         private String topic;
         private String suggestedTopic;
         private int startHour;
         private int endHour;
         private Conference conference;
         private int id;
+
 
         public SpeechBuilder() {
 
@@ -111,8 +111,8 @@ public class Speech {
             return this;
         }
 
-        public SpeechBuilder withSpeakerId(int id) {
-            this.speakerId = id;
+        public SpeechBuilder withSpeakerId(User speaker) {
+            this.speaker = speaker;
             return this;
         }
 

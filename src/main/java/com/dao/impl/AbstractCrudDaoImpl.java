@@ -56,7 +56,7 @@ public abstract class AbstractCrudDaoImpl<E> implements CrudDao<E> {
 
 
     public void update(E entity, String query) {
-        try (PreparedStatement st =DATA_SOURCE.getConnection().prepareStatement(query)) {
+        try (PreparedStatement st = DATA_SOURCE.getConnection().prepareStatement(query)) {
 
             setStatementParamsWithId(st, entity);
             st.executeUpdate();
@@ -82,7 +82,7 @@ public abstract class AbstractCrudDaoImpl<E> implements CrudDao<E> {
 
      protected <P>List<E> findListByParam(P param,String findByParam, BiConsumer<PreparedStatement, P> designatedParamSetter){
          List<E> list = new ArrayList<>();
-         try (PreparedStatement preparedStatement =DATA_SOURCE.getConnection().prepareStatement(findByParam)) {
+         try (PreparedStatement preparedStatement = DATA_SOURCE.getConnection().prepareStatement(findByParam)) {
 
 
             designatedParamSetter.accept(preparedStatement, param);

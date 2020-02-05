@@ -13,17 +13,32 @@
     <title>conferenceWithLook</title>
 </head>
 <body>
+<table border="1" cellpadding="5">
+    <caption><h2>List of conferences</h2></caption>
+    <tr>
+        <th>ID</th>
+        <th>name</th>
+        <th>registered people</th>
+        <th>address</th>
+        <th>date</th>
+        <th><a href="/?id=<c:out value='command=Logout'/>">Logout</a></th>
 
-<c:forEach var="conference" items="${sessionScope.conferences}">
-    <c:out value="${conference.conferenceId}"/>
-    <c:out value="${conference.name}"/>
-    <c:out value="${conference.date}"/>
-    <c:out value="${conference.location.address}"/><br>
+    </tr>
+    <c:forEach var="conference" items="${sessionScope.conferences}">
 
-    <a href="/?id=<c:out value='${conference.conferenceId}&command=ShowSpeeches'/>">Show speeches</a>
+        <tr>
+            <td><c:out value="${conference.conferenceId}"/></td>
+            <td><c:out value="${conference.name}"/></td>
+            <td><c:out value="${conference.registeredPeople}"/></td>
+            <td><c:out value="${conference.location.address}"/></td>
+            <td><c:out value="${conference.date}"/></td>
+            <td><a href="/?id=<c:out value='${conference.conferenceId}&command=ShowSpeeches'/>">Show speeches</a></td>
 
-</c:forEach>
-  conferences for VISITOR AND SPEAKER
+        </tr>
+
+
+    </c:forEach>
+</table>
 
 </body>
 </html>

@@ -2,7 +2,7 @@ package com.service.util.Jsp;
 
 public enum Stage {
 
-
+ START,REGISTER,
     CONFERENCE_FINISHED,
     EDIT_CONFERENCE, CONFERENCES_COMING, SPEECHES,
     MODERATOR_EDIT_SPEECHES,

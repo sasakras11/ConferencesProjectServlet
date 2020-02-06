@@ -20,7 +20,7 @@
 
 <body>
 <table border="1" cellpadding="5">
-    <form action="${pageContext.request.contextPath}/" method="post">
+    <form action="/?id=command" method="post">
         <input type="hidden" id="command" name="command" value="Authorization">
         <tr>
             <td><input type="text" id="username" placeholder=" <fmt:message key="label.login" />" name="username"><td>
@@ -28,7 +28,6 @@
         </tr>
         <tr>
             <td><input type="submit" name="login" value="log in"/></td>
-            <td><input type="submit" name="register" value="register"/></td>
         </tr>
     </form>
 </table>

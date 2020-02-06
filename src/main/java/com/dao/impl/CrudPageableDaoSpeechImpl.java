@@ -19,10 +19,10 @@ import java.util.Optional;
 public class CrudPageableDaoSpeechImpl extends AbstractCrudDaoImpl<Speech> implements CrudPageableSpeechDao {
 
 
-    private static final String GET_SPEECHES_BY_USER_ID_AND_CONFERENCE_ID = "select su.speech_id,topic,suggested_topic,start_hour,end_hour,conference_id,speaker_id from users as u inner join speech_id_user_id_relation as su on u.user_id = su.user_id inner join speeches as s on su.speech_id = s.speech_id where conference_id = ? and su.user_id = ?";
-    private static final String GET_SPEECHES_BY_USER_ID = " select su.speech_id,topic,suggested_topic,start_hour,end_hour,conference_id,speaker_id from speeches as s inner join speech_id_user_id_relation as su on s.speech_id = su.speech_id inner join users as u on u.user_id=su.user_id where su.user_id = ?";
-    private static final String UPDATE_SPEECH = "UPDATE speeches set topic=?,suggested_topic=?,start_hour=?,end_hour=?,conference_id=?,speaker_id=? where speech_id=?";
-    private static final String SAVE_SPEECH = "INSERT INTO speeches(topic, suggested_topic, start_hour, end_hour, conference_id, speaker_id) VALUES(?,?,?,?,?,?)";
+    private static final String GET_SPEECHES_BY_USER_ID_AND_CONFERENCE_ID = "select su.speech_id,topic,suggested_topic,start_hour,end_hour,conference_id,speaker_id,registered_people,visited_people from users as u inner join speech_id_user_id_relation as su on u.user_id = su.user_id inner join speeches as s on su.speech_id = s.speech_id where conference_id = ? and su.user_id = ?";
+    private static final String GET_SPEECHES_BY_USER_ID = " select su.speech_id,topic,suggested_topic,start_hour,end_hour,conference_id,speaker_id,registered_people,visited_people from speeches as s inner join speech_id_user_id_relation as su on s.speech_id = su.speech_id inner join users as u on u.user_id=su.user_id where su.user_id = ?";
+    private static final String UPDATE_SPEECH = "UPDATE speeches set topic=?,suggested_topic=?,start_hour=?,end_hour=?,conference_id=?,speaker_id=?,registered_people = ?,visited_people=? where speech_id=?";
+    private static final String SAVE_SPEECH = "INSERT INTO speeches(topic,suggested_topic,start_hour,end_hour,conference_id,speaker_id,registered_people,visited_people) VALUES(?,?,?,?,?,?,?,?)";
     private static final String GET_SPEECHES_BY_CONFERENCE_ID = "select *from speeches where conference_id = ?";
     private static final String FIND_BY_ID_QUERY = "select *from speeches where speech_id = ?";
     private static final Logger LOGGER = LoggerFactory.getLogger(CrudPageableDaoSpeechImpl.class);
@@ -73,7 +73,7 @@ public class CrudPageableDaoSpeechImpl extends AbstractCrudDaoImpl<Speech> imple
 
             SET_STATEMENT_INT_PARAM.accept(st, conferenceId);
             SET_STATEMENT_PARAM_INT_TWO.accept(st, userId);
-            try (final ResultSet resultSet = st.executeQuery()) {
+            try (ResultSet resultSet = st.executeQuery()) {
                 while (resultSet.next()) {
 
                     result.add(mapResultSetToEntity(resultSet));
@@ -107,6 +107,9 @@ public class CrudPageableDaoSpeechImpl extends AbstractCrudDaoImpl<Speech> imple
         statement.setInt(3, entity.getStartHour());
         statement.setInt(4, entity.getEndHour());
         statement.setInt(5, entity.getConference().getConferenceId());
+        statement.setInt(6,entity.getSpeaker().getUserId());
+        statement.setInt(7, entity.getRegisteredPeople());
+        statement.setInt(8, entity.getVisitedPeople());
 
     }
 
@@ -125,7 +128,10 @@ public class CrudPageableDaoSpeechImpl extends AbstractCrudDaoImpl<Speech> imple
                 .withTopic(resultSet.getString("topic"))
                 .withStartHour(resultSet.getInt("start_hour"))
                 .withEndHour(resultSet.getInt("end_hour"))
+                .withRegisteredPeople(resultSet.getInt("registered_people"))
+                .withVisitedPeople(resultSet.getInt("visited_people"))
                 .withSuggestedTopic(resultSet.getString("suggested_topic")).build();
+
 
     }
 

@@ -127,11 +127,11 @@ public class UserServiceImplTest {
     @Test
     public void findAllConferencesShouldReturnFirstPage() {
         List<Conference> expected = new ArrayList<>();
-        expected.add(Conference.builder().withId(1).withName("IT-WEEK").withDate("2020-05-01").withRegisteredPeople(2000).withVisitedPeople(0).build());
-        expected.add(Conference.builder().withId(2).withName("BEER-FEST").withDate("2020-05-02").withRegisteredPeople(150).withVisitedPeople(0).build());
-        expected.add(Conference.builder().withId(3).withName("TWENY FEST").withDate("2010-05-03").withRegisteredPeople(42150000).withVisitedPeople(0).build());
-        expected.add(Conference.builder().withId(4).withName("DIRECTOR-WEEK").withDate("2050-05-04").withRegisteredPeople(66000).withVisitedPeople(0).build());
-        expected.add(Conference.builder().withId(5).withName("IT-CONFERENCE").withDate("2040-05-05").withRegisteredPeople(100).withVisitedPeople(0).build());
+        expected.add(Conference.builder().withId(1).withName("IT-WEEK").withDate("2020-05-01").build());
+        expected.add(Conference.builder().withId(2).withName("BEER-FEST").withDate("2020-05-02").build());
+        expected.add(Conference.builder().withId(3).withName("TWENY FEST").withDate("2010-05-03").build());
+        expected.add(Conference.builder().withId(4).withName("DIRECTOR-WEEK").withDate("2050-05-04").build());
+        expected.add(Conference.builder().withId(5).withName("IT-CONFERENCE").withDate("2040-05-05").build());
 
         List<Conference> actual = service.findAllConferences(-1, ConferenceGroup.ALL);
         assertEquals(expected, actual);
@@ -141,8 +141,8 @@ public class UserServiceImplTest {
     public void shouldReturnLastPageIfPageNumberIsBiggerThenMax() {
 
         List<Conference> expected = new ArrayList<>();
-        expected.add(Conference.builder().withId(21).withName("WAR FEST").withDate("2018-05-08").withRegisteredPeople(8150000).withVisitedPeople(0).build());
-        expected.add(Conference.builder().withId(22).withName("ASR FEST").withDate("2019-05-08").withRegisteredPeople(9150000).withVisitedPeople(0).build());
+        expected.add(Conference.builder().withId(21).withName("WAR FEST").withDate("2018-05-08").build());
+        expected.add(Conference.builder().withId(22).withName("ASR FEST").withDate("2019-05-08").build());
 
         List<Conference> actual = service.findAllConferences(10000, ConferenceGroup.ALL);
 

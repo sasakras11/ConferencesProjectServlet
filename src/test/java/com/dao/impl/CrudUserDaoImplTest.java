@@ -1,5 +1,6 @@
 package com.dao.impl;
 
+import com.context.AppContext;
 import com.dao.DataSource;
 import com.entity.Role;
 import com.entity.User;
@@ -48,7 +49,7 @@ public class CrudUserDaoImplTest {
 
         User user = new User.UserBuilder()
                 .withId(1)
-                .withPassword("pass")
+                .withPassword(AppContext.getPasswordUtil().getHashedPassword("pass"))
                 .withUsername("alex")
                 .withStatus(Role.valueOf("ADMIN")).build();
 
@@ -60,9 +61,10 @@ public class CrudUserDaoImplTest {
      public void findByUserName(){
          User user = new User.UserBuilder()
                  .withId(1)
-                 .withPassword("pass")
+                 .withPassword(AppContext.getPasswordUtil().getHashedPassword("pass"))
                  .withUsername("alex")
                  .withStatus(Role.valueOf("ADMIN")).build();
+
 
 
          Assert.assertEquals(user,userDao.findByUsername("alex").get());

@@ -15,7 +15,23 @@ public class Speech {
     private Conference conference;
     private int startHour;
     private int endHour;
+    private int visitedPeople;
+    private int registeredPeople;
 
+    @Override
+    public String toString() {
+        return "Speech{" +
+                "id=" + id +
+                ", speaker=" + speaker +
+                ", topic='" + topic + '\'' +
+                ", suggestedTopic='" + suggestedTopic + '\'' +
+                ", conference=" + conference +
+                ", startHour=" + startHour +
+                ", endHour=" + endHour +
+                ", visitedPeople=" + visitedPeople +
+                ", registeredPeople=" + registeredPeople +
+                '}';
+    }
 
     public Speech(SpeechBuilder builder) {
         this.speaker = builder.speaker;
@@ -25,10 +41,20 @@ public class Speech {
         this.endHour = builder.endHour;
         this.conference = builder.conference;
         this.id = builder.id;
+        this.visitedPeople = builder.visitedPeople;
+        this.registeredPeople = builder.registeredPeople;
     }
 
     public static SpeechBuilder builder() {
         return new SpeechBuilder();
+    }
+
+    public int getVisitedPeople() {
+        return visitedPeople;
+    }
+
+    public int getRegisteredPeople() {
+        return registeredPeople;
     }
 
     public int getId() {
@@ -87,6 +113,26 @@ public class Speech {
         this.endHour = endHour;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Speech speech = (Speech) o;
+        return id == speech.id &&
+                startHour == speech.startHour &&
+                endHour == speech.endHour &&
+                visitedPeople == speech.visitedPeople &&
+                registeredPeople == speech.registeredPeople &&
+                Objects.equals(speaker, speech.speaker) &&
+                Objects.equals(topic, speech.topic) &&
+                Objects.equals(suggestedTopic, speech.suggestedTopic);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, speaker, topic, suggestedTopic, startHour, endHour, visitedPeople, registeredPeople);
+    }
+
     public static class SpeechBuilder {
         private User speaker;
         private String topic;
@@ -95,10 +141,20 @@ public class Speech {
         private int endHour;
         private Conference conference;
         private int id;
+        private int visitedPeople;
+        private int registeredPeople;
 
 
         public SpeechBuilder() {
 
+        }
+        public SpeechBuilder withVisitedPeople(int visitedPeople){
+            this.visitedPeople = visitedPeople;
+            return this;
+        }
+        public SpeechBuilder withRegisteredPeople(int registeredPeople){
+            this.registeredPeople = registeredPeople;
+            return this;
         }
 
         public SpeechBuilder withConference(Conference cOnference) {
@@ -111,7 +167,7 @@ public class Speech {
             return this;
         }
 
-        public SpeechBuilder withSpeakerId(User speaker) {
+        public SpeechBuilder withSpeaker(User speaker) {
             this.speaker = speaker;
             return this;
         }

@@ -12,6 +12,7 @@ import com.service.util.PasswordUtil;
 import com.service.util.Validator;
 
 import java.util.List;
+import java.util.Optional;
 
 public class UserServiceImpl implements UserService {
 
@@ -29,13 +30,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean login(String username, String password) {
+    public Optional<User> login(String username, String password) {
         String hashedPassword = passwordUtil.getHashedPassword(password);
 
-        return userDao.findByUsername(username)
+       boolean isPresent = userDao.findByUsername(username)
                 .map(User::getPassword)
                 .filter(pass -> pass.equals(hashedPassword))
                 .isPresent();
+
+
+       if(isPresent){
+           return userDao.findByUsername(username);
+       }
+       else return Optional.empty();
     }
 
     @Override

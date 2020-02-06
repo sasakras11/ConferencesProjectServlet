@@ -67,6 +67,7 @@ public class User implements UserPrivileges {
                 '}';
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -75,12 +76,14 @@ public class User implements UserPrivileges {
         return userId == user.userId &&
                 Objects.equals(username, user.username) &&
                 Objects.equals(password, user.password) &&
-                role == user.role;
+                role == user.role &&
+                Objects.equals(conferences, user.conferences) &&
+                Objects.equals(speeches, user.speeches);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(userId, username, password, role);
+        return Objects.hash(userId, username, password, role, conferences, speeches);
     }
 
     public int getUserId() {

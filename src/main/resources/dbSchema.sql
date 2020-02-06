@@ -38,8 +38,6 @@ CREATE TABLE conferences
     name              VARCHAR(100) NOT NULL,
     date             DATE NOT NULL,
     location_id       INT NOT NULL,
-    registered_people INT NOT NULL,
-    visited_people    INT,
     PRIMARY KEY(conference_id),
     FOREIGN KEY (location_id) REFERENCES locations(location_id)
 );
@@ -53,6 +51,8 @@ CREATE TABLE speeches
     end_hour        INT NOT NULL,
     conference_id   INT NOT NULL,
     speaker_id      INT NOT NULL,
+    registered_people INT NOT NULL,
+    visited_people    INT,
     PRIMARY KEY (speech_id),
     FOREIGN KEY (conference_id) REFERENCES conferences(conference_id) ON UPDATE
         CASCADE ON DELETE CASCADE,

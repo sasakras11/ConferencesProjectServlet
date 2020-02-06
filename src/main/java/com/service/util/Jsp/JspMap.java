@@ -23,7 +23,6 @@ public class JspMap {
     }
 
     private static void init() {
-        jspMap.put(new JspKey(null, Stage.LOGIN), "login");
         jspMap.put(new JspKey(Role.MODERATOR, Stage.CONFERENCE_FINISHED), "conferencesFinished");
         jspMap.put(new JspKey(Role.ADMIN, Stage.CONFERENCE_FINISHED), "conferencesFinished");
         jspMap.put(new JspKey(Role.VISITOR, Stage.CONFERENCE_FINISHED), "conferencesFinished");

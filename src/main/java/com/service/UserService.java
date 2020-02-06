@@ -5,11 +5,12 @@ import com.entity.Conference;
 import com.entity.User;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserService {
 
 
-    boolean login(String username,String password);
+    Optional<User> login(String username, String password);
 
 
     User register(String username,String password);

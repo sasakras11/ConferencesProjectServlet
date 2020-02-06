@@ -16,13 +16,13 @@ import java.util.Optional;
 
 public class CrudPageableDaoConferenceImpl extends AbstractCrudDaoImpl<Conference> implements CrudPageableConferenceDao {
 
-    public static final String GET_CONFERENCES_BY_USER_ID = "select uc.conference_id,name,date,location_id,registered_people,visited_people from users as u inner join user_id_conference_id_relation as uc on u.user_id=uc.user_id inner join conferences as c on c.conference_id=uc.conference_id where u.user_id = ?";
+    public static final String GET_CONFERENCES_BY_USER_ID = "select uc.conference_id,name,date,location_id from users as u inner join user_id_conference_id_relation as uc on u.user_id=uc.user_id inner join conferences as c on c.conference_id=uc.conference_id where u.user_id = ?";
     private static final String GET_PAGE_OF_FINISHED_CONFERENCES = "select * from(select * from conferences where date < current_date) as finished limit ? offset ?";
     private static final String GET_PAGE_OF_COMING_CONFERENCES = "select * from(select * from conferences where date > current_date) as coming limit ? offset ?";
     private static final String GET_PAGE_OF_ALL_CONFERENCES = "SELECT *FROM conferences LIMIT ? OFFSET ?";
 
     private static final String UPDATE_CONFERENCE = "UPDATE conferences SET name =?, date=?, location_id=?, registered_people=?, visited_people=? WHERE conference_id = ?";
-    private static final String SAVE_CONFERENCE = "INSERT INTO conferences(name,date,location_id,registered_people,visited_people) VALUES(?,?,?,?,?);";
+    private static final String SAVE_CONFERENCE = "INSERT INTO conferences(name,date,location_id) VALUES(?,?,?);";
 
     private static final String ALL_COUNT = "SELECT COUNT(*) AS total FROM conferences";
     private static final String FINISHED_COUNT = "SELECT COUNT(*) AS total FROM conferences where date < current_date ";
@@ -104,8 +104,7 @@ public class CrudPageableDaoConferenceImpl extends AbstractCrudDaoImpl<Conferenc
         statement.setString(1, entity.getName());
         statement.setDate(2, Date.valueOf(entity.getDate()));
         statement.setInt(3, entity.getLocation().getId());
-        statement.setInt(4, entity.getRegisteredPeople());
-        statement.setInt(5, entity.getVisitedPeople());
+
     }
 
 
@@ -123,8 +122,6 @@ public class CrudPageableDaoConferenceImpl extends AbstractCrudDaoImpl<Conferenc
                 withId(resultSet.getInt("conference_id"))
                 .withName(resultSet.getString("name"))
                 .withDate(resultSet.getString("date"))
-                .withRegisteredPeople(resultSet.getInt("registered_people"))
-                .withVisitedPeople(resultSet.getInt("visited_people"))
                 .build();
 
 

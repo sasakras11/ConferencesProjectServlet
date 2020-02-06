@@ -9,25 +9,20 @@ public class Conference {
 
     private final int ConferenceId;
     private String name;
-    private String suggestedName;
     private String date;
     private Location location;
     private List<User> members;
-    private int visitedPeople;
-    private int registeredPeople;
+
     private List<Speech> speeches;
 
 
     public Conference(ConferenceBuilder builder) {
         this.ConferenceId = builder.id;
         this.name = builder.name;
-        this.suggestedName = builder.suggestedName;
         this.date = builder.date;
         this.location = builder.location;
         this.members = builder.members;
-        this.visitedPeople = builder.visitedPeople;
-        this.speeches = builder.speeches;
-        this.registeredPeople = builder.registeredPeople;
+
 
     }
 
@@ -35,9 +30,6 @@ public class Conference {
         return new ConferenceBuilder();
     }
 
-    public int getRegisteredPeople() {
-        return registeredPeople;
-    }
 
     public List<Speech> getSpeeches() {
         return speeches;
@@ -63,14 +55,6 @@ public class Conference {
         this.members = members;
     }
 
-    public void setVisitedPeople(int visitedPeople) {
-        this.visitedPeople = visitedPeople;
-    }
-
-    public void setRegisteredPeople(int registeredPeople) {
-        this.registeredPeople = registeredPeople;
-    }
-
     public void setSpeeches(List<Speech> speeches) {
         this.speeches = speeches;
     }
@@ -79,9 +63,6 @@ public class Conference {
         return name;
     }
 
-    public String getSuggestedName() {
-        return suggestedName;
-    }
 
     public String getDate() {
         return date;
@@ -95,9 +76,6 @@ public class Conference {
         return members;
     }
 
-    public int getVisitedPeople() {
-        return visitedPeople;
-    }
 
 
     @Override
@@ -106,10 +84,7 @@ public class Conference {
         if (o == null || getClass() != o.getClass()) return false;
         Conference that = (Conference) o;
         return ConferenceId == that.ConferenceId &&
-                visitedPeople == that.visitedPeople &&
-                registeredPeople == that.registeredPeople &&
                 Objects.equals(name, that.name) &&
-                Objects.equals(suggestedName, that.suggestedName) &&
                 Objects.equals(date, that.date) &&
                 Objects.equals(location, that.location) &&
                 Objects.equals(members, that.members) &&
@@ -118,7 +93,7 @@ public class Conference {
 
     @Override
     public int hashCode() {
-        return Objects.hash(ConferenceId, name, suggestedName, date, location, members, visitedPeople, registeredPeople, speeches);
+        return Objects.hash(ConferenceId, name, date, location, members, speeches);
     }
 
     @Override
@@ -126,12 +101,9 @@ public class Conference {
         return "Conference{" +
                 "ConferenceId=" + ConferenceId +
                 ", name='" + name + '\'' +
-                ", suggestedName='" + suggestedName + '\'' +
                 ", date='" + date + '\'' +
                 ", location=" + location +
                 ", members=" + members +
-                ", visitedPeople=" + visitedPeople +
-                ", registeredPeople=" + registeredPeople +
                 ", speeches=" + speeches +
                 '}';
     }
@@ -139,13 +111,11 @@ public class Conference {
     public static class ConferenceBuilder {
         private int id;
         private String name;
-        private String suggestedName;
         private String date;
         private Location location;
         private List<User> members;
         private List<Speech> speeches;
-        private int visitedPeople;
-        private int registeredPeople;
+
 
 
         private ConferenceBuilder() {
@@ -155,10 +125,7 @@ public class Conference {
             return new Conference(this);
         }
 
-        public ConferenceBuilder withRegisteredPeople(int registeredPeople) {
-            this.registeredPeople = registeredPeople;
-            return this;
-        }
+
 
         public ConferenceBuilder withId(int id) {
             this.id = id;
@@ -170,10 +137,6 @@ public class Conference {
             return this;
         }
 
-        public ConferenceBuilder withSuggestedName(String suggestedName) {
-            this.suggestedName = suggestedName;
-            return this;
-        }
 
         public ConferenceBuilder withDate(String date) {
             this.date = date;
@@ -190,10 +153,7 @@ public class Conference {
             return this;
         }
 
-        public ConferenceBuilder withVisitedPeople(int visitedPeople) {
-            this.visitedPeople = visitedPeople;
-            return this;
-        }
+
 
         public ConferenceBuilder withSpeeches(List<Speech> speeches) {
             this.speeches = speeches;

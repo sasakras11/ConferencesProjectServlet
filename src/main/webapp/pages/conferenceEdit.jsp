@@ -16,11 +16,8 @@
 <body>
 
 
-<form action="/" method="POST">
-    <input type="hidden" name="command"  id = "command" value="EditConference">
+<form action="/?command=EditConference" method="POST">
     <input type="hidden" name="conferenceId"  id = "conferenceId" value="${sessionScope.conferenceToEdit.conferenceId}">
-    <input type="hidden" name="visitedPeople" id = "visitedPeople" value="${sessionScope.conferenceToEdit.visitedPeople}">
-    <input type="hidden" name="registeredPeople" id = "registeredPeople" value="${sessionScope.conferenceToEdit.registeredPeople}">
     <label for="name">name</label>
     <input type="text" name="name" id="name">
     <label for="date">date</label>

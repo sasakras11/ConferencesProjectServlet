@@ -1,13 +1,12 @@
 package com.service.impl;
 
 
-import com.context.AppContext;
 import com.dao.ConferenceGroup;
-import com.dao.DataSource;
-import com.dao.impl.CrudPageableDaoConferenceImpl;
+import com.dao.CrudPageableConferenceDao;
 import com.dao.impl.CrudUserDaoImpl;
 import com.entity.Conference;
 import com.entity.User;
+import com.exception.ValidationException;
 import com.service.util.PasswordUtil;
 import com.service.util.Validator;
 import org.junit.After;
@@ -19,15 +18,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.sql.Connection;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.*;
@@ -47,6 +41,16 @@ public class UserServiceImplTest {
                     .build();
 
 
+    private static final List<Conference> ALL_CONFERENCES = new ArrayList<>();
+
+    private static final List<Conference> FIRST_PAGE_OF_CONFERENCES = new ArrayList<>();
+    private static final List<Conference> LAST_PAGE_OF_CONFERENCES = new ArrayList<>();
+    private static final List<Conference> SECOND_PAGE_OF_CONFERENCE = new ArrayList<>();
+    private static final ConferenceGroup ALL = ConferenceGroup.ALL;
+
+
+    @Mock
+    private CrudPageableConferenceDao conferenceDao;
     @Mock
     private CrudUserDaoImpl userDao;
     @Mock
@@ -58,44 +62,56 @@ public class UserServiceImplTest {
     @InjectMocks
     private UserServiceImpl service;
 
-    @After
-    public void resetMocks() {
-        reset(userDao, passwordUtil);
-    }
-
     @Before
     public void init() {
-        DataSource source = new DataSource("src/main/resources/db.properties");
-        service = AppContext.getUserService();
+        ALL_CONFERENCES.add(Conference.builder().withId(1).withName("IT-WEEK").withDate("2026-05-01").build());
+        ALL_CONFERENCES.add(Conference.builder().withId(2).withName("RR-FEST").withDate("2820-11-02").build());
+        ALL_CONFERENCES.add(Conference.builder().withId(3).withName("TWENY FEST").withDate("2710-12-03").build());
+        ALL_CONFERENCES.add(Conference.builder().withId(4).withName("DIRECTOR-WEEK").withDate("2550-11-04").build());
+        ALL_CONFERENCES.add(Conference.builder().withId(5).withName("IT-CONFERENCE").withDate("2340-05-05").build());
+        ALL_CONFERENCES.add(Conference.builder().withId(6).withName("ONE FEST").withDate("2068-05-08").build());
+        ALL_CONFERENCES.add(Conference.builder().withId(7).withName("TWO FEST").withDate("2519-05-08").build());
+        ALL_CONFERENCES.add(Conference.builder().withId(8).withName("FR FEST").withDate("2419-05-08").build());
+        ALL_CONFERENCES.add(Conference.builder().withId(9).withName("GG FEST").withDate("2319-05-11").build());
+        ALL_CONFERENCES.add(Conference.builder().withId(10).withName("RAP FEST").withDate("2029-05-08").build());
+        ALL_CONFERENCES.add(Conference.builder().withId(11).withName("KP TEST").withDate("2019-05-07").build());
+        ALL_CONFERENCES.add(Conference.builder().withId(12).withName("RG FEST").withDate("2019-05-06").build());
+        ALL_CONFERENCES.add(Conference.builder().withId(13).withName("GK TEST").withDate("2019-05-18").build());
 
-        DataSource dataSource = new DataSource("src/test/resources/h2.properties");
-        try {
-            Connection connection = dataSource.getConnection();
-            Statement statement = connection.createStatement();
-            String dbSchemaQuery = new String(Files.readAllBytes(Paths.get("src/test/resources/dbSchema.sql")));
-            System.out.println(dbSchemaQuery);
-            statement.executeUpdate(dbSchemaQuery);
+        LAST_PAGE_OF_CONFERENCES.add(ALL_CONFERENCES.get(10));
+        LAST_PAGE_OF_CONFERENCES.add(ALL_CONFERENCES.get(11));
+        LAST_PAGE_OF_CONFERENCES.add(ALL_CONFERENCES.get(12));
 
-            String dbAddQuery = new String(Files.readAllBytes(Paths.get("src/test/resources/addDBValues.sql")));
-            System.out.println(dbAddQuery);
-            statement.executeUpdate(dbAddQuery);
-            statement.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        FIRST_PAGE_OF_CONFERENCES.add(ALL_CONFERENCES.get(0));
+        FIRST_PAGE_OF_CONFERENCES.add(ALL_CONFERENCES.get(1));
+        FIRST_PAGE_OF_CONFERENCES.add(ALL_CONFERENCES.get(2));
+        FIRST_PAGE_OF_CONFERENCES.add(ALL_CONFERENCES.get(3));
+        FIRST_PAGE_OF_CONFERENCES.add(ALL_CONFERENCES.get(4));
+
+        SECOND_PAGE_OF_CONFERENCE.add(ALL_CONFERENCES.get(5));
+        SECOND_PAGE_OF_CONFERENCE.add(ALL_CONFERENCES.get(6));
+        SECOND_PAGE_OF_CONFERENCE.add(ALL_CONFERENCES.get(7));
+        SECOND_PAGE_OF_CONFERENCE.add(ALL_CONFERENCES.get(8));
+        SECOND_PAGE_OF_CONFERENCE.add(ALL_CONFERENCES.get(9));
+
+    }
+
+    @After
+    public void resetMocks() {
+        reset(userDao, passwordUtil,conferenceDao);
     }
 
 
     @Test
-    public void whenCredentialsAreWrongLoginShouldReturnFalse() {
+    public void whenThereISNotSuchUserLoginShouldReturnOptionalEmpty() {
         when(passwordUtil.getHashedPassword(INCORRECT_PASSWORD)).thenReturn(ENCODED_INCORRECT_PASSWORD);
         when(userDao.findByUsername(anyString())).thenReturn(Optional.empty());
-        final boolean isLogin = service.login(USERNAME, INCORRECT_PASSWORD);
+        Optional<User> user = service.login(USERNAME, INCORRECT_PASSWORD);
 
-        Assert.assertFalse(isLogin);
 
-        verify(passwordUtil).getHashedPassword(eq(ENCODED_INCORRECT_PASSWORD));
-        verify(userDao).findByUsername(eq(ENCODED_INCORRECT_PASSWORD));
+        Assert.assertFalse(user.isPresent());
+        verify(passwordUtil).getHashedPassword(eq(INCORRECT_PASSWORD));
+        verify(userDao).findByUsername(eq(USERNAME));
         verifyZeroInteractions(passwordUtil);
 
     }
@@ -105,9 +121,9 @@ public class UserServiceImplTest {
         when(passwordUtil.getHashedPassword(anyString())).thenReturn(ENCODED_PASSWORD);
         when(userDao.findByUsername(anyString())).thenReturn(Optional.of(USER));
 
-        final boolean isLogin = service.login(USERNAME, PASSWORD);
+        Optional<User> user = service.login(USERNAME, PASSWORD);
 
-        Assert.assertTrue(isLogin);
+        Assert.assertTrue(user.isPresent());
 
 
         verify(passwordUtil).getHashedPassword(eq(PASSWORD));
@@ -116,38 +132,50 @@ public class UserServiceImplTest {
 
     }
 
-    @Test(expected = RuntimeException.class)
-    public void whenUserFailedValidationHeShouldNoRegistered() {
+    @Test(expected = ValidationException.class)
+    public void whenUserIsAlreadyInDatabaseHeShouldNoRegister() {
+        doNothing().when(validator).validate(any(),any());
         when(userDao.findByUsername(any())).thenReturn(Optional.of(USER));
 
-        service.register(USER.getUsername(),USER.getPassword());
+         service.register(USER.getUsername(), USER.getPassword());
+
+        verify(validator).validate("1_24&","1(*%");
+        verify(userDao).findByUsername(eq(USERNAME));
 
     }
 
     @Test
-    public void findAllConferencesShouldReturnFirstPage() {
-        List<Conference> expected = new ArrayList<>();
-        expected.add(Conference.builder().withId(1).withName("IT-WEEK").withDate("2020-05-01").build());
-        expected.add(Conference.builder().withId(2).withName("BEER-FEST").withDate("2020-05-02").build());
-        expected.add(Conference.builder().withId(3).withName("TWENY FEST").withDate("2010-05-03").build());
-        expected.add(Conference.builder().withId(4).withName("DIRECTOR-WEEK").withDate("2050-05-04").build());
-        expected.add(Conference.builder().withId(5).withName("IT-CONFERENCE").withDate("2040-05-05").build());
+    public void findAllConferencesShouldReturnFirstPageIfSelectedPageIsTooBig() {
+        when(conferenceDao.count(any())).thenReturn(13);
+        when(conferenceDao.findAll(100,5)).thenReturn(ALL_CONFERENCES);
 
-        List<Conference> actual = service.findAllConferences(-1, ConferenceGroup.ALL);
-        assertEquals(expected, actual);
+        Assert.assertEquals( LAST_PAGE_OF_CONFERENCES,service.findAllConferences(100, ALL));
+
+
     }
 
     @Test
-    public void shouldReturnLastPageIfPageNumberIsBiggerThenMax() {
+    public void findAllConferencesShouldReturnFirstPageIfSelectedPageIsNegative() {
 
-        List<Conference> expected = new ArrayList<>();
-        expected.add(Conference.builder().withId(21).withName("WAR FEST").withDate("2018-05-08").build());
-        expected.add(Conference.builder().withId(22).withName("ASR FEST").withDate("2019-05-08").build());
+        Assert.assertEquals(FIRST_PAGE_OF_CONFERENCES,service.findAllConferences(-1, ALL));
+        when(conferenceDao.count(any())).thenReturn(13);
 
-        List<Conference> actual = service.findAllConferences(10000, ConferenceGroup.ALL);
 
-        assertEquals(expected, actual);
+        verify(conferenceDao.findAll(-1,5));
+
     }
+
+    @Test
+    public void findAllConferencesShouldReturnValidPageIfPageIsIsAvailable() {
+
+        when(conferenceDao.findAll(anyInt(),anyInt())).thenReturn(ALL_CONFERENCES);
+        when(conferenceDao.count(any())).thenReturn(13);
+        Assert.assertEquals(SECOND_PAGE_OF_CONFERENCE,service.findAllConferences(2, ALL));
+
+
+        verify(conferenceDao.findAll(2,5));
+    }
+
 
 
 }

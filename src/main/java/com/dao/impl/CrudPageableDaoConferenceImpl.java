@@ -73,7 +73,7 @@ public class CrudPageableDaoConferenceImpl extends AbstractCrudDaoImpl<Conferenc
 
 
     @Override
-    public Optional<Conference> findById(Integer id) {  // work properly
+    public Optional<Conference> findById(Integer id) {
         return findByParam(id, FIND_BY_ID_QUERY, SET_STATEMENT_INT_PARAM);
     }
 

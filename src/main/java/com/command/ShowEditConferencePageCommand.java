@@ -2,7 +2,6 @@ package com.command;
 
 import com.context.AppContext;
 import com.dao.CrudPageableConferenceDao;
-import com.dao.impl.CrudPageableDaoConferenceImpl;
 import com.entity.Conference;
 import com.entity.User;
 import com.service.util.Jsp.JspMap;
@@ -19,7 +18,7 @@ public class ShowEditConferencePageCommand extends FrontCommand {
     private CrudPageableConferenceDao conferenceDao;
 
     public ShowEditConferencePageCommand() {
-     this.conferenceDao = AppContext.getConferenceDao();
+        this.conferenceDao = AppContext.getConferenceDao();
     }
 
     @Override

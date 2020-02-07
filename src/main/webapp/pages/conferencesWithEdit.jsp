@@ -23,7 +23,7 @@
             <th>registered people</th>
             <th>address</th>
             <th>date </th>
-          <th><a href="/?id=<c:out value='command=Logout'/>">Logout</a></th>
+          <th><a href="/?command=<c:out value='Logout'/>">Logout</a></th>
 
         </tr>
 <c:forEach var="conference" items="${sessionScope.conferences}">
@@ -31,7 +31,6 @@
     <tr>
     <td> <c:out value="${conference.conferenceId}"/> </td>
     <td> <c:out value="${conference.name}"/> </td>
-    <td> <c:out value="${conference.registeredPeople}"/> </td>
     <td> <c:out value="${conference.location.address}"/> </td>
     <td> <c:out value="${conference.date}"/> </td>
 

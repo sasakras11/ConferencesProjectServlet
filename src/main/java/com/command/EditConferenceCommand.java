@@ -20,6 +20,7 @@ public class EditConferenceCommand extends FrontCommand {
 
     private LocationCrudDao locationDao;
     private CrudPageableConferenceDao conferenceDao;
+
     public EditConferenceCommand() {
         locationDao = AppContext.getLocationDao();
         conferenceDao = AppContext.getConferenceDao();
@@ -27,6 +28,9 @@ public class EditConferenceCommand extends FrontCommand {
 
     @Override
     public void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpSession session = req.getSession();
+        User user = (User) session.getAttribute("user");
+
         int id = Integer.parseInt(req.getParameter("conferenceId"));
         int visitedPeople = Integer.parseInt(req.getParameter("visitedPeople"));
         int registeredPeople = Integer.parseInt(req.getParameter("registeredPeople"));
@@ -35,18 +39,13 @@ public class EditConferenceCommand extends FrontCommand {
 
         Location location = locationDao.findByConferenceId(id);
 
-
         conferenceDao.update(
                 Conference.builder().withId(id)
                         .withDate(date)
                         .withLocation(location)
                         .withName(name).build());
 
-
-        HttpSession session = req.getSession();
-
-        User user = (User)session.getAttribute("user");
-        session.setAttribute("conferences",conferenceDao.findAll(1,5, ConferenceGroup.ALL));
+        session.setAttribute("conferences", conferenceDao.findAll(1, 5, ConferenceGroup.ALL));
 
         forward(JspMap.getJspUrl(user.getStatus(), Stage.CONFERENCES_COMING));
 

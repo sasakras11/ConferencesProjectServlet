@@ -1,9 +1,13 @@
 package com;
 
 
+import com.context.AppContext;
 import com.dao.CrudPageableSpeechDao;
 import com.dao.DataSource;
 
+import com.entity.Conference;
+import com.entity.Speech;
+import com.entity.User;
 import com.mysql.cj.protocol.Resultset;
 
 import java.sql.Connection;
@@ -21,19 +25,18 @@ public class Starter {
 
         ResultSet set = st.getResultSet();
 
-//        Conference conference = Conference.builder().withId(2).build();
-//        User user = User.builder().withId(4).build();
-//        Speech speech = Speech.builder().withTopic("кирилиця")
-//                .withId(23)
-//                .withSuggestedTopic("їїї УУу іі ыыы")
-//                .withStartHour(5)
-//                .withEndHour(6)
-//                .withConference(conference)
-//                .withSpeaker(user)
-//                .withRegisteredPeople(2)
-//                .withVisitedPeople(100).build();
-//
-//       AppContext.getSpeechDao().save(speech);
+        Conference conference = Conference.builder().withId(2).build();
+       User user = User.builder().withId(4).build();
+       Speech speech = Speech.builder().withTopic("кирилиця")
+               .withId(23)
+               .withSuggestedTopic("їїї УУу іі ыыы")
+               .withStartHour(5)
+               .withEndHour(6)
+               .withConference(conference)
+               .withSpeaker(user)
+               .withRegisteredPeople(2)
+               .withVisitedPeople(100).build();
+      AppContext.getSpeechDao().save(speech);
 
 
     }

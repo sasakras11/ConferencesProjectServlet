@@ -21,7 +21,7 @@ public class CrudPageableDaoConferenceImpl extends AbstractCrudDaoImpl<Conferenc
     private static final String GET_PAGE_OF_COMING_CONFERENCES = "select * from(select * from conferences where date > current_date) as coming limit ? offset ?";
     private static final String GET_PAGE_OF_ALL_CONFERENCES = "SELECT *FROM conferences LIMIT ? OFFSET ?";
 
-    private static final String UPDATE_CONFERENCE = "UPDATE conferences SET name =?, date=?, location_id=?, registered_people=?, visited_people=? WHERE conference_id = ?";
+    private static final String UPDATE_CONFERENCE = "UPDATE conferences SET name =?, date=?, location_id=? WHERE conference_id = ?";
     private static final String SAVE_CONFERENCE = "INSERT INTO conferences(name,date,location_id) VALUES(?,?,?);";
 
     private static final String ALL_COUNT = "SELECT COUNT(*) AS total FROM conferences";
@@ -111,7 +111,7 @@ public class CrudPageableDaoConferenceImpl extends AbstractCrudDaoImpl<Conferenc
     protected void setStatementParamsWithId(PreparedStatement statement, Conference entity) throws SQLException {
 
         setStatementParams(statement, entity);
-        statement.setInt(6, entity.getConferenceId());
+        statement.setInt(4, entity.getConferenceId());
 
     }
 

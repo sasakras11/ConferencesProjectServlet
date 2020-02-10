@@ -7,6 +7,8 @@ import com.dao.LocationCrudDao;
 import com.entity.Conference;
 import com.entity.Location;
 import com.entity.User;
+import com.service.ConferenceService;
+import com.service.impl.ConferenceServiceImpl;
 import com.service.util.Jsp.JspMap;
 import com.service.util.Jsp.Stage;
 
@@ -18,12 +20,10 @@ import java.io.IOException;
 
 public class EditConferenceCommand extends FrontCommand {
 
-    private LocationCrudDao locationDao;
-    private CrudPageableConferenceDao conferenceDao;
+   ConferenceService conferenceService;
 
     public EditConferenceCommand() {
-        locationDao = AppContext.getLocationDao();
-        conferenceDao = AppContext.getConferenceDao();
+        conferenceService = AppContext.getConferenceService();
     }
 
     @Override
@@ -32,20 +32,18 @@ public class EditConferenceCommand extends FrontCommand {
         User user = (User) session.getAttribute("user");
 
         int id = Integer.parseInt(req.getParameter("conferenceId"));
-        int visitedPeople = Integer.parseInt(req.getParameter("visitedPeople"));
-        int registeredPeople = Integer.parseInt(req.getParameter("registeredPeople"));
         String date = req.getParameter("date");
         String name = req.getParameter("name");
 
-        Location location = locationDao.findByConferenceId(id);
+        Location location = conferenceService.findLocationOfConferenceId(id);
 
-        conferenceDao.update(
+        conferenceService.updateConference(
                 Conference.builder().withId(id)
                         .withDate(date)
                         .withLocation(location)
                         .withName(name).build());
 
-        session.setAttribute("conferences", conferenceDao.findAll(1, 5, ConferenceGroup.ALL));
+        session.setAttribute("conferences", conferenceService.findAllConferences(1, ConferenceGroup.ALL));
 
         forward(JspMap.getJspUrl(user.getStatus(), Stage.CONFERENCES_COMING));
 

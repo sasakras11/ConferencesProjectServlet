@@ -38,6 +38,17 @@
 
     </c:forEach>
 </table>
+<table>
+    <form action="/" method="get">
+        <tr>
+            <input type="hidden" id="command" value="ToPage" name="command">
+            <td><input type="text" id="page" name="page"/></td>
+            <td><input type="submit" value="go to page"/></td>
+            <td>${pageNum}</td>
+
+        </tr>
+    </form>
+</table>
 
 </body>
 </html>

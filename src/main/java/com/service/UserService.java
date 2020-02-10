@@ -16,5 +16,4 @@ public interface UserService {
     User register(String username,String password);
 
 
-    List<Conference> findAllConferences(int page,ConferenceGroup conferenceGroup);
 }

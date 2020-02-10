@@ -15,36 +15,48 @@
 </head>
 <body>
 
-    <table border="1" cellpadding="5">
-        <caption><h2>List of conferences</h2></caption>
-        <tr>
-            <th>ID</th>
-            <th>name</th>
-            <th>registered people</th>
-            <th>address</th>
-            <th>date </th>
-          <th><a href="/?command=<c:out value='Logout'/>">Logout</a></th>
-
-        </tr>
-<c:forEach var="conference" items="${sessionScope.conferences}">
-
+<table border="1" cellpadding="5">
+    <caption><h2>List of conferences</h2></caption>
     <tr>
-    <td> <c:out value="${conference.conferenceId}"/> </td>
-    <td> <c:out value="${conference.name}"/> </td>
-    <td> <c:out value="${conference.location.address}"/> </td>
-    <td> <c:out value="${conference.date}"/> </td>
-
-    <td>
-          <a href="/?id=<c:out value='${conference.conferenceId}&command=ShowEditConferencePage' />">Edit</a>
-         <a href="/?id=<c:out value='${conference.conferenceId}&command=ShowSpeeches'/>">Show speeches</a>
-    </td>
+        <th>ID</th>
+        <th>name</th>
+        <th>registered people</th>
+        <th>address</th>
+        <th>date</th>
+        <th><a href="/?command=<c:out value='Logout'/>">Logout</a></th>
 
     </tr>
+    <c:forEach var="conference" items="${sessionScope.conferences}">
+
+        <tr>
+            <td><c:out value="${conference.conferenceId}"/></td>
+            <td><c:out value="${conference.name}"/></td>
+            <td><c:out value="${conference.location.address}"/></td>
+            <td><c:out value="${conference.date}"/></td>
+
+            <td>
+                <a href="/?id=<c:out value='${conference.conferenceId}&command=ShowEditConferencePage' />">Edit</a>
+                <a href="/?id=<c:out value='${conference.conferenceId}&command=ShowSpeeches'/>">Show speeches</a>
+            </td>
+
+        </tr>
 
 
 
-</c:forEach>
-    </table>
+
+    </c:forEach>
+</table>
+<table>
+    <form action="/" method="get">
+        <tr>
+            <input type="hidden" id="command" value="ToPage" name="command">
+            <td><input type="text" id="page" name="page"/></td>
+            <td><input type="submit" value="go to page"/></td>
+            <td>${pageNum}</td>
+
+        </tr>
+    </form>
+</table>
 
 </body>
 </html>

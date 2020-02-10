@@ -58,17 +58,5 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    @Override
-    public List<Conference> findAllConferences(int page, ConferenceGroup conferenceGroup) {
 
-        int maxPage = conferenceDao.count(conferenceGroup) / ITEMS_PER_PAGE;
-        if (maxPage < page) {
-            return conferenceDao.findAll(maxPage + 1, ITEMS_PER_PAGE, conferenceGroup);
-        }
-        if (page < 1) {
-            return conferenceDao.findAll(1, ITEMS_PER_PAGE, conferenceGroup);
-        }
-        return conferenceDao.findAll(page, ITEMS_PER_PAGE, conferenceGroup);
-
-    }
 }

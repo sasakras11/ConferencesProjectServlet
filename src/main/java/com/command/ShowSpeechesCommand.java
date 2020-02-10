@@ -6,6 +6,7 @@ import com.dao.UserDao;
 import com.entity.Role;
 import com.entity.Speech;
 import com.entity.User;
+import com.service.SpeechService;
 import com.service.util.Jsp.JspMap;
 import com.service.util.Jsp.Stage;
 
@@ -19,15 +20,17 @@ public class ShowSpeechesCommand extends FrontCommand {
 
     private UserDao userDao;
     private CrudPageableSpeechDao speechDao;
+    private SpeechService speechService;
 
     public ShowSpeechesCommand() {
         speechDao = AppContext.getSpeechDao();
         userDao = AppContext.getUserDao();
+        speechService = AppContext.getSpeechService();
     }
 
     @Override
     public void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+speechService.
         List<Speech> speeches = speechDao.getSpeechesByConferenceId(Integer.parseInt(req.getParameter("id")));
         req.getSession().setAttribute("speeches", speeches);
 

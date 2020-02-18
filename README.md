@@ -1,4 +1,4 @@
-# Final_Servlet_Project
+# ConferencesProjectServlet
 
 Задание:
 

@@ -1,4 +1,4 @@
-# ConferencesProjectServlet
+# conferences-system-servlet
 
 Задание:
 

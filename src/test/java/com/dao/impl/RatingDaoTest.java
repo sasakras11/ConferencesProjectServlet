@@ -21,10 +21,9 @@ public class RatingDaoTest {
     public void init() {
         rating = new Rating(2,2,10);
 
-        ratingDao= new RatingDao(new DataSource("src/test/resources/h2.properties"));
-        DataSource dataSource = new DataSource("src/test/resources/h2.properties");
+        ratingDao= new RatingDao();
         try {
-            Connection connection = dataSource.getConnection();
+            Connection connection =  DataSource.getConnection();
             Statement statement = connection.createStatement();
             String dbSchemaQuery = new String(Files.readAllBytes(Paths.get("src/test/resources/dbSchema.sql")));
             System.out.println(dbSchemaQuery);

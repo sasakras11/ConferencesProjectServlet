@@ -14,9 +14,7 @@ public class LocationCrudDaoImpl extends AbstractCrudDaoImpl<Location> implement
     private static final String GET_BY_ID = "SELECT * FROM locations WHERE location_id = ?";
     private static final String GET_BY_CONFERENCE_ID = "select c.location_id,area,maxPeople,address from conferences as c inner join locations as l on c.location_id = l.location_id where c.conference_id = ?";
 
-    public LocationCrudDaoImpl(DataSource source) {
-        super(source);
-    }
+
 
 
     @Override

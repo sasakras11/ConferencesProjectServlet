@@ -17,7 +17,7 @@ DROP TABLE IF EXISTS locations;
 CREATE TABLE users
 (
     user_id  INT auto_increment NOT NULL,
-    username VARCHAR(50) NOT NULL,
+    username VARCHAR(50) NOT NULL unique ,
     password VARCHAR(200) NOT NULL,
     role   VARCHAR(30) NOT NULL,
     PRIMARY KEY (user_id)

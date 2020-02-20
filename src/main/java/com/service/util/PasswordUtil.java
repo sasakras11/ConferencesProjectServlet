@@ -11,7 +11,7 @@ import java.security.spec.InvalidKeySpecException;
 public class PasswordUtil {
 
     private static final String SALT = "abf8345f13";
-    private static final int ITERATIONS = 10000;
+    private static final int ITERATIONS = 5;
     private static final int KEY_LENGTH = 512;
 
     public String getHashedPassword(String password) {

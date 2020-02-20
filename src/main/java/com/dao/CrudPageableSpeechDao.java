@@ -12,5 +12,6 @@ public interface CrudPageableSpeechDao extends CrudPageableDao<Speech> {
     public List<Speech> getSpeechesByUserId(int userId);
     public List<Speech> getSpeechesByConferenceId(int conferenceId);
     public List<Speech> getSpeechesByUserIdAndConferenceId(int userId,int conferenceId);
+    int getMembersCount(int speechId);
 
 }

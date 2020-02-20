@@ -7,23 +7,25 @@ import com.entity.User;
 import com.exception.ValidationException;
 import com.service.ConferenceService;
 import com.service.UserService;
-import com.service.util.Jsp.JspMap;
-import com.service.util.Jsp.Stage;
+import com.service.jsp.JspMap;
+import com.service.jsp.Stage;
+
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Optional;
 
 public class AuthorizationCommand extends FrontCommand {
 
-    private UserService userService;
-    private ConferenceService conferenceService;
+    private final UserService userService;
+    private final ConferenceService conferenceService;
 
     public AuthorizationCommand() {
-        userService = AppContext.getUserService();
-        conferenceService = AppContext.getConferenceService();
+        userService = AppContext.USER_SERVICE;
+        conferenceService = AppContext.CONFERENCE_SERVICE;
     }
 
     @Override
@@ -37,13 +39,14 @@ public class AuthorizationCommand extends FrontCommand {
     }
 
     private void login(HttpServletRequest req) throws ServletException, IOException {
-        Optional<User> user = userService.login(req.getParameter("username"), req.getParameter("password"));
 
+        Optional<User> user = userService.login(req.getParameter("username"), req.getParameter("password"));
         if (user.isPresent()) {
-            req.getSession().setAttribute("user", user.get());
-            req.getSession().setAttribute("conferences",conferenceService.findAllConferences(1, ConferenceGroup.COMING));
+            HttpSession session = req.getSession();
+          session.setAttribute("user", user.get());
+           req.getSession().setAttribute("conferences",conferenceService.findAllConferences(1, ConferenceGroup.COMING));
             req.setAttribute("pageNum",1);
-            forward(JspMap.getJspUrl(user.get().getStatus(), Stage.CONFERENCES_COMING));
+            forward(user.get().getStatus().name().toLowerCase(),"conferencesComing");
         } else {
             req.setAttribute("error", "wrong credentials");
             forward("start");
@@ -57,8 +60,7 @@ public class AuthorizationCommand extends FrontCommand {
             req.getSession().setAttribute("user", user);
             req.setAttribute("conferences",conferenceService.findAllConferences(1, ConferenceGroup.COMING));
             req.setAttribute("pageNum",1);
-
-            forward(JspMap.getJspUrl(user.getStatus(), Stage.CONFERENCES_COMING));
+            forward(user.getStatus().name().toLowerCase(),"conferencesComing");
 
         } catch (ValidationException e) {
             req.setAttribute("error", e.getMessage());

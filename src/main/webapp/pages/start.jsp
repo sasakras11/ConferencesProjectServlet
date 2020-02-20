@@ -27,7 +27,6 @@
     </form>
 </table>
 
-
 <h1>${requestScope.error}</h1>
 
 </body>

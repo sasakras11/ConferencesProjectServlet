@@ -20,7 +20,7 @@ public class CrudPageableDaoConferenceImpl extends AbstractCrudDaoImpl<Conferenc
     private static final String GET_PAGE_OF_FINISHED_CONFERENCES = "select * from(select * from conferences where date < current_date) as finished limit ? offset ?";
     private static final String GET_PAGE_OF_COMING_CONFERENCES = "select * from(select * from conferences where date > current_date) as coming limit ? offset ?";
     private static final String GET_PAGE_OF_ALL_CONFERENCES = "SELECT *FROM conferences LIMIT ? OFFSET ?";
-
+    private static final String GET_CONFERENCE_BY_SPEECH_ID = "select conferences.conference_id,name,date,location_id from speeches inner join conferences on conferences.conference_id = speeches.conference_id where speech_id = ?";
     private static final String UPDATE_CONFERENCE = "UPDATE conferences SET name =?, date=?, location_id=? WHERE conference_id = ?";
     private static final String SAVE_CONFERENCE = "INSERT INTO conferences(name,date,location_id) VALUES(?,?,?);";
 
@@ -29,10 +29,6 @@ public class CrudPageableDaoConferenceImpl extends AbstractCrudDaoImpl<Conferenc
     private static final String COMING_COUNT = "SELECT COUNT(*) AS total FROM conferences where date > current_date ";
 
     private static final String FIND_BY_ID_QUERY = "SELECT * FROM conferences WHERE conference_id=?";
-
-    public CrudPageableDaoConferenceImpl(DataSource source) {
-        super(source);
-    }
 
 
     @Override
@@ -93,6 +89,11 @@ public class CrudPageableDaoConferenceImpl extends AbstractCrudDaoImpl<Conferenc
     public void save(Conference entity) {
         save(entity, SAVE_CONFERENCE);
 
+    }
+
+    @Override
+    public Optional<Conference> getConferenceBySpeechId(int speechId){
+     return findByParam(speechId,GET_CONFERENCE_BY_SPEECH_ID,SET_STATEMENT_INT_PARAM);
     }
 
     @Override

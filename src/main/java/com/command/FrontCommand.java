@@ -23,8 +23,13 @@ public abstract class FrontCommand {
 
     public abstract void process(HttpServletRequest req,HttpServletResponse resp) throws ServletException, IOException;
 
+    protected void forward(String role,String target) throws ServletException, IOException {
+        target = String.format("/pages/%s/%s.jsp", role,target);
+        RequestDispatcher dispatcher = context.getRequestDispatcher(target);
+        dispatcher.forward(request, response);
+    }
     protected void forward(String target) throws ServletException, IOException {
-        target = String.format("/pages/%s.jsp", target);
+        target = String.format("/pages/%s.jsp",target);
         RequestDispatcher dispatcher = context.getRequestDispatcher(target);
         dispatcher.forward(request, response);
     }

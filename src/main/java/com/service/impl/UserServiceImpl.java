@@ -1,9 +1,6 @@
 package com.service.impl;
 
-import com.dao.ConferenceGroup;
-import com.dao.CrudPageableConferenceDao;
 import com.dao.UserDao;
-import com.entity.Conference;
 import com.entity.Role;
 import com.entity.User;
 import com.exception.ValidationException;
@@ -11,21 +8,17 @@ import com.service.UserService;
 import com.service.util.PasswordUtil;
 import com.service.util.Validator;
 
-import java.util.List;
 import java.util.Optional;
 
 public class UserServiceImpl implements UserService {
 
-    private static final int ITEMS_PER_PAGE = 5;
     private UserDao userDao;
     private Validator validator;
-    private CrudPageableConferenceDao conferenceDao;
     private PasswordUtil passwordUtil;
 
-    public UserServiceImpl(UserDao userDao, Validator validator, CrudPageableConferenceDao conferenceDao, PasswordUtil passwordUtil) {
+    public UserServiceImpl(UserDao userDao, Validator validator,PasswordUtil passwordUtil) {
         this.userDao = userDao;
         this.validator = validator;
-        this.conferenceDao = conferenceDao;
         this.passwordUtil = passwordUtil;
     }
 
@@ -39,7 +32,6 @@ public class UserServiceImpl implements UserService {
                 .map(User::getPassword)
                 .filter(pass -> pass.equals(hashedPassword))
                 .isPresent();
-
 
         return isPresent ? byUsername : Optional.empty();
     }
@@ -57,6 +49,4 @@ public class UserServiceImpl implements UserService {
             throw new ValidationException("user is registered");
         }
     }
-
-
 }

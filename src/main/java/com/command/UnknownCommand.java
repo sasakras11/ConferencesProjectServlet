@@ -7,7 +7,6 @@ import java.util.Locale;
 
 public class UnknownCommand extends FrontCommand {
 
-
     @Override
     public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getSession().setAttribute("locale",new Locale("ua"));

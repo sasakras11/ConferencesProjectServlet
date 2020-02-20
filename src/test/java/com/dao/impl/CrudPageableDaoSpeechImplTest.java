@@ -21,10 +21,9 @@ public class CrudPageableDaoSpeechImplTest {
         @Before
         public void init() {
 
-            speechDao= new CrudPageableDaoSpeechImpl(new DataSource("src/test/resources/h2.properties"));
-            DataSource dataSource = new DataSource("src/test/resources/h2.properties");
+            speechDao= new CrudPageableDaoSpeechImpl();
             try {
-                Connection connection = dataSource.getConnection();
+                Connection connection =  DataSource.getConnection();
                 Statement statement = connection.createStatement();
                 String dbSchemaQuery = new String(Files.readAllBytes(Paths.get("src/test/resources/dbSchema.sql")));
                 System.out.println(dbSchemaQuery);

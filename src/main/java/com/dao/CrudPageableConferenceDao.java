@@ -3,6 +3,7 @@ package com.dao;
 import com.entity.Conference;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface CrudPageableConferenceDao extends CrudPageableDao<Conference> {
 
@@ -15,6 +16,7 @@ public interface CrudPageableConferenceDao extends CrudPageableDao<Conference> {
 
      void update(Conference conference);
 
+    Optional<Conference> getConferenceBySpeechId(int speechId);
 
 
 }

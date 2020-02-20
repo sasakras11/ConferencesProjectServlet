@@ -19,12 +19,7 @@ public abstract class AbstractCrudDaoImpl<E> implements CrudDao<E> {
 
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AbstractCrudDaoImpl.class);
-    private final DataSource dataSource;
 
-
-    public AbstractCrudDaoImpl(DataSource source ){
-        dataSource =source;
-    }
     protected static final BiConsumer<PreparedStatement, Integer> SET_STATEMENT_INT_PARAM = ((preparedStatement, integer) -> {
         try {
             preparedStatement.setInt(1, integer);
@@ -54,7 +49,7 @@ public abstract class AbstractCrudDaoImpl<E> implements CrudDao<E> {
 
 
     public void update(E entity, String query) {
-        try (PreparedStatement st = dataSource.getConnection().prepareStatement(query)) {
+        try (PreparedStatement st = DataSource.getConnection().prepareStatement(query)) {
 
             setStatementParamsWithId(st, entity);
             st.executeUpdate();
@@ -67,7 +62,7 @@ public abstract class AbstractCrudDaoImpl<E> implements CrudDao<E> {
     }
 
     public void save(E entity, String query) {
-        try (PreparedStatement st = dataSource.getConnection().prepareStatement(query)) {
+        try (PreparedStatement st = DataSource.getConnection().prepareStatement(query)) {
 
 
             setStatementParams(st, entity);
@@ -82,7 +77,7 @@ public abstract class AbstractCrudDaoImpl<E> implements CrudDao<E> {
 
      protected <P>List<E> findListByParam(P param,String findByParam, BiConsumer<PreparedStatement, P> designatedParamSetter){
          List<E> list = new ArrayList<>();
-         try (PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(findByParam)) {
+         try (PreparedStatement preparedStatement = DataSource.getConnection().prepareStatement(findByParam)) {
 
 
             designatedParamSetter.accept(preparedStatement, param);
@@ -104,7 +99,7 @@ public abstract class AbstractCrudDaoImpl<E> implements CrudDao<E> {
     protected List<Integer> findIdsByParam(Integer id, String query, String columnName) {
 
         List<Integer> userIdList = new ArrayList<>();
-        try (PreparedStatement preparedStatement =dataSource.getConnection().prepareStatement(query)) {
+        try (PreparedStatement preparedStatement = DataSource.getConnection().prepareStatement(query)) {
 
 
             SET_STATEMENT_INT_PARAM.accept(preparedStatement, id);
@@ -123,7 +118,7 @@ public abstract class AbstractCrudDaoImpl<E> implements CrudDao<E> {
     }
 
     protected <P> Optional<E> findByParam(P param, String findByParam, BiConsumer<PreparedStatement, P> designatedParamSetter) {
-        try (PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(findByParam)) {
+        try (PreparedStatement preparedStatement =  DataSource.getConnection().prepareStatement(findByParam)) {
 
 
             designatedParamSetter.accept(preparedStatement, param);
@@ -134,9 +129,10 @@ public abstract class AbstractCrudDaoImpl<E> implements CrudDao<E> {
             }
 
 
-        } catch (SQLException e) {
+        }
+        catch (SQLException e) {
 
-            LOGGER.error(String.format("Search by param " + param + " went wrong.Exception: %e",e));
+            LOGGER.error(String.format("Search by param " + param + " went wrong.Exception: %s",e));
             throw new SqlQueryException("Search by param " + param + " went wrong. Query :" + findByParam);
         }
 
@@ -146,7 +142,7 @@ public abstract class AbstractCrudDaoImpl<E> implements CrudDao<E> {
     public List<E> findAll(int page,int itemsPerPage,String query){
         List<E> pageItems = new ArrayList<>();
 
-        try (PreparedStatement st =dataSource.getConnection().prepareStatement(query)) {
+        try (PreparedStatement st = DataSource.getConnection().prepareStatement(query)) {
 
             st.setInt(1, itemsPerPage);
             st.setInt(2, (page - 1) * itemsPerPage);
@@ -167,7 +163,7 @@ public abstract class AbstractCrudDaoImpl<E> implements CrudDao<E> {
 
     public <P> List<E> getListById(P param, String query, BiConsumer<PreparedStatement, P> designatedParamSetter) { //need to be tested
         List<E> result = new ArrayList<>();
-        try (PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(query)) {
+        try (PreparedStatement preparedStatement =  DataSource.getConnection().prepareStatement(query)) {
 
 
             designatedParamSetter.accept(preparedStatement, param);
@@ -190,7 +186,7 @@ public abstract class AbstractCrudDaoImpl<E> implements CrudDao<E> {
     }
      public int count(String query){
          int count = 0;
-         try (Statement st = dataSource.getConnection().createStatement()) {
+         try (Statement st =  DataSource.getConnection().createStatement()) {
              st.execute(query);
 
              ResultSet set = st.getResultSet();

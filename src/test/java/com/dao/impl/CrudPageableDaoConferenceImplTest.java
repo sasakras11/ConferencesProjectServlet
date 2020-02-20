@@ -24,10 +24,10 @@ public class CrudPageableDaoConferenceImplTest {
     @Before
     public void init() {
 
-        conferenceDao = new CrudPageableDaoConferenceImpl(new DataSource("src/test/resources/h2.properties"));
-        DataSource dataSource = new DataSource("src/test/resources/h2.properties");
+        conferenceDao = new CrudPageableDaoConferenceImpl();
+
         try {
-            Connection connection = dataSource.getConnection();
+            Connection connection =  DataSource.getConnection();
             Statement statement = connection.createStatement();
             String dbSchemaQuery = new String(Files.readAllBytes(Paths.get("src/test/resources/dbSchema.sql")));
             System.out.println(dbSchemaQuery);

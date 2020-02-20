@@ -13,15 +13,16 @@ public class FrontController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request,
                          HttpServletResponse response) throws ServletException, IOException {
-        FrontCommand command = getCommand(request);       // дістаємо команду
-        command.init(getServletContext(), request, response);      // даємо їй параметри
-        command.process(request,response);    //виконуэмо
+
+
+        FrontCommand command = getCommand(request);
+        command.init(getServletContext(), request, response);
+        command.process(request,response);
     }
 
     private FrontCommand getCommand(HttpServletRequest request) {
         try {
 
-            System.out.println(request.getParameter("command"));
             Class type = Class.forName(String.format(
                     "com.command.%sCommand",
                     request.getParameter("command")));
@@ -35,8 +36,8 @@ public class FrontController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        FrontCommand command = getCommand(req);       // дістаємо команду
-        command.init(getServletContext(), req, resp);      // даємо їй параметри
+        FrontCommand command = getCommand(req);
+        command.init(getServletContext(), req, resp);
         command.process(req,resp);
     }
 }

@@ -14,9 +14,6 @@ public class RatingDao extends AbstractCrudDaoImpl<Rating> {
     private static final String UPDATE_RATING = "update ratings set rating = ?,speaker_id = ? where id = ?";
     private static final String FIND_BY_SPEAKER_ID = "select *from ratings where speaker_id = ?";
 
-    public RatingDao(DataSource source) {
-        super(source);
-    }
 
     @Override
     protected void setStatementParams(PreparedStatement statement, Rating entity) throws SQLException {

@@ -18,6 +18,10 @@ public class Speech {
     private int visitedPeople;
     private int registeredPeople;
 
+    public void setVisitedPeople(int visitedPeople) {
+        this.visitedPeople = visitedPeople;
+    }
+
     @Override
     public String toString() {
         return "Speech{" +
@@ -51,6 +55,10 @@ public class Speech {
 
     public int getVisitedPeople() {
         return visitedPeople;
+    }
+
+    public void setRegisteredPeople(int registeredPeople) {
+        this.registeredPeople = registeredPeople;
     }
 
     public int getRegisteredPeople() {

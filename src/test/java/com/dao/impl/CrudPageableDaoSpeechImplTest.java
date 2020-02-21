@@ -54,7 +54,7 @@ public class CrudPageableDaoSpeechImplTest {
 
     @Test
     public void findById() {
-        Speech expected = Speech.builder().withId(11).withStartHour(11).withSuggestedTopic("").withEndHour(5).withTopic("O garri pottere").withRegisteredPeople(31).withVisitedPeople(760).build();
+        Speech expected = Speech.builder().withId(11).withStartHour(11).withSuggestedTopic("").withEndHour(5).withTopic("Что такое Java").withRegisteredPeople(31).withVisitedPeople(760).build();
         Assert.assertEquals(expected, speechDao.findById(11).get());
 
     }
@@ -64,9 +64,9 @@ public class CrudPageableDaoSpeechImplTest {
         List<Speech> actual = speechDao.getSpeechesByUserId(5);
 
         ArrayList<Speech> expected = new ArrayList<>();
-        expected.add(Speech.builder().withId(9).withRegisteredPeople(15).withVisitedPeople(20).withEndHour(5).withSuggestedTopic("").withStartHour(9).withTopic("100 ottenkov belogo").build());
-        expected.add(Speech.builder().withId(10).withRegisteredPeople(32).withVisitedPeople(12).withEndHour(5).withSuggestedTopic("").withStartHour(10).withTopic("vlada Rosiii").build());
-        expected.add(Speech.builder().withId(19).withRegisteredPeople(500).withVisitedPeople(260).withEndHour(24).withSuggestedTopic("").withStartHour(23).withTopic("Vstre4a s Olegom Velikim").build());
+        expected.add(Speech.builder().withId(9).withRegisteredPeople(15).withVisitedPeople(20).withEndHour(5).withSuggestedTopic("").withStartHour(9).withTopic("Как писать на Java").build());
+        expected.add(Speech.builder().withId(10).withRegisteredPeople(32).withVisitedPeople(12).withEndHour(5).withSuggestedTopic("").withStartHour(10).withTopic("что такое Python").build());
+        expected.add(Speech.builder().withId(19).withRegisteredPeople(500).withVisitedPeople(260).withEndHour(24).withSuggestedTopic("").withStartHour(23).withTopic("Как учить английский").build());
         Assert.assertEquals(expected, actual);
 
 
@@ -76,7 +76,7 @@ public class CrudPageableDaoSpeechImplTest {
     public void getSpeechesByConferenceId() {
         List<Speech> actual = speechDao.getSpeechesByConferenceId(1);
         ArrayList<Speech> expected = new ArrayList<>();
-        expected.add(Speech.builder().withId(1).withVisitedPeople(100).withRegisteredPeople(200).withTopic("vlada Ukrainy").withStartHour(2).withSuggestedTopic("").withEndHour(5).build());
+        expected.add(Speech.builder().withId(1).withVisitedPeople(100).withRegisteredPeople(200).withTopic("STB ").withStartHour(2).withSuggestedTopic("").withEndHour(5).build());
         expected.add(Speech.builder().withTopic("Pro nas").withId(2).withRegisteredPeople(50).withVisitedPeople(300).withStartHour(1).withSuggestedTopic("").withEndHour(2).build());
         expected.add(Speech.builder().withTopic("O stb").withId(3).withVisitedPeople(0).withRegisteredPeople(50).withStartHour(2).withSuggestedTopic("").withEndHour(5).build());
         Assert.assertEquals(expected.get(0), actual.get(0));
@@ -87,9 +87,9 @@ public class CrudPageableDaoSpeechImplTest {
     public void getSpeechesByUserIdAndConferenceId(){
             List<Speech> actual=  speechDao.getSpeechesByUserIdAndConferenceId(1,1);
             List<Speech> expected = new ArrayList<>();
-            expected.add(Speech.builder().withId(1).withTopic("vlada Ukrainy").withSuggestedTopic("").withStartHour(2).withRegisteredPeople(200).withVisitedPeople(100).withEndHour(5).build());
-            expected.add(Speech.builder().withId(2).withTopic("Pro nas").withStartHour(1).withSuggestedTopic("").withRegisteredPeople(50).withVisitedPeople(300).withEndHour(2).build());
-
+            expected.add(Speech.builder().withId(1).withTopic("STB ").withSuggestedTopic("").withStartHour(2).withRegisteredPeople(200).withVisitedPeople(100).withEndHour(5).build());
+            expected.add(Speech.builder().withId(3).withTopic("Как поехать во Флориду").withSuggestedTopic("").withStartHour(2).withEndHour(5).withVisitedPeople(0).withRegisteredPeople(50).build());
+            expected.add(Speech.builder().withId(2).withTopic("Как стать программисто в 100").withSuggestedTopic("").withStartHour(1).withEndHour(2).withVisitedPeople(300).withRegisteredPeople(50).build());
                 Assert.assertEquals(expected,actual);
     }
 }

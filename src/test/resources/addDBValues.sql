@@ -28,7 +28,7 @@ insert into conferences(name, date, location_id)VALUES ('WAR FEST',PARSEDATETIME
 insert into conferences(name, date, location_id)VALUES ('ASR FEST',PARSEDATETIME('08/05/2019', 'dd/MM/yyyy'),2);
 
 
-insert  into users(username, password, role) VALUES ('alex','2545a890988a69836e6c158e4d3ac2ba9386da87e0dfaac403c5734eef1269f4c145fb5ad71d25b65a1bd9aa9b3ebab5160a6eb7d66829e9dc0bf09c92367605','ADMIN');
+insert  into users(username, password, role) VALUES ('alex','d1318d8105c258247a068183a96acb33a90a742a904c8405a835c53490accb22d4d15248c5f5d5c05ea306b2edf1c389c00ccda7c5de2b54bc64b2b88f145df8','ADMIN');
 insert  into users(username, password, role) VALUES ('ivan','288f1cece25978fc5a60ed916067a97e7ba555019407cb0777f85ed637155a1ac00f961f2b0a21261c51c097d6df22ca0affc6d880a201adb1f950fd1756af13','SPEAKER');
 insert  into users(username, password, role) VALUES ('ira','912e40340f0e2277ebbe8e91a008a53a42ea1560b425c0d698fe23f3ad600ba756c42cd6510288f10f9b9fb484ca61c482192b946902610258453877f4d5fab2','MODERATOR');
 insert  into users(username, password, role) VALUES ('olga','51788beddf9484765b50585dfb6dc55032f7b8b77cd7c844caacd326a347f4c9cb1cb2b1d4a979d4c301a5859706428c0693093ea2f1f6a2ff9021b7779bb94c','SPEAKER');
@@ -38,27 +38,27 @@ insert  into users(username, password, role) VALUES ('david','e91a8507b5df290a46
 insert  into users(username, password, role) VALUES ('dima','3876e1e408ec4c6f7766300e7875a1a8ad69c910182071c205895297a9b24b4c8309abda2837158324c2cadf474d53b8daaa42e887d7d1a979753925fc952c3c','VISITOR');
 insert  into users(username, password, role) VALUES ('katerina','ac245b3f84ed62649cc4cea19bdffe865c6196f95a78a5a5072a6ea132eca8ba871b6add43141086567569068b61ca33c23b2f9aa29d58ef976ee6140c6c2e29','VISITOR');
 
-insert into speeches(topic,suggested_topic, start_hour, end_hour, speaker_id, conference_id,registered_people, visited_people) values ('vlada Ukrainy','',2,5,2,1,200,100);
-insert into speeches(topic, suggested_topic, start_hour, end_hour, speaker_id, conference_id,registered_people, visited_people) values ('Pro nas','',1,2,4,1,50,300);
-insert into speeches(topic, suggested_topic, start_hour, end_hour, speaker_id, conference_id,registered_people, visited_people) values ('O stb','',2,5,2,1,50,0);
-insert into speeches(topic, suggested_topic, start_hour, end_hour, speaker_id, conference_id,registered_people, visited_people) values ('vugoranie','',3,5,2,2,2500,200);
-insert into speeches(topic, suggested_topic, start_hour, end_hour, speaker_id, conference_id,registered_people, visited_people) values ('za4em v it ','',4,5,4,2,3500,2);
-insert into speeches(topic, suggested_topic, start_hour, end_hour, speaker_id, conference_id,registered_people, visited_people) values ('kak stat milionerom','',6,5,2,2,5050,50);
-insert into speeches(topic, suggested_topic, start_hour, end_hour, speaker_id, conference_id,registered_people, visited_people) values ('vstre4a s ivanom groznum','',7,5,4,3,200,100);
-insert into speeches(topic, suggested_topic, start_hour, end_hour, speaker_id, conference_id,registered_people, visited_people) values ('top filmov','',8,5,2,3,50,20);
-insert into speeches(topic, suggested_topic, start_hour, end_hour, speaker_id, conference_id,registered_people, visited_people) values ('100 ottenkov belogo','',9,5,4,3,15,20);
-insert into speeches(topic, suggested_topic, start_hour, end_hour, speaker_id, conference_id,registered_people, visited_people) values ('vlada Rosiii','',10,5,2,3,32,12);
-insert into speeches(topic, suggested_topic, start_hour, end_hour, speaker_id, conference_id,registered_people, visited_people) values ('O garri pottere','',11,5,4,3,31,760);
-insert into speeches(topic, suggested_topic, start_hour, end_hour, speaker_id, conference_id,registered_people, visited_people) values ('kak stat veselum','',12,5,2,4,5850,2750);
-insert into speeches(topic, suggested_topic, start_hour, end_hour, speaker_id, conference_id,registered_people, visited_people) values ('top 7 navukov','',13,5,4,4,990,280);
-insert into speeches(topic, suggested_topic, start_hour, end_hour, speaker_id, conference_id,registered_people, visited_people) values ('konferentsia EPAM','',14,5,2,4,320,420);
-insert into speeches(topic, suggested_topic, start_hour, end_hour, speaker_id, conference_id,registered_people, visited_people) values ('8 geroev','',15,5,4,4,501,232);
-insert into speeches(topic, suggested_topic, start_hour, end_hour, speaker_id, conference_id,registered_people, visited_people) values ('Rama v 10','',16,5,2,4,540,50);
-insert into speeches(topic, suggested_topic, start_hour, end_hour, speaker_id, conference_id,registered_people, visited_people) values ('eda lonferentsia','',20,21,2,4,100,20);
-insert into speeches(topic, suggested_topic, start_hour, end_hour, speaker_id, conference_id,registered_people, visited_people) values ('vstre4a s Vladimirov','',22,23,4,4,500,250);
-insert into speeches(topic, suggested_topic, start_hour, end_hour, speaker_id, conference_id,registered_people, visited_people) values ('Vstre4a s Olegom Velikim','',23,24,2,5,500,260);
-insert into speeches(topic, suggested_topic, start_hour, end_hour, speaker_id, conference_id,registered_people, visited_people) values ('vlada Belarusi','',0,1,4,5,500,200);
-insert into speeches(topic, suggested_topic, start_hour, end_hour, speaker_id, conference_id,registered_people, visited_people) values ('Ser Man Meeting','',2,3,4,5,500,200);
+insert into speeches(topic,suggested_topic, start_hour, end_hour, speaker_id, conference_id,registered_people, visited_people) values ('STB ','',2,5,2,1,200,100);
+insert into speeches(topic, suggested_topic, start_hour, end_hour, speaker_id, conference_id,registered_people, visited_people) values ('Как стать программисто в 100','',1,2,4,1,50,300);
+insert into speeches(topic, suggested_topic, start_hour, end_hour, speaker_id, conference_id,registered_people, visited_people) values ('Как поехать во Флориду','',2,5,2,1,50,0);
+insert into speeches(topic, suggested_topic, start_hour, end_hour, speaker_id, conference_id,registered_people, visited_people) values ('Junit speech','',3,5,2,2,2500,200);
+insert into speeches(topic, suggested_topic, start_hour, end_hour, speaker_id, conference_id,registered_people, visited_people) values ('Spring boot speech','',4,5,4,2,3500,2);
+insert into speeches(topic, suggested_topic, start_hour, end_hour, speaker_id, conference_id,registered_people, visited_people) values ('Spring security speech','',6,5,2,2,5050,50);
+insert into speeches(topic, suggested_topic, start_hour, end_hour, speaker_id, conference_id,registered_people, visited_people) values ('Встреча выпускников','',7,5,4,3,200,100);
+insert into speeches(topic, suggested_topic, start_hour, end_hour, speaker_id, conference_id,registered_people, visited_people) values ('О еде','',8,5,2,3,50,20);
+insert into speeches(topic, suggested_topic, start_hour, end_hour, speaker_id, conference_id,registered_people, visited_people) values ('Как писать на Java','',9,5,4,3,15,20);
+insert into speeches(topic, suggested_topic, start_hour, end_hour, speaker_id, conference_id,registered_people, visited_people) values ('что такое Python','',10,5,2,3,32,12);
+insert into speeches(topic, suggested_topic, start_hour, end_hour, speaker_id, conference_id,registered_people, visited_people) values ('Что такое Java','',11,5,4,3,31,760);
+insert into speeches(topic, suggested_topic, start_hour, end_hour, speaker_id, conference_id,registered_people, visited_people) values ('как стать разработчиком','',12,5,2,4,5850,2750);
+insert into speeches(topic, suggested_topic, start_hour, end_hour, speaker_id, conference_id,registered_people, visited_people) values ('какой язык програмированния выбрать','',13,5,4,4,990,280);
+insert into speeches(topic, suggested_topic, start_hour, end_hour, speaker_id, conference_id,registered_people, visited_people) values ('10 лет одичества','',14,5,2,4,320,420);
+insert into speeches(topic, suggested_topic, start_hour, end_hour, speaker_id, conference_id,registered_people, visited_people) values ('Как стать Программистом','',15,5,4,4,501,232);
+insert into speeches(topic, suggested_topic, start_hour, end_hour, speaker_id, conference_id,registered_people, visited_people) values ('Уроки йоги','',16,5,2,4,540,50);
+insert into speeches(topic, suggested_topic, start_hour, end_hour, speaker_id, conference_id,registered_people, visited_people) values ('Как писать на Python','',20,21,2,4,100,20);
+insert into speeches(topic, suggested_topic, start_hour, end_hour, speaker_id, conference_id,registered_people, visited_people) values ('Как играть на гитаре','',22,23,4,4,500,250);
+insert into speeches(topic, suggested_topic, start_hour, end_hour, speaker_id, conference_id,registered_people, visited_people) values ('Как учить английский','',23,24,2,5,500,260);
+insert into speeches(topic, suggested_topic, start_hour, end_hour, speaker_id, conference_id,registered_people, visited_people) values ('Уроки испанского','',0,1,4,5,500,200);
+insert into speeches(topic, suggested_topic, start_hour, end_hour, speaker_id, conference_id,registered_people, visited_people) values ('Уроки китайского','',2,3,4,5,500,200);
 
 insert into speech_id_user_id_relation(speech_id, user_id) VALUES (1,1);
 insert into speech_id_user_id_relation(speech_id, user_id) VALUES (2,1);

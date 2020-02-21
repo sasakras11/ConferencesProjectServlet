@@ -48,7 +48,7 @@ public class CrudUserDaoImplTest {
 
         User user = new User.UserBuilder()
                 .withId(1)
-                .withPassword(AppContext.getPasswordUtil().getHashedPassword("pass"))
+                .withPassword(AppContext.getPasswordUtil().getHashedPassword("alex"))
                 .withUsername("alex")
                 .withStatus(Role.valueOf("ADMIN")).build();
 
@@ -60,7 +60,7 @@ public class CrudUserDaoImplTest {
      public void findByUserName(){
          User user = new User.UserBuilder()
                  .withId(1)
-                 .withPassword(AppContext.getPasswordUtil().getHashedPassword("pass"))
+                 .withPassword(AppContext.getPasswordUtil().getHashedPassword("alex"))
                  .withUsername("alex")
                  .withStatus(Role.valueOf("ADMIN")).build();
 

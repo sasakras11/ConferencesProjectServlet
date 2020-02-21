@@ -20,10 +20,17 @@ public class ShowSpeechesCommand extends FrontCommand {
     @Override
     public void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        String conferenceId = req.getParameter("conferenceId");
-        req.setAttribute("speeches",speechService.findAllSpeechesByConferenceId(conferenceId));
         User user = (User) req.getSession().getAttribute("user");
-        forward(user.getStatus().name().toLowerCase()+"/speeches");
+        String conferenceId = req.getParameter("conferenceId");
+        String type = req.getParameter("type");
+        req.setAttribute("speeches",speechService.findAllSpeechesByConferenceId(conferenceId));
 
+        if(type.equals("coming")){
+            req.setAttribute("userSpeechesIds",speechService.getUserSpeechesIds(user.getUserId()));
+            forward(user.getStatus().name().toLowerCase()+"/speechesComing");
+        }
+        else{
+            forward(user.getStatus().name().toLowerCase()+"/speechesFinished");
+        }
     }
 }

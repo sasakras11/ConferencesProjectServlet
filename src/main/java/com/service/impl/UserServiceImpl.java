@@ -24,9 +24,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Optional<User> login(String username, String password) {
-        String hashedPassword = passwordUtil.getHashedPassword(password);
 
         Optional<User> byUsername = userDao.findByUsername(username);
+        String hashedPassword = passwordUtil.getHashedPassword(password);
 
         boolean isPresent = byUsername
                 .map(User::getPassword)

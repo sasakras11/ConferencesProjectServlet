@@ -3,12 +3,10 @@ package com.dao.impl;
 import com.dao.CrudPageableSpeechDao;
 import com.dao.DataSource;
 import com.entity.Speech;
-import com.entity.User;
 import com.exception.SqlQueryException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.xml.crypto.Data;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -29,11 +27,12 @@ public class CrudPageableDaoSpeechImpl extends AbstractCrudDaoImpl<Speech> imple
     private static final Logger LOGGER = LoggerFactory.getLogger(CrudPageableDaoSpeechImpl.class);
     private static final String GET_COUNT = "select COUNT(*) from speeches";
     private static final String GET_PAGE_OF_ALL_SPEECHES = "SELECT *FROM speeches LIMIT ? OFFSET ?";
-    private static final String GET_COUNT_OF_MEMBERS_OF_SPEECH  = "select count(*) as f from speech_id_user_id_relation where speech_id = ?";
+    private static final String GET_COUNT_OF_MEMBERS_OF_SPEECH = "select count(*) as c from  speech_id_user_id_relation where speech_id=?";
     private static final String RESERVE_PLACE = "insert into speech_id_user_id_relation(speech_id,user_id) values(?,?)";
-
-
-
+    private static final String CHECK_IF_ROW_IS_ALREADY_PRESENT_IN_USER_ID_SPEECH_ID_RELATION = "select *from speech_id_user_id_relation where speech_id = ? and user_id = ?";
+    private static final String GET_SPEECHES_ID_OF_USER = "select speech_id from speech_id_user_id_relation where user_id = ?";
+    private static final String GET_USER_SPEECHES = "select s.speech_id,topic,suggested_topic,start_hour,end_hour,conference_id,speaker_id,registered_people,visited_people from speeches as s inner join speech_id_user_id_relation as r on s.speech_id = r.speech_id where user_id = ?";
+    private static final String DELETE_RESERVATION = "delete from speech_id_user_id_relation where speech_id = ? and user_id = ?";
     @Override
     public Optional<Speech> findById(Integer id) {
         return findByParam(id, FIND_BY_ID_QUERY, SET_STATEMENT_INT_PARAM);
@@ -43,7 +42,6 @@ public class CrudPageableDaoSpeechImpl extends AbstractCrudDaoImpl<Speech> imple
     @Override
     public void deleteById(Integer id) {
         throw new UnsupportedOperationException("deleting not supported");
-
     }
 
     public List<Speech> getSpeechesByUserId(int userId) {
@@ -68,7 +66,7 @@ public class CrudPageableDaoSpeechImpl extends AbstractCrudDaoImpl<Speech> imple
 
     public List<Speech> getSpeechesByUserIdAndConferenceId(int userId, int conferenceId) {
         List<Speech> result = new ArrayList<>();
-        try (PreparedStatement st =  DataSource.getConnection().prepareStatement(GET_SPEECHES_BY_USER_ID_AND_CONFERENCE_ID)) {
+        try (PreparedStatement st = DataSource.getConnection().prepareStatement(GET_SPEECHES_BY_USER_ID_AND_CONFERENCE_ID)) {
 
             SET_STATEMENT_INT_PARAM.accept(st, conferenceId);
             SET_STATEMENT_PARAM_INT_TWO.accept(st, userId);
@@ -91,7 +89,6 @@ public class CrudPageableDaoSpeechImpl extends AbstractCrudDaoImpl<Speech> imple
     }
 
 
-
     @Override
     public int count() {
         return count(GET_COUNT);
@@ -109,12 +106,11 @@ public class CrudPageableDaoSpeechImpl extends AbstractCrudDaoImpl<Speech> imple
         statement.setInt(3, entity.getStartHour());
         statement.setInt(4, entity.getEndHour());
         statement.setInt(5, entity.getConference().getConferenceId());
-        statement.setInt(6,entity.getSpeaker().getUserId());
+        statement.setInt(6, entity.getSpeaker().getUserId());
         statement.setInt(7, entity.getRegisteredPeople());
         statement.setInt(8, entity.getVisitedPeople());
 
     }
-
 
 
     @Override
@@ -143,11 +139,10 @@ public class CrudPageableDaoSpeechImpl extends AbstractCrudDaoImpl<Speech> imple
 
             statement.setInt(1, speechId);
             ResultSet set = statement.executeQuery();
-           if(set.next()){
-               return set.getInt("f");
-           }
-        }
-        catch (SQLException e) {
+            if (set.next()) {
+                return set.getInt("c");
+            }
+        } catch (SQLException e) {
             LOGGER.error("Searching count of speech members went wrong");
             return 0;
 
@@ -155,17 +150,52 @@ public class CrudPageableDaoSpeechImpl extends AbstractCrudDaoImpl<Speech> imple
         return 0;
     }
 
-    public void reservePlace(int speechId,int userId){
-        try(PreparedStatement ps = DataSource.getConnection().prepareStatement(RESERVE_PLACE)){
-            ps.setInt(1,speechId);
-            ps.setInt(2,userId);
+    @Override
+    public void insertIntoSpeechIdUserIdRelation(int speechId, int userId) {
+        try (PreparedStatement ps = DataSource.getConnection().prepareStatement(RESERVE_PLACE)) {
+            ps.setInt(1, speechId);
+            ps.setInt(2, userId);
             ps.executeUpdate();
 
         } catch (SQLException e) {
-            LOGGER.warn(String.format("cannot reserve place on speech with id [%s] for user with id [%s]",speechId,userId));
+            LOGGER.warn(String.format("cannot reserve place on speech with id [%s] for user with id [%s]", speechId, userId));
         }
 
 
     }
 
+    @Override
+    public boolean isRowPresentInSpeechIdUserIdRelation(int speechId, int userId) {
+        try (PreparedStatement ps = DataSource.getConnection().prepareStatement(CHECK_IF_ROW_IS_ALREADY_PRESENT_IN_USER_ID_SPEECH_ID_RELATION)) {
+            ps.setInt(1, speechId);
+            ps.setInt(2, userId);
+            ResultSet result = ps.executeQuery();
+            return result.next();
+        } catch (SQLException e) {
+            LOGGER.warn(String.format("user already reserve place on speech with id [%s] for user with id [%s]", speechId, userId));
+            return true;
+        }
+
+    }
+
+    public List<Integer> getUserSpeechesIds(int userId) {
+        return findIdsByParam(userId, GET_SPEECHES_ID_OF_USER, "speech_id");
+    }
+
+    @Override
+    public List<Speech> getUserSpeeches(int userId) {
+        return getListById(userId, GET_USER_SPEECHES, SET_STATEMENT_INT_PARAM);
+    }
+
+
+    @Override
+    public void deleteFromSpeechIdUserIdRelation(int speechId, int userId) {
+        try (PreparedStatement ps = DataSource.getConnection().prepareStatement(DELETE_RESERVATION)) {
+            ps.setInt(1, speechId);
+            ps.setInt(2, userId);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            LOGGER.warn(String.format("exception when deleting reservation with speech with id [%s] for user with id [%s]", speechId, userId));
+        }
+    }
 }

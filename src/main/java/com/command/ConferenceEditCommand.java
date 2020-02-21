@@ -6,9 +6,6 @@ import com.entity.Conference;
 import com.entity.Location;
 import com.entity.User;
 import com.service.ConferenceService;
-import com.service.jsp.JspMap;
-import com.service.jsp.Stage;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

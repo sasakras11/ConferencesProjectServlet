@@ -7,6 +7,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import javax.xml.crypto.Data;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.Connection;
@@ -27,6 +28,7 @@ public class CrudPageableDaoConferenceImplTest {
         conferenceDao = new CrudPageableDaoConferenceImpl();
 
         try {
+            DataSource.setNewProperties("/home/alex/IdeaProjects/Final_Servlet_Project/src/test/resources/h2.properties");
             Connection connection =  DataSource.getConnection();
             Statement statement = connection.createStatement();
             String dbSchemaQuery = new String(Files.readAllBytes(Paths.get("src/test/resources/dbSchema.sql")));

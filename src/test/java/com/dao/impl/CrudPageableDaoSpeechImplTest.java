@@ -14,6 +14,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class CrudPageableDaoSpeechImplTest {
 
     CrudPageableDaoSpeechImpl speechDao;
@@ -23,6 +24,8 @@ public class CrudPageableDaoSpeechImplTest {
 
             speechDao= new CrudPageableDaoSpeechImpl();
             try {
+                DataSource.setNewProperties("/home/alex/IdeaProjects/Final_Servlet_Project/src/test/resources/h2.properties");
+
                 Connection connection =  DataSource.getConnection();
                 Statement statement = connection.createStatement();
                 String dbSchemaQuery = new String(Files.readAllBytes(Paths.get("src/test/resources/dbSchema.sql")));
@@ -43,11 +46,11 @@ public class CrudPageableDaoSpeechImplTest {
     public void getListOfSpeechesByConferenceIdShouldBeCorrect() {
         List<Speech> list = speechDao.getSpeechesByConferenceId(3);
         List<Speech> expected = new ArrayList<>();
-        expected.add(Speech.builder().withTopic("vstre4a s ivanom groznum").withId(7).withSuggestedTopic("").withEndHour(5).withStartHour(7).withVisitedPeople(100).withRegisteredPeople(200).build());
-        expected.add(Speech.builder().withTopic("top filmov").withId(8).withSuggestedTopic("").withEndHour(5).withStartHour(8).withVisitedPeople(20).withRegisteredPeople(50).build());
-        expected.add(Speech.builder().withTopic("100 ottenkov belogo").withId(9).withSuggestedTopic("").withEndHour(5).withStartHour(9).withVisitedPeople(20).withRegisteredPeople(15).build());
-        expected.add(Speech.builder().withTopic("vlada Rosiii").withId(10).withSuggestedTopic("").withEndHour(5).withStartHour(10).withVisitedPeople(12).withRegisteredPeople(32).build());
-        expected.add(Speech.builder().withTopic("O garri pottere").withId(11).withSuggestedTopic("").withEndHour(5).withStartHour(11).withVisitedPeople(760).withRegisteredPeople(31).build());
+        expected.add(Speech.builder().withTopic("Встреча выпускников").withId(7).withSuggestedTopic("").withEndHour(5).withStartHour(7).withVisitedPeople(100).withRegisteredPeople(200).build());
+        expected.add(Speech.builder().withTopic("О еде").withId(8).withSuggestedTopic("").withEndHour(5).withStartHour(8).withVisitedPeople(20).withRegisteredPeople(50).build());
+        expected.add(Speech.builder().withTopic("Как писать на Java").withId(9).withSuggestedTopic("").withEndHour(5).withStartHour(9).withVisitedPeople(20).withRegisteredPeople(15).build());
+        expected.add(Speech.builder().withTopic("что такое Python").withId(10).withSuggestedTopic("").withEndHour(5).withStartHour(10).withVisitedPeople(12).withRegisteredPeople(32).build());
+        expected.add(Speech.builder().withTopic("Что такое Java").withId(11).withSuggestedTopic("").withEndHour(5).withStartHour(11).withVisitedPeople(760).withRegisteredPeople(31).build());
 
         Assert.assertEquals(list, expected);
     }
@@ -88,7 +91,6 @@ public class CrudPageableDaoSpeechImplTest {
             List<Speech> actual=  speechDao.getSpeechesByUserIdAndConferenceId(1,1);
             List<Speech> expected = new ArrayList<>();
             expected.add(Speech.builder().withId(1).withTopic("STB ").withSuggestedTopic("").withStartHour(2).withRegisteredPeople(200).withVisitedPeople(100).withEndHour(5).build());
-            expected.add(Speech.builder().withId(3).withTopic("Как поехать во Флориду").withSuggestedTopic("").withStartHour(2).withEndHour(5).withVisitedPeople(0).withRegisteredPeople(50).build());
             expected.add(Speech.builder().withId(2).withTopic("Как стать программисто в 100").withSuggestedTopic("").withStartHour(1).withEndHour(2).withVisitedPeople(300).withRegisteredPeople(50).build());
                 Assert.assertEquals(expected,actual);
     }

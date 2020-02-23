@@ -27,6 +27,8 @@ public class CrudUserDaoImplTest {
 
         userDao = new CrudUserDaoImpl();
         try {
+            DataSource.setNewProperties("/home/alex/IdeaProjects/Final_Servlet_Project/src/test/resources/h2.properties");
+
             Connection connection =  DataSource.getConnection();
             Statement statement = connection.createStatement();
             String dbSchemaQuery = new String(Files.readAllBytes(Paths.get("src/test/resources/dbSchema.sql")));

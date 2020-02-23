@@ -17,6 +17,7 @@ public class DataSource {
     private static HikariConfig config = new HikariConfig();
     private static HikariDataSource ds;
 
+
     static {
         try {
             Properties properties = new Properties();
@@ -39,6 +40,27 @@ public class DataSource {
     }
 
     private DataSource() {
+    }
+
+    public static void setNewProperties(String prop){
+        try {
+            Properties properties = new Properties();
+            properties.load(new FileReader(prop));
+
+            config.setJdbcUrl(properties.getProperty("db.url"));
+            config.setUsername(properties.getProperty("db.username"));
+            config.setPassword(properties.getProperty("db.password"));
+            config.setDriverClassName(properties.getProperty("db.driver"));
+            config.addDataSourceProperty("cachePrepStmts", "true");
+            config.addDataSourceProperty("prepStmtCacheSize", "250");
+            config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
+            config.setMaximumPoolSize(150);
+
+            ds = new HikariDataSource(config);
+
+        } catch (IOException e) {
+            LOGGER.warn("cannot read properties file");
+        }
     }
 
     public static Connection getConnection() throws SQLException {

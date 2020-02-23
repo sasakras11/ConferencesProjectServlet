@@ -36,7 +36,7 @@ public class ConferenceEditCommand extends FrontCommand {
                         .withLocation(location)
                         .withName(name).build());
 
-        session.setAttribute("conferences", conferenceService.findAllConferences(1, ConferenceGroup.ALL));
-        forward(user.getStatus().name().toLowerCase(),"conferencesComing");
+        req.setAttribute("conferences", conferenceService.findAllConferences(1, ConferenceGroup.ALL));
+        forward(user.getStatus().name().toLowerCase()+"/conferencesComing");
     }
 }

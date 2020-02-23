@@ -20,6 +20,7 @@ public class ShowConferenceEditPageCommand extends FrontCommand {
     public void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int id = Integer.parseInt(req.getParameter("conferenceId"));
         Conference conference = conferenceService.findConferenceById(id).get();
+
         User user = (User) req.getSession().getAttribute("user");
        req.setAttribute("conference", conference);
        forward(user.getStatus().name().toLowerCase()+"/conferenceEdit");

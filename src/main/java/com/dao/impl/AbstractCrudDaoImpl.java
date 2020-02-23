@@ -20,6 +20,7 @@ public abstract class AbstractCrudDaoImpl<E> implements CrudDao<E> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AbstractCrudDaoImpl.class);
 
+
     protected static final BiConsumer<PreparedStatement, Integer> SET_STATEMENT_INT_PARAM = ((preparedStatement, integer) -> {
         try {
             preparedStatement.setInt(1, integer);
@@ -54,9 +55,9 @@ public abstract class AbstractCrudDaoImpl<E> implements CrudDao<E> {
             setStatementParamsWithId(st, entity);
             st.executeUpdate();
 
-        } catch (SQLException e) {
+        }
+        catch (SQLException e) {
             LOGGER.error(String.format("updating went wrong .Query - %s",query));
-            throw new SqlQueryException(query);
         }
 
     }

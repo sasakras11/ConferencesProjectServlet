@@ -59,7 +59,7 @@ public class RegisterCommandTest {
 
     @Test
     public void registrationShouldBeSuccessfulIfCredentialsAreVerified() throws ServletException, IOException {
-        when(request.getParameter("register")).thenReturn("r");
+        when(request.getParameter("registration")).thenReturn("r");
         when(request.getParameter("username")).thenReturn(USERNAME);
         when(request.getParameter("password")).thenReturn(PASSWORD);
         when(userService.register(USERNAME, PASSWORD)).thenReturn(USER);
@@ -70,7 +70,7 @@ public class RegisterCommandTest {
 
         registerCommand.process(request, response);
 
-        verify(request, times(3)).getParameter(any());
+        verify(request, times(4)).getParameter(any());
 
     }
 }

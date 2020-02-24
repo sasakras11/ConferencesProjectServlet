@@ -74,7 +74,7 @@
                                     <td><c:out value="${speech.startHour}"/></td>
                                     <td><c:out value="${speech.endHour}"/></td>
                                     <td><c:out value="${speech.speaker.username}"/></td>
-                                    <td><c:out value="${speech.registeredPeople}"/></td>
+                                     <td><c:out value="${speech.registeredPeople}"/></td>
                                 </tr>
                             </c:forEach>
                             </tbody>

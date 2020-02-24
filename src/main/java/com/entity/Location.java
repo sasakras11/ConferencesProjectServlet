@@ -7,7 +7,6 @@ public class Location {
     private final int area;
     private final int maxPeople;
 
-
     public Location(int id, String address, int area, int maxPeople) {
         this.id = id;
         this.address = address;
@@ -15,46 +14,42 @@ public class Location {
         this.maxPeople = maxPeople;
     }
 
-
-    public Location(LocationBuilder builder){
+    public Location(LocationBuilder builder) {
         this.address = builder.address;
         this.area = builder.area;
         this.id = builder.id;
         this.maxPeople = builder.maxPeople;
     }
 
+    public static LocationBuilder locationBuilder() {
+        return new LocationBuilder();
+    }
+
     public int getMaxPeople() {
         return maxPeople;
     }
-
 
     public int getId() {
         return id;
     }
 
-
     public String getAddress() {
         return address;
     }
-
 
     public int getArea() {
         return area;
     }
 
-    public  static LocationBuilder locationBuilder(){
-        return new LocationBuilder();
-    }
     public static class LocationBuilder {
         private int id;
         private String address;
         private int area;
         private int maxPeople;
 
-     private  LocationBuilder(){
+        private LocationBuilder() {
 
-     }
-
+        }
 
         public Location build() {
             return new Location(this);
@@ -75,10 +70,9 @@ public class Location {
             return this;
         }
 
-        public LocationBuilder withMaxPeople(int maxPeople){
-        this.maxPeople = maxPeople;
-        return this;
-
+        public LocationBuilder withMaxPeople(int maxPeople) {
+            this.maxPeople = maxPeople;
+            return this;
         }
     }
-    }
+}

@@ -24,7 +24,6 @@ public class ShowSpeechesCommand extends FrontCommand {
         String conferenceId = req.getParameter("conferenceId");
         String type = req.getParameter("type");
         req.setAttribute("speeches",speechService.findAllSpeechesByConferenceId(conferenceId));
-
         if(type.equals("coming")){
             req.setAttribute("userSpeechesIds",speechService.getUserSpeechesIds(user.getUserId()));
             forward(user.getStatus().name().toLowerCase()+"/speechesComing");

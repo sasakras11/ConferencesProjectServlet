@@ -23,6 +23,5 @@ public class ShowSpeechEditPageCommand extends FrontCommand {
          req.setAttribute("speech",speechService.findById(req.getParameter("speechId")).get());
          User user = (User) req.getSession().getAttribute("user");
          forward(user.getStatus().name().toLowerCase()+"/speechEdit");
-
     }
 }

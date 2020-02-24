@@ -17,7 +17,6 @@ import java.util.Optional;
 public class CrudPageableDaoSpeechImpl extends AbstractCrudDaoImpl<Speech> implements CrudPageableSpeechDao {
 
 
-    private static final String FIND_SPEECHES_OF_CONFERENCE = "select *from speeches where conference_id = ?";
     private static final String GET_SPEECHES_BY_USER_ID_AND_CONFERENCE_ID = "select su.speech_id,topic,suggested_topic,start_hour,end_hour,conference_id,speaker_id,registered_people,visited_people from users as u inner join speech_id_user_id_relation as su on u.user_id = su.user_id inner join speeches as s on su.speech_id = s.speech_id where conference_id = ? and su.user_id = ?";
     private static final String GET_SPEECHES_BY_USER_ID = " select su.speech_id,topic,suggested_topic,start_hour,end_hour,conference_id,speaker_id,registered_people,visited_people from speeches as s inner join speech_id_user_id_relation as su on s.speech_id = su.speech_id inner join users as u on u.user_id=su.user_id where su.user_id = ?";
     private static final String UPDATE_SPEECH = "UPDATE speeches set topic=?,suggested_topic=?,start_hour=?,end_hour=?,conference_id=?,speaker_id=?,registered_people = ?,visited_people=? where speech_id=?";
@@ -33,11 +32,11 @@ public class CrudPageableDaoSpeechImpl extends AbstractCrudDaoImpl<Speech> imple
     private static final String GET_SPEECHES_ID_OF_USER = "select speech_id from speech_id_user_id_relation where user_id = ?";
     private static final String GET_USER_SPEECHES = "select s.speech_id,topic,suggested_topic,start_hour,end_hour,conference_id,speaker_id,registered_people,visited_people from speeches as s inner join speech_id_user_id_relation as r on s.speech_id = r.speech_id where user_id = ?";
     private static final String DELETE_RESERVATION = "delete from speech_id_user_id_relation where speech_id = ? and user_id = ?";
+
     @Override
     public Optional<Speech> findById(Integer id) {
         return findByParam(id, FIND_BY_ID_QUERY, SET_STATEMENT_INT_PARAM);
     }
-
 
     @Override
     public void deleteById(Integer id) {
@@ -50,7 +49,6 @@ public class CrudPageableDaoSpeechImpl extends AbstractCrudDaoImpl<Speech> imple
 
     public List<Speech> getSpeechesByConferenceId(int conferenceId) {
         return getListById(conferenceId, GET_SPEECHES_BY_CONFERENCE_ID, SET_STATEMENT_INT_PARAM);
-
     }
 
     @Override
@@ -63,8 +61,8 @@ public class CrudPageableDaoSpeechImpl extends AbstractCrudDaoImpl<Speech> imple
         update(entity, UPDATE_SPEECH);
     }
 
-
     public List<Speech> getSpeechesByUserIdAndConferenceId(int userId, int conferenceId) {
+
         List<Speech> result = new ArrayList<>();
         try (PreparedStatement st = DataSource.getConnection().prepareStatement(GET_SPEECHES_BY_USER_ID_AND_CONFERENCE_ID)) {
 
@@ -77,17 +75,11 @@ public class CrudPageableDaoSpeechImpl extends AbstractCrudDaoImpl<Speech> imple
                 }
                 return result;
             }
-
         } catch (SQLException e) {
             LOGGER.error("Searching speeches of conference of user went wrong ");
-
             throw new SqlQueryException("Searching speeches of conference of user went wrong ");
-
         }
-
-
     }
-
 
     @Override
     public int count() {
@@ -109,9 +101,7 @@ public class CrudPageableDaoSpeechImpl extends AbstractCrudDaoImpl<Speech> imple
         statement.setInt(6, entity.getSpeaker().getUserId());
         statement.setInt(7, entity.getRegisteredPeople());
         statement.setInt(8, entity.getVisitedPeople());
-
     }
-
 
     @Override
     protected void setStatementParamsWithId(PreparedStatement statement, Speech entity) throws SQLException {
@@ -121,6 +111,7 @@ public class CrudPageableDaoSpeechImpl extends AbstractCrudDaoImpl<Speech> imple
 
     @Override
     protected Speech mapResultSetToEntity(ResultSet resultSet) throws SQLException {
+
         return Speech.builder()
                 .withId(resultSet.getInt("speech_id"))
                 .withTopic(resultSet.getString("topic"))
@@ -129,29 +120,28 @@ public class CrudPageableDaoSpeechImpl extends AbstractCrudDaoImpl<Speech> imple
                 .withRegisteredPeople(resultSet.getInt("registered_people"))
                 .withVisitedPeople(resultSet.getInt("visited_people"))
                 .withSuggestedTopic(resultSet.getString("suggested_topic")).build();
-
-
     }
 
     @Override
     public int getMembersCount(int speechId) {
-        try (PreparedStatement statement = DataSource.getConnection().prepareStatement(GET_COUNT_OF_MEMBERS_OF_SPEECH)) {
 
+        try (PreparedStatement statement = DataSource.getConnection().prepareStatement(GET_COUNT_OF_MEMBERS_OF_SPEECH)) {
             statement.setInt(1, speechId);
-            ResultSet set = statement.executeQuery();
-            if (set.next()) {
-                return set.getInt("c");
+            try (ResultSet set = statement.executeQuery()) {
+                if (set.next()) {
+                    return set.getInt("c");
+                }
             }
         } catch (SQLException e) {
             LOGGER.error("Searching count of speech members went wrong");
             return 0;
-
         }
         return 0;
     }
 
     @Override
     public void insertIntoSpeechIdUserIdRelation(int speechId, int userId) {
+
         try (PreparedStatement ps = DataSource.getConnection().prepareStatement(RESERVE_PLACE)) {
             ps.setInt(1, speechId);
             ps.setInt(2, userId);
@@ -160,22 +150,21 @@ public class CrudPageableDaoSpeechImpl extends AbstractCrudDaoImpl<Speech> imple
         } catch (SQLException e) {
             LOGGER.warn(String.format("cannot reserve place on speech with id [%s] for user with id [%s]", speechId, userId));
         }
-
-
     }
 
     @Override
     public boolean isRowPresentInSpeechIdUserIdRelation(int speechId, int userId) {
+
         try (PreparedStatement ps = DataSource.getConnection().prepareStatement(CHECK_IF_ROW_IS_ALREADY_PRESENT_IN_USER_ID_SPEECH_ID_RELATION)) {
             ps.setInt(1, speechId);
             ps.setInt(2, userId);
-            ResultSet result = ps.executeQuery();
-            return result.next();
+            try (ResultSet result = ps.executeQuery()) {
+                return result.next();
+            }
         } catch (SQLException e) {
             LOGGER.warn(String.format("user already reserve place on speech with id [%s] for user with id [%s]", speechId, userId));
             return true;
         }
-
     }
 
     public List<Integer> getUserSpeechesIds(int userId) {
@@ -186,7 +175,6 @@ public class CrudPageableDaoSpeechImpl extends AbstractCrudDaoImpl<Speech> imple
     public List<Speech> getUserSpeeches(int userId) {
         return getListById(userId, GET_USER_SPEECHES, SET_STATEMENT_INT_PARAM);
     }
-
 
     @Override
     public void deleteFromSpeechIdUserIdRelation(int speechId, int userId) {

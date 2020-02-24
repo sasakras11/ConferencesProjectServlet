@@ -40,7 +40,7 @@
             <div class="col-md-12">
                 <nav>
                     <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-                        <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab"
+                        <a class="nav-item nav-link" id="nav-home-tab" data-toggle="tab"
                            role="tab" aria-controls="nav-home" aria-selected="true"
                            href="/?command=ShowConferencesComing"
                         ><fmt:message key="label.coming"/></a>
@@ -48,7 +48,7 @@
                            role="tab" aria-controls="nav-profile" aria-selected="false"
                            href="/?command=ShowConferencesFinished"
                         > <fmt:message key="label.finished"/></a>
-                        <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" role="tab"
+                        <a class="nav-item nav-link active" id="nav-contact-tab" data-toggle="tab" role="tab"
                            aria-controls="nav-contact" aria-selected="false" href="/?command=ShowUserSpeeches"
                         ><fmt:message key="label.your"/></a>
                     </div>

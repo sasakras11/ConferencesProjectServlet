@@ -64,7 +64,7 @@ public class LoginCommandTest {
 
         loginCommand.process(request, response);
 
-        verify(request, times(3)).getParameter(any());
+        verify(request, times(2)).getParameter(any());
     }
     @Test
     public void ifUserIsNotPresentHeShouldBeOnStartPage()throws Exception{
@@ -78,7 +78,7 @@ public class LoginCommandTest {
 
         loginCommand.process(request, response);
 
-        verify(request, times(3)).getParameter(any());
+        verify(request, times(2)).getParameter(any());
 
 
 

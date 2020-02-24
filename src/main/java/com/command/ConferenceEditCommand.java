@@ -29,14 +29,13 @@ public class ConferenceEditCommand extends FrontCommand {
         String date = req.getParameter("date");
         String name = req.getParameter("name");
         Location location = conferenceService.findLocationOfConferenceId(id);
-
         conferenceService.updateConference(
                 Conference.builder().withId(id)
                         .withDate(date)
                         .withLocation(location)
                         .withName(name).build());
-
         req.setAttribute("conferences", conferenceService.findAllConferences(1, ConferenceGroup.ALL));
+
         forward(user.getStatus().name().toLowerCase()+"/conferencesComing");
     }
 }

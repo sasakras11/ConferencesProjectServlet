@@ -43,10 +43,15 @@ public class UserServiceImpl implements UserService {
         if (!(userDao.findByUsername(username).isPresent())) {
             User user = User.builder().withUsername(username).withPassword(passwordUtil.getHashedPassword(password)).withStatus(Role.VISITOR).build();
             userDao.save(user);
-            return user;
+            return findByName(username);
 
         } else {
             throw new ValidationException("user is registered");
         }
+    }
+
+    @Override
+    public User findByName(String name) {
+       return userDao.findByUsername(name).get();
     }
 }

@@ -1,9 +1,7 @@
 package com.dao.impl;
 
-import com.dao.DataSource;
 import com.dao.LocationCrudDao;
 import com.entity.Location;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,9 +11,6 @@ public class LocationCrudDaoImpl extends AbstractCrudDaoImpl<Location> implement
 
     private static final String GET_BY_ID = "SELECT * FROM locations WHERE location_id = ?";
     private static final String GET_BY_CONFERENCE_ID = "select c.location_id,area,maxPeople,address from conferences as c inner join locations as l on c.location_id = l.location_id where c.conference_id = ?";
-
-
-
 
     @Override
     public void save(Location entity) {
@@ -31,8 +26,6 @@ public class LocationCrudDaoImpl extends AbstractCrudDaoImpl<Location> implement
     public void update(Location entity) {
       throw new UnsupportedOperationException();
     }
-
-
 
     @Override
     public void deleteById(Integer id) {

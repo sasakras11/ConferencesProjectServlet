@@ -29,18 +29,24 @@ public class FindPageCommand extends FrontCommand {
         Optional<String> pageComing = Optional.ofNullable(req.getParameter("pageComing"));
         Optional<String> pageFinished = Optional.ofNullable(req.getParameter("pageFinished"));
          List<Conference> conferences;
+        User user = (User)req.getSession().getAttribute("user");
          if(pageComing.isPresent()){
              req.setAttribute("pageNum",pageComing.get());
              conferences = conferenceService.findAllConferences(Integer.parseInt(pageComing.get()),ConferenceGroup.COMING);
+             req.setAttribute("conferences",conferences);
+             forward(user.getStatus().name().toLowerCase()+"/conferencesComing");
          }
-         else{
+         else if(pageFinished.isPresent()){
              req.setAttribute("pageNum",pageFinished.get());
              conferences = conferenceService.findAllConferences(Integer.parseInt(pageFinished.get()),ConferenceGroup.FINISHED);
+             req.setAttribute("conferences",conferences);
+             forward(user.getStatus().name().toLowerCase()+"/conferencesFinished");
          }
-
-         User user = (User)req.getSession().getAttribute("user");
-         req.setAttribute("conferences",conferences);
-         forward(user.getStatus().name().toLowerCase()+"/conferencesComing");
-
+         else{
+             req.setAttribute("pageNum",1);
+             conferences = conferenceService.findAllConferences(1,ConferenceGroup.COMING);
+             req.setAttribute("conferences",conferences);
+             forward(user.getStatus().name().toLowerCase()+"/conferencesFinished");
+         }
     }
 }

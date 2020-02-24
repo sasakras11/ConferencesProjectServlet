@@ -8,13 +8,13 @@ import java.util.Optional;
 public interface CrudPageableConferenceDao extends CrudPageableDao<Conference> {
 
 
-    List<Conference> findAll(int page,int itemsPerPage,ConferenceGroup group);
+    List<Conference> findAll(int page, int itemsPerPage, ConferenceGroup group);
 
-    public List<Conference> getConferencesByUserId(int userId);
+    List<Conference> getConferencesByUserId(int userId);
 
-     public int count(ConferenceGroup group);
+    int count(ConferenceGroup group);
 
-     void update(Conference conference);
+    void update(Conference conference);
 
     Optional<Conference> getConferenceBySpeechId(int speechId);
 

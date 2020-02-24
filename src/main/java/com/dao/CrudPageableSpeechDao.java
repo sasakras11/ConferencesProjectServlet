@@ -26,5 +26,4 @@ public interface CrudPageableSpeechDao extends CrudPageableDao<Speech> {
     List<Speech> getUserSpeeches(int userId);
 
     void deleteFromSpeechIdUserIdRelation(int speechId, int userId);
-
 }

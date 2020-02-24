@@ -7,7 +7,7 @@ import java.util.Objects;
 public class Conference {
 
 
-    private final int ConferenceId;
+    private final int conferenceId;
     private String name;
     private String date;
     private Location location;
@@ -17,7 +17,7 @@ public class Conference {
 
 
     public Conference(ConferenceBuilder builder) {
-        this.ConferenceId = builder.id;
+        this.conferenceId = builder.id;
         this.name = builder.name;
         this.date = builder.date;
         this.location = builder.location;
@@ -36,7 +36,7 @@ public class Conference {
     }
 
     public int getConferenceId() {
-        return ConferenceId;
+        return conferenceId;
     }
 
     public void setName(String name) {
@@ -83,7 +83,7 @@ public class Conference {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Conference that = (Conference) o;
-        return ConferenceId == that.ConferenceId &&
+        return conferenceId == that.conferenceId &&
                 Objects.equals(name, that.name) &&
                 Objects.equals(date, that.date) &&
                 Objects.equals(location, that.location) &&
@@ -93,13 +93,13 @@ public class Conference {
 
     @Override
     public int hashCode() {
-        return Objects.hash(ConferenceId, name, date, location, members, speeches);
+        return Objects.hash(conferenceId, name, date, location, members, speeches);
     }
 
     @Override
     public String toString() {
         return "Conference{" +
-                "ConferenceId=" + ConferenceId +
+                "ConferenceId=" + conferenceId +
                 ", name='" + name + '\'' +
                 ", date='" + date + '\'' +
                 ", location=" + location +
@@ -116,16 +116,12 @@ public class Conference {
         private List<User> members;
         private List<Speech> speeches;
 
-
-
         private ConferenceBuilder() {
         }
 
         public Conference build() {
             return new Conference(this);
         }
-
-
 
         public ConferenceBuilder withId(int id) {
             this.id = id;
@@ -160,6 +156,4 @@ public class Conference {
             return this;
         }
     }
-
-
 }

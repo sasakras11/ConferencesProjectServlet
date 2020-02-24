@@ -29,11 +29,9 @@ public class ReservePlaceCommand  extends FrontCommand{
     @Override
     public void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-
         User user = (User)req.getSession().getAttribute("user");
         speechService.reservePlace(req.getParameter("speechId"),String.valueOf(user.getUserId()));
         Optional<Speech> speech = speechService.findById(req.getParameter("speechId"));
-
         if(speech.isPresent()){
            Optional<Conference> conference = conferenceService.findConferenceBySpeechId(String.valueOf(speech.get().getId()));
             List<Speech> speeches = speechService.findAllSpeechesByConferenceId(String.valueOf(conference.get().getConferenceId()));

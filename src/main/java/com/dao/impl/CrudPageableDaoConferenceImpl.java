@@ -23,13 +23,10 @@ public class CrudPageableDaoConferenceImpl extends AbstractCrudDaoImpl<Conferenc
     private static final String GET_CONFERENCE_BY_SPEECH_ID = "select conferences.conference_id,name,date,location_id from speeches inner join conferences on conferences.conference_id = speeches.conference_id where speech_id = ?";
     private static final String UPDATE_CONFERENCE = "UPDATE conferences SET name =?, date=?, location_id=? WHERE conference_id = ?";
     private static final String SAVE_CONFERENCE = "INSERT INTO conferences(name,date,location_id) VALUES(?,?,?);";
-
     private static final String ALL_COUNT = "SELECT COUNT(*) AS total FROM conferences";
     private static final String FINISHED_COUNT = "SELECT COUNT(*) AS total FROM conferences where date < current_date ";
     private static final String COMING_COUNT = "SELECT COUNT(*) AS total FROM conferences where date > current_date ";
-
     private static final String FIND_BY_ID_QUERY = "SELECT * FROM conferences WHERE conference_id=?";
-
 
     @Override
     public List<Conference> findAll(int page, int itemsPerPage, ConferenceGroup group) {  //done
@@ -45,15 +42,11 @@ public class CrudPageableDaoConferenceImpl extends AbstractCrudDaoImpl<Conferenc
             case COMING:
                 query = GET_PAGE_OF_COMING_CONFERENCES;
                 break;
-
-
         }
         return findAll(page, itemsPerPage, query);
     }
 
-
     @Override
-
     public int count(ConferenceGroup group) {
         switch (group) {
 
@@ -67,7 +60,6 @@ public class CrudPageableDaoConferenceImpl extends AbstractCrudDaoImpl<Conferenc
         }
     }
 
-
     @Override
     public Optional<Conference> findById(Integer id) {
         return findByParam(id, FIND_BY_ID_QUERY, SET_STATEMENT_INT_PARAM);
@@ -79,16 +71,13 @@ public class CrudPageableDaoConferenceImpl extends AbstractCrudDaoImpl<Conferenc
         throw new UnsupportedOperationException("this Operation not allowed");
     }
 
-
     public List<Conference> getConferencesByUserId(int userId) {
         return getListById(userId, GET_CONFERENCES_BY_USER_ID, SET_STATEMENT_INT_PARAM);
     }
 
-
     @Override
     public void save(Conference entity) {
         save(entity, SAVE_CONFERENCE);
-
     }
 
     @Override
@@ -105,15 +94,12 @@ public class CrudPageableDaoConferenceImpl extends AbstractCrudDaoImpl<Conferenc
         statement.setString(1, entity.getName());
         statement.setDate(2, Date.valueOf(entity.getDate()));
         statement.setInt(3, entity.getLocation().getId());
-
     }
 
 
     protected void setStatementParamsWithId(PreparedStatement statement, Conference entity) throws SQLException {
-
         setStatementParams(statement, entity);
         statement.setInt(4, entity.getConferenceId());
-
     }
 
     @Override
@@ -124,9 +110,5 @@ public class CrudPageableDaoConferenceImpl extends AbstractCrudDaoImpl<Conferenc
                 .withName(resultSet.getString("name"))
                 .withDate(resultSet.getString("date"))
                 .build();
-
-
     }
-
-
 }

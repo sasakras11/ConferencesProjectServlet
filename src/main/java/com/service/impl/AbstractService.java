@@ -25,7 +25,7 @@ public abstract class AbstractService <T,R extends CrudDao<T>> {
     }
 
     public Optional<String> getValidatedNameOrOptionalEmpty(String value) {
-        if (value.length() < 4) {
+        if (value==null||value.length() < 4) {
             LOGGER.warn(String.format("name [%s] has too small length,should be more then 3", value));
             return Optional.empty();
 
@@ -45,7 +45,7 @@ public abstract class AbstractService <T,R extends CrudDao<T>> {
             }
             return Optional.of(num);
 
-        } catch (NumberFormatException e) {
+        } catch (Exception e) {
             LOGGER.warn(String.format("string [%s] is not octal number", value));
             return Optional.empty();
         }
@@ -54,8 +54,8 @@ public abstract class AbstractService <T,R extends CrudDao<T>> {
 
 
     public Optional<Date> getParsedDateOrOptionalEmpty(String value) {
-        if (value.length() > 10) {
-
+        if (value==null ||value.length() > 10) {
+        return Optional.empty();
         }
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");

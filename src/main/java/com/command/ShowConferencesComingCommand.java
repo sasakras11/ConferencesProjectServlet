@@ -14,7 +14,6 @@ public class ShowConferencesComingCommand extends FrontCommand{
 
     private final ConferenceService conferenceService;
 
-
     public ShowConferencesComingCommand() {
         conferenceService = AppContext.CONFERENCE_SERVICE;
     }

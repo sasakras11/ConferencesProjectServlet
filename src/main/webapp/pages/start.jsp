@@ -41,8 +41,8 @@
                         </div>
                         <div class="form-group">
 
-                            <input type="submit"  name="login"  value="<fmt:message key="label.login"/>" <fmt:message key="label.login"/> class="btn btn-info btn-md">
-                            <input type="submit"  name="register" value="<fmt:message key="label.register"/>" <fmt:message key="label.login"/> class="btn btn-info btn-md">
+                            <input type="submit"  name="loggingIn" id="loggingIn" value="<fmt:message key="label.login"/>" <fmt:message key="label.login"/> class="btn btn-info btn-md">
+                            <input type="submit"  name="registration" id = "registration" value="<fmt:message key="label.register"/>" <fmt:message key="label.login"/> class="btn btn-info btn-md">
 
                         </div>
                     </form>
@@ -51,7 +51,7 @@
         </div>
     </div>
 </div>
-<h1>${requestScope.error}</h1>
+<h1>${requestScope.error}</h1>-
 </body>
 </html>
 

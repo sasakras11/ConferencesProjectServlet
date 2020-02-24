@@ -13,7 +13,6 @@ import com.service.util.Validator;
 
 public class AppContext {
 
-    private static final AppContext context = new AppContext();
     private static final PasswordUtil PASSWORD_UTIL = new PasswordUtil();
     private static final Validator VALIDATOR = new Validator();
     private static final CrudPageableDaoSpeechImpl SPEECH_DAO = new CrudPageableDaoSpeechImpl();
@@ -21,13 +20,10 @@ public class AppContext {
     private static final CrudUserDaoImpl USER_DAO = new CrudUserDaoImpl();
     private static final LocationCrudDaoImpl LOCATION_DAO = new LocationCrudDaoImpl();
     public  static final ConferenceService CONFERENCE_SERVICE = new ConferenceServiceImpl(CONFERENCE_DAO, LOCATION_DAO);
-    private static final RatingDao RATING_DAO = new RatingDao();
     public static final UserServiceImpl USER_SERVICE = new UserServiceImpl(USER_DAO, VALIDATOR, PASSWORD_UTIL);
     private static final SpeechService SPEECH_SERVICE = new SpeechServiceImpl(SPEECH_DAO, USER_DAO,CONFERENCE_DAO);
 
-    private AppContext() {
-
-    }
+    private AppContext() { }
 
     public static ConferenceService getConferenceService() {
         return  CONFERENCE_SERVICE;
@@ -35,10 +31,6 @@ public class AppContext {
 
     public static SpeechService getSpeechService() {
         return SPEECH_SERVICE;
-    }
-
-    public static LocationCrudDaoImpl getLocationDao() {
-        return LOCATION_DAO;
     }
 
     public static PasswordUtil getPasswordUtil() {
@@ -51,14 +43,6 @@ public class AppContext {
 
     public static CrudUserDaoImpl getUserDao() {
         return new CrudUserDaoImpl();
-    }
-
-    public static AppContext getInstance() {
-        return context;
-    }
-
-    public static UserServiceImpl getUserService() {
-        return USER_SERVICE;
     }
 
     public static CrudPageableConferenceDao getConferenceDao() {

@@ -7,7 +7,6 @@ public class Rating {
     private int speakerId;
     private int rating;
 
-
     public Rating(int ratingId,int speakerId, int rating) {
         this.ratingId = ratingId;
         this.speakerId = speakerId;

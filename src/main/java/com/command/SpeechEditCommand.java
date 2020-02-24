@@ -36,7 +36,9 @@ public class SpeechEditCommand extends FrontCommand{
              req.setAttribute("speeches",speechService.findAllSpeechesByConferenceId(conferenceId));
              forward(user.getStatus().name().toLowerCase()+"/speechesComing");
          }
-         else forward(user.getStatus().name().toLowerCase()+"/conferencesComing");
-
+         else{
+             req.setAttribute("speeches",speechService.findAllSpeechesByConferenceId("1"));
+             forward(user.getStatus().name().toLowerCase()+"/conferencesComing");
+         }
     }
 }

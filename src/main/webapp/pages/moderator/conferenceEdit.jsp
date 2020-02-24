@@ -20,19 +20,19 @@
     </style>
 </head>
 <body>
-        <form action="/?command=ConferenceEdit" method="POST">
+<form action="/?command=ConferenceEdit" method="POST">
 
-            <input type="hidden" name="conferenceId"  id = "conferenceId" value="${requestScope.conference.conferenceId}">
+    <input type="hidden" name="conferenceId"  id = "conferenceId" value="${requestScope.conference.conferenceId}">
 
 
-            <label for="name" class="text-info" ><fmt:message key="label.name"/></label>
-            <input type="text" name="name" id="name" placeholder="${requestScope.conference.name}">
+    <label for="name" class="text-info" ><fmt:message key="label.name"/></label>
+     <input type="text" name="name" id="name" placeholder="${requestScope.conference.name}">
 
-            <label for="date" class="text-info" ><fmt:message key="label.date"/></label>
-            <input type="date" name="date" id="date" placeholder="${requestScope.conference.date}">
+    <label for="date" class="text-info" ><fmt:message key="label.date"/></label>
+    <input type="date" name="date" id="date" placeholder="${requestScope.conference.date}">
 
-            <button type="submit" class="btn btn-info btn-md" ><fmt:message key="label.confirm"/></button>
-        </form>
+    <button type="submit" class="btn btn-info btn-md" ><fmt:message key="label.confirm"/></button>
+</form>
 
 </body>
 </html>

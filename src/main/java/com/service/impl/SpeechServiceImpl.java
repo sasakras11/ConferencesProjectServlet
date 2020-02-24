@@ -59,6 +59,7 @@ public class SpeechServiceImpl extends AbstractService<Speech, CrudPageableSpeec
 
             Speech speech = optionalSpeech.get();
 
+
             getValidatedNameOrOptionalEmpty(topic).ifPresent(
                     speech::setTopic);
             getValidatedNameOrOptionalEmpty(suggestedTopic).ifPresent(

@@ -27,7 +27,7 @@ public class AuthorizationCommand extends FrontCommand {
 
     @Override
     public void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        
         if (req.getParameter("loggingIn") != null) {
             login(req, resp);
         } else if (req.getParameter("registration") != null) {

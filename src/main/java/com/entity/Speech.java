@@ -7,6 +7,7 @@ import java.util.Objects;
 
 
 public class Speech {
+
     private static Logger logger = LoggerFactory.getLogger(Speech.class);
     private int id;
     private User speaker;

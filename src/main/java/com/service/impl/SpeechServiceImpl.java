@@ -14,9 +14,8 @@ import java.util.Optional;
 
 public class SpeechServiceImpl extends AbstractService<Speech, CrudPageableSpeechDao> implements SpeechService {
 
-    private static final int ITEMS_PER_PAGE = 5;
-    private CrudPageableSpeechDao speechDao;
-    private UserDao userDao;
+    private final CrudPageableSpeechDao speechDao;
+    private final UserDao userDao;
     private final CrudPageableConferenceDao conferenceDao;
 
     public SpeechServiceImpl(CrudPageableSpeechDao speechDao, UserDao userDao, CrudPageableConferenceDao conferenceDao) {
@@ -36,13 +35,10 @@ public class SpeechServiceImpl extends AbstractService<Speech, CrudPageableSpeec
                 speech.setSpeaker(userDao.getSpeakerOfSpeech(speech.getId()));
                 speech.setConference(conferenceDao.getConferenceBySpeechId(speech.getId()).get());
                 speech.setRegisteredPeople(speechDao.getMembersCount(speech.getId()));
-
             }
-
             return speeches;
         }
         throw new URLInjectionException("start");
-
     }
 
     @Override
@@ -56,9 +52,7 @@ public class SpeechServiceImpl extends AbstractService<Speech, CrudPageableSpeec
 
         Optional<Speech> optionalSpeech = findByIdIfPresentOrGetOptionalEmpty(id, speechDao);
         if (optionalSpeech.isPresent()) {
-
             Speech speech = optionalSpeech.get();
-
 
             getValidatedNameOrOptionalEmpty(topic).ifPresent(
                     speech::setTopic);
@@ -78,7 +72,6 @@ public class SpeechServiceImpl extends AbstractService<Speech, CrudPageableSpeec
         }
         return Optional.empty();
     }
-
 
     @Override
     public Optional<Speech> findById(String id) {
@@ -101,13 +94,11 @@ public class SpeechServiceImpl extends AbstractService<Speech, CrudPageableSpeec
     public List<Integer> getUserSpeechesIds(int userId){
 
             return speechDao.getUserSpeechesIds(userId);
-
     }
 
     @Override
      public List<Speech> getUserSpeeches(int  userId){
             return speechDao.getUserSpeeches(userId);
-
      }
 
      @Override

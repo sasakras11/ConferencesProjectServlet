@@ -5,14 +5,12 @@ import java.util.Objects;
 
 public class User implements UserPrivileges {
 
-
     private final int userId;
     private final String username;
     private final String password;
     private final Role role;
     private final List<Conference> conferences;
     private final List<Speech> speeches;
-
 
     private User(UserBuilder builder) {
         this.userId = builder.userId;
@@ -67,7 +65,6 @@ public class User implements UserPrivileges {
                 '}';
     }
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -111,6 +108,7 @@ public class User implements UserPrivileges {
     }
 
     public static class UserBuilder {
+
         private int userId;
         private String username;
         private String password;
@@ -155,8 +153,5 @@ public class User implements UserPrivileges {
         public User build() {
             return new User(this);
         }
-
     }
-
-
 }

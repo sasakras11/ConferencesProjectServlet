@@ -9,18 +9,17 @@ import java.util.Date;
 import java.util.Optional;
 
 public abstract class AbstractService <T,R extends CrudDao<T>> {
+
     private static final Logger LOGGER = LoggerFactory.getLogger(AbstractService.class);
 
     public Optional<T> findByIdIfPresentOrGetOptionalEmpty(String id, R repository) {
-        Optional<Integer> optional = getParsedOctalNumberOrOptionalEmpty(id);
 
+        Optional<Integer> optional = getParsedOctalNumberOrOptionalEmpty(id);
         if (optional.isPresent()) {
             return repository.findById(optional.get());
 
         } else{
             return Optional.empty();
-
-
         }
     }
 
@@ -33,7 +32,6 @@ public abstract class AbstractService <T,R extends CrudDao<T>> {
             return Optional.of(value);
         }
     }
-
 
     public Optional<Integer> getParsedOctalNumberOrOptionalEmpty(String value) {
         try {
@@ -49,9 +47,7 @@ public abstract class AbstractService <T,R extends CrudDao<T>> {
             LOGGER.warn(String.format("string [%s] is not octal number", value));
             return Optional.empty();
         }
-
     }
-
 
     public Optional<Date> getParsedDateOrOptionalEmpty(String value) {
         if (value==null ||value.length() > 10) {
@@ -65,7 +61,6 @@ public abstract class AbstractService <T,R extends CrudDao<T>> {
         } catch (ParseException e) {
             LOGGER.warn(String.format("date [%s]  has wrong format,Should be yyyy-MM-dd", value));
             return Optional.empty();
-
         }
     }
 

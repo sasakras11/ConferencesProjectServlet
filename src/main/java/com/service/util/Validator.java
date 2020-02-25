@@ -13,13 +13,10 @@ public class Validator {
         validatePassword(password);
     }
 
-
     private void validateUsername(String str) {
         if (!str.matches(USERNAME_PATTERN)) {
             throw new ValidationException("username should contain only English literals,numbers and be at least 3 characters long");
         }
-
-
     }
 
     private void validatePassword(String str) {

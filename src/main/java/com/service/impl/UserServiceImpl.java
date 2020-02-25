@@ -12,9 +12,9 @@ import java.util.Optional;
 
 public class UserServiceImpl implements UserService {
 
-    private UserDao userDao;
-    private Validator validator;
-    private PasswordUtil passwordUtil;
+    private final UserDao userDao;
+    private final Validator validator;
+    private final PasswordUtil passwordUtil;
 
     public UserServiceImpl(UserDao userDao, Validator validator,PasswordUtil passwordUtil) {
         this.userDao = userDao;
@@ -44,7 +44,6 @@ public class UserServiceImpl implements UserService {
             User user = User.builder().withUsername(username).withPassword(passwordUtil.getHashedPassword(password)).withStatus(Role.VISITOR).build();
             userDao.save(user);
             return findByName(username);
-
         } else {
             throw new ValidationException("user is registered");
         }

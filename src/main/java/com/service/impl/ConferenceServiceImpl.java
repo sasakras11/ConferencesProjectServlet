@@ -1,32 +1,29 @@
 package com.service.impl;
 
-import com.context.AppContext;
 import com.dao.ConferenceGroup;
 import com.dao.CrudPageableConferenceDao;
 import com.dao.LocationCrudDao;
 import com.entity.Conference;
 import com.entity.Location;
 import com.service.ConferenceService;
-import org.apache.taglibs.standard.lang.jstl.GreaterThanOperator;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class ConferenceServiceImpl extends AbstractService<Conference,CrudPageableConferenceDao> implements ConferenceService {
+public class ConferenceServiceImpl extends AbstractService<Conference, CrudPageableConferenceDao> implements ConferenceService {
 
-    private CrudPageableConferenceDao conferenceDao;
-    private LocationCrudDao locationDao;
     private static final int ITEMS_PER_PAGE = 5;
+    private final CrudPageableConferenceDao conferenceDao;
+    private final LocationCrudDao locationDao;
 
-    public ConferenceServiceImpl(CrudPageableConferenceDao conferenceDao,LocationCrudDao locationDao) {
+    public ConferenceServiceImpl(CrudPageableConferenceDao conferenceDao, LocationCrudDao locationDao) {
         this.conferenceDao = conferenceDao;
         this.locationDao = locationDao;
     }
 
     @Override
     public void updateConference(Conference conference) {
-              conferenceDao.update(conference);
+        conferenceDao.update(conference);
     }
 
     @Override
@@ -36,23 +33,20 @@ public class ConferenceServiceImpl extends AbstractService<Conference,CrudPageab
 
     @Override
     public List<Conference> findAllConferences(int page, ConferenceGroup conferenceGroup) {
-   List<Conference> conferences;
+        List<Conference> conferences;
         int maxPage = conferenceDao.count(conferenceGroup) / ITEMS_PER_PAGE;
-        if (page>maxPage) {
-           conferences =  conferenceDao.findAll(maxPage + 1, ITEMS_PER_PAGE, conferenceGroup);
+        if (page > maxPage) {
+            conferences = conferenceDao.findAll(maxPage + 1, ITEMS_PER_PAGE, conferenceGroup);
+        } else if (page < 1) {
+            conferences = conferenceDao.findAll(1, ITEMS_PER_PAGE, conferenceGroup);
+        } else {
+            conferences = conferenceDao.findAll(page, ITEMS_PER_PAGE, conferenceGroup);
         }
-        else if (page < 1) {
-           conferences =  conferenceDao.findAll(1, ITEMS_PER_PAGE, conferenceGroup);
-        }
-        else{
-            conferences =  conferenceDao.findAll(page, ITEMS_PER_PAGE, conferenceGroup);
-        }
-        for (Conference conference: conferences) {
+        for (Conference conference : conferences) {
             conference.setLocation(findLocationOfConferenceId(conference.getConferenceId()));
         }
 
         return conferences;
-
     }
 
     @Override
@@ -63,9 +57,9 @@ public class ConferenceServiceImpl extends AbstractService<Conference,CrudPageab
     @Override
     public Optional<Conference> findConferenceBySpeechId(String speechId) {
         Optional<Integer> speechID = getParsedOctalNumberOrOptionalEmpty(speechId);
-       if(speechID.isPresent()){
-           return conferenceDao.getConferenceBySpeechId(speechID.get());
-       }
-       return Optional.empty();
+        if (speechID.isPresent()) {
+            return conferenceDao.getConferenceBySpeechId(speechID.get());
+        }
+        return Optional.empty();
     }
 }
